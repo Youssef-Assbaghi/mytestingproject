@@ -17,22 +17,42 @@ public class Campo_minasTest extends TestCase{
 	
 	@Before
 	public void setUp() throws Exception {
-
+		c1=new Campo_minas();
+		c2=new Campo_minas(filas,columnas);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		c1=null;
+		c2=null;
 	}
 	
 	
 	@Test
-	public void testCalculaNumBombas()
-    {
-        Campo_minas cm= new Campo_minas();
-        int resultado =cm.CalculaNumBombas(filas);
-        assertEquals(11,resultado);
-
-    }
+	public void testConstructor() {
+		assertTrue(c1.filas()==0);
+		assertTrue(c1.columnas()==0);
+		assertTrue(c1.bombas()==0);
+	}
+	
+	@Test
+	public void testConstructorPar() {		
+		assertTrue(c2.filas()==filas);
+		assertTrue(c2.columnas()==columnas);
+		assertTrue(c2.bombas()==0);
+	}
+	
+	public void testCampominasEquals() {
+		Campo_minas equalcampo = new Campo_minas(filas,columnas);
+		assertEquals(c2,equalcampo);
+	}
+	
+	@Test
+	public void testCalculaNumBombas() {
+		int expected=11;
+		int resultado=c2.CalculaNumBombas();
+		assertTrue(expected==resultado);
+	}
 	
 
 }
