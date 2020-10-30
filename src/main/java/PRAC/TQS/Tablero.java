@@ -11,8 +11,12 @@ public class Tablero extends JPanel{
     private int width=700;
     private int filas=10;
     private int columnas=10;
-    Casilla[][] tablero= new Casilla[filas][columnas];
+    private Casilla[][] tablero= new Casilla[filas][columnas];
     private JFrame ventana;
+
+    private JPanel content;
+    //private JPanel[][] casillas;
+    mouselistener mouse;
 
     public Tablero() {
 
@@ -27,16 +31,23 @@ public class Tablero extends JPanel{
            crearTablero(filas,columnas);
            ventana.setVisible(true);
     }
+ 
 
     public void crearTablero(int filas, int columnas) throws IOException {
-        ventana.setLayout(new GridLayout(filas,columnas));
+    	content=new JPanel(new GridLayout(filas,columnas));
+    	content.setBackground(Color.black);
+    	//casillas=new JPanel[filas][columnas];
+    	mouse=new mouselistener();
+    	content.addMouseListener(mouse);
+        //ventana.setLayout(new GridLayout(filas,columnas));
         for (int fila=0; fila<tablero.length; fila++) {
             for (int col=0; col<tablero[0].length; col++) {
                 Casilla c = new Casilla(fila,col,height,width,filas,columnas);
-                ventana.add(c);
                 tablero[fila][col]=c;
+                content.add(c.getPanel());         
             }
-
+            
         }
+        ventana.add(content);
     }
 }
