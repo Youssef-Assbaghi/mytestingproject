@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.lang.Object;
 
 public class Tablero extends JPanel implements ActionListener{
-    private int height=900;
-    private int width=900;
+	private int alto=939;	//39 por arriba
+    private int ancho=816;	//16 por lados
     private int filas;
     private int columnas;
     private Casilla[][] tablero;
@@ -39,7 +39,7 @@ public class Tablero extends JPanel implements ActionListener{
  
     public void crearVentana() throws IOException {
            ventana = new JFrame("BUSCAMINAS TQS");
-           ventana.setSize(height,width);
+           ventana.setSize(ancho,alto);
            ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            ventana.setVisible(true);
            ventana.setResizable(true);
@@ -85,7 +85,7 @@ public class Tablero extends JPanel implements ActionListener{
     	tablero = new Casilla[this.filas][this.columnas];
         for (int fila=0; fila<filas; fila++) {
             for (int col=0; col<columnas; col++) {
-                Casilla c = new Casilla(fila,col,height,width,filas,columnas);
+                Casilla c = new Casilla(fila,col,alto,ancho,filas,columnas);
                 tablero[fila][col]=c;
                 content.add(c.getLabel());         
             }
@@ -137,7 +137,6 @@ public class Tablero extends JPanel implements ActionListener{
                 int valor=Integer.parseInt(input_nivel.getText());
                 this.filas=Integer.parseInt(input_filas.getText());
                 this.columnas=Integer.parseInt(input_columnas.getText());
-                System.out.println(filas);
                 if(valor>3) {
                     JOptionPane.showMessageDialog(null,"Número no valido");
                 }else {

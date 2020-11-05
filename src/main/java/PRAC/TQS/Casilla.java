@@ -25,7 +25,7 @@ public class Casilla extends JPanel{
     
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
         Image auximage=oldimage.getImage();
-        Image output_image=auximage.getScaledInstance((altura/this.tot_filas)-2,((anchura/this.tot_columnas)-5), java.awt.Image.SCALE_SMOOTH);
+        Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
         ImageIcon newimage=new ImageIcon(output_image);
         return newimage;
     }
@@ -41,7 +41,7 @@ public class Casilla extends JPanel{
         panel = new JPanel();
         picLabel = new JLabel();
         
-        panel.setBackground(Color.black);
+        //panel.setBackground(Color.black);
         newimage = new ImageIcon();
         newimage=changesize(oldimage,h,w);
        
