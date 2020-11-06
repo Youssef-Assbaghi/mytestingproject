@@ -57,13 +57,14 @@ public class Tablero extends JPanel implements ActionListener{
     	todo.addMouseListener(mouse);
     	
     	arriba = new JPanel();
-    	arriba.setSize(new Dimension(100,100));
+    	arriba.setSize(new Dimension(800,100));
     	arriba.setLayout(new BoxLayout(arriba,BoxLayout.X_AXIS));
     	
     	
     	restart= new JPanel();
+    	restart.setSize(200,100);
     	restartb=new JButton("RESTART");
-    	restartb.setSize(new Dimension(90,70));
+    	restartb.setSize(new Dimension(190,170));
     	restart.add(restartb);
     	
     	banderas= new JPanel();
@@ -72,11 +73,11 @@ public class Tablero extends JPanel implements ActionListener{
     	extra= new JPanel();
     	extra.setBackground(Color.red);
     	
-    	//JPanel extra2= new JPanel();
-    	//extra2.setBackground(Color.red);
+    	JPanel extra2= new JPanel();
+    	extra2.setBackground(Color.red);
     	
-    	//arriba.add(restartb);
-    	//arriba.add(extra2);
+    	arriba.add(restartb);
+    	arriba.add(extra2);
     	arriba.add(banderas);
     	arriba.add(extra);
     	

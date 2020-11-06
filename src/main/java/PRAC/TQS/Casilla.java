@@ -15,7 +15,6 @@ import java.lang.Object;
 public class Casilla extends JPanel{
     private int pos_fila, pos_columna;
     private int tot_filas,tot_columnas;
-    private boolean mina;
     private int height,width;
     private JPanel panel;
     private ImageIcon oldimage=new ImageIcon("sprites/casilla.png");
@@ -23,11 +22,22 @@ public class Casilla extends JPanel{
     private JLabel picLabel;
     private BufferedImage sprite;
     
+    private boolean bomba;
+    private final int CERRADO=0;
+    private final int ABIERTO=1;
+    private final int BANDERA=2;
+    private int estado;
+    
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
         Image auximage=oldimage.getImage();
         Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
         ImageIcon newimage=new ImageIcon(output_image);
         return newimage;
+    }
+    
+    public Casilla() {
+    	bomba=false;
+    	estado=CERRADO;
     }
     
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) throws IOException {
@@ -55,4 +65,23 @@ public class Casilla extends JPanel{
     public JLabel getLabel() {
     	return picLabel;
     }
+    
+    
+    public void setBomba() {
+
+    }
+    
+    public void setEstado(int x) {
+
+    }
+    
+    public int getEstado() {
+    	return estado;
+    }
+    
+    public boolean getBomba() {
+    	return bomba;
+    }
+    
+    
 }
