@@ -25,17 +25,17 @@ public class Tablero {
     }
     
     
-    public void crearTablero(int filas,int columnas, int alto, int ancho) throws IOException {
+    public void crearTablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
     	this.filas=filas;
     	this.columnas=columnas;
-    	
+    	this.nivel=nivel;
     	
     	tablero = new Casilla[filas][columnas];
         for (int fila=0; fila<filas; fila++) {
             for (int col=0; col<columnas; col++) {
                 Casilla c = new Casilla(fila,col,alto,ancho,filas,columnas);
                 tablero[fila][col]=c;
-                //content.add(c.getLabel());
+
             }
         }
     }

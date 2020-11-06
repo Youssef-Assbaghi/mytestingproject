@@ -88,7 +88,7 @@ public class VistaVentana extends JPanel implements ActionListener{
         arriba.add(extra);
 
         t=new Tablero();
-        t.crearTablero(this.filas,this.columnas,this.alto,this.ancho);
+        t.crearTablero(this.filas,this.columnas,this.alto,this.ancho, this.nivel);
 
         for (int fila=0; fila<this.filas; fila++) {
             for (int col=0; col<this.columnas; col++) {
