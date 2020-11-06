@@ -19,8 +19,8 @@ import PRAC.TQS.Modelo.Tablero;
 
 public class VistaVentana extends JPanel implements ActionListener{
 
-	private int alto=700;	//39 por arriba
-    private int ancho=700;	//16 por lados
+	private int alto=939;	//39 por arriba
+    private int ancho=716;	//16 por lados
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
@@ -64,7 +64,7 @@ public class VistaVentana extends JPanel implements ActionListener{
         todo.addMouseListener(mouse);
 
         arriba = new JPanel();
-        arriba.setSize(new Dimension(800,100));
+        //arriba.setSize(new Dimension(800,100));
         arriba.setLayout(new BoxLayout(arriba,BoxLayout.X_AXIS));
 
 

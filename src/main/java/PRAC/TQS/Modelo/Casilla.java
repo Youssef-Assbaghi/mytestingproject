@@ -33,7 +33,7 @@ public class Casilla extends JPanel{
     
     
     public Casilla() {
-        oldimage=new ImageIcon("casilla.png");
+        oldimage=new ImageIcon("/PRAC TQS/sprites/casilla.png");
         bomba=false;
         estado=CERRADO;
         vecinos=0;
@@ -54,6 +54,8 @@ public class Casilla extends JPanel{
         this.width=w;
         this.tot_columnas=columnas;
         this.tot_filas=filas;
+        
+        oldimage=new ImageIcon("sprites/casilla.png");
         
         panel = new JPanel();
         picLabel = new JLabel();
