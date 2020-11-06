@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.lang.Object;
 
 public class Tablero extends JPanel implements ActionListener{
-	private int alto=939;	//39 por arriba
-    private int ancho=816;	//16 por lados
+	private int alto=700;	//39 por arriba
+    private int ancho=700;	//16 por lados
     private int filas;
     private int columnas;
     private Casilla[][] tablero;
@@ -48,54 +48,53 @@ public class Tablero extends JPanel implements ActionListener{
     }
     
     public void crearTablero(int filas, int columnas) throws IOException {
-    	todo = new JPanel();
-    	todo.setLayout(new BoxLayout(todo,BoxLayout.Y_AXIS));
-    	content=new JPanel(new GridLayout(filas,columnas));
-    	content.setBackground(Color.black);
-    	//casillas=new JPanel[filas][columnas];
-    	mouse=new mouselistener();
-    	todo.addMouseListener(mouse);
-    	
-    	arriba = new JPanel();
-    	arriba.setSize(new Dimension(800,100));
-    	arriba.setLayout(new BoxLayout(arriba,BoxLayout.X_AXIS));
-    	
-    	
-    	restart= new JPanel();
-    	restart.setSize(200,100);
-    	restartb=new JButton("RESTART");
-    	restartb.setSize(new Dimension(190,170));
-    	restart.add(restartb);
-    	
-    	banderas= new JPanel();
-    	banderas.setBackground(Color.yellow);
-    	
-    	extra= new JPanel();
-    	extra.setBackground(Color.red);
-    	
-    	JPanel extra2= new JPanel();
-    	extra2.setBackground(Color.red);
-    	
-    	arriba.add(restartb);
-    	arriba.add(extra2);
-    	arriba.add(banderas);
-    	arriba.add(extra);
-    	
-    	
-    	
-    	tablero = new Casilla[this.filas][this.columnas];
+        todo = new JPanel();
+        todo.setLayout(new BoxLayout(todo,BoxLayout.Y_AXIS));
+        content=new JPanel(new GridLayout(filas,columnas));
+        content.setBackground(Color.black);
+        //casillas=new JPanel[filas][columnas];
+        mouse=new mouselistener();
+        todo.addMouseListener(mouse);
+
+        arriba = new JPanel();
+        arriba.setSize(new Dimension(800,100));
+        arriba.setLayout(new BoxLayout(arriba,BoxLayout.X_AXIS));
+
+
+        restart= new JPanel();
+        restartb=new JButton("RESTART");
+        restartb.setSize(new Dimension(90,70));
+        restart.add(restartb);
+
+        banderas= new JPanel();
+        banderas.setBackground(Color.yellow);
+
+        extra= new JPanel();
+        extra.setBackground(Color.red);
+
+        //JPanel extra2= new JPanel();
+        //extra2.setBackground(Color.red);
+
+        arriba.add(restartb);
+        //arriba.add(extra2);
+        arriba.add(banderas);
+        arriba.add(extra);
+
+
+
+        tablero = new Casilla[this.filas][this.columnas];
         for (int fila=0; fila<filas; fila++) {
             for (int col=0; col<columnas; col++) {
                 Casilla c = new Casilla(fila,col,alto,ancho,filas,columnas);
                 tablero[fila][col]=c;
-                content.add(c.getLabel());         
+                content.add(c.getLabel());
             }
-            
-        }      
-        
+
+        }
+
         todo.add(arriba);
         todo.add(content);
-        
+
         ventana.setContentPane(todo);
     }
     

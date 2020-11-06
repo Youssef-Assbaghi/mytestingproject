@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.lang.Object;
 
 public class Casilla extends JPanel{
-    private int pos_fila, pos_columna;
+	private int pos_fila, pos_columna;
     private int tot_filas,tot_columnas;
     private int height,width;
     private JPanel panel;
@@ -21,7 +21,7 @@ public class Casilla extends JPanel{
     private ImageIcon newimage;
     private JLabel picLabel;
     private BufferedImage sprite;
-    
+
     private boolean bomba;
     private final int CERRADO=0;
     private final int ABIERTO=1;
@@ -29,18 +29,21 @@ public class Casilla extends JPanel{
     private int estado;
     private int vecinos;
     
+    
+    
+    public Casilla() {
+        oldimage=new ImageIcon("sprites/casilla.png");
+        bomba=false;
+        estado=CERRADO;
+        vecinos=0;
+    }
+    
+    
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
         Image auximage=oldimage.getImage();
         Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
         ImageIcon newimage=new ImageIcon(output_image);
         return newimage;
-    }
-    
-    public Casilla() {
-    	oldimage=new ImageIcon("sprites/casilla.png");
-    	bomba=false;
-    	estado=CERRADO;
-    	vecinos=0;
     }
     
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) throws IOException {
@@ -68,25 +71,29 @@ public class Casilla extends JPanel{
     public JLabel getLabel() {
     	return picLabel;
     }
-    
-    
     public void setBomba() {
-    	bomba=true;
+        bomba=true;
     }
-    
+
     public void setEstado(int x) {
-    	estado=x;
+        estado=x;
     }
-    
-    
+
     public int getEstado() {
-    	return estado;
+        return estado;
     }
     
     public boolean getBomba() {
-    	return bomba;
+        return bomba;
     }
+    
+    public void setVecinos(int v) {
+    }
+
+    public int getVecinos() {
+        return vecinos;
+    }
+    
+
    
-    
-    
 }

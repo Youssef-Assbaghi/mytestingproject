@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class juego {
+public class JuegoTest {
 
 
     public static void main(String[] args) {
