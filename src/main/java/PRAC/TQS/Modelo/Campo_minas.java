@@ -1,4 +1,4 @@
-package PRAC.TQS;
+package PRAC.TQS.Modelo;
 
 public class Campo_minas {
 	private int filas;

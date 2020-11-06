@@ -1,7 +1,7 @@
 /**
  * 
  */
-package PRAC.TQS;
+package PRAC.TQS.Vista;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import PRAC.TQS.Modelo.Campo_minas;
 import junit.framework.TestCase;
 
 public class Campo_minasTest extends TestCase{

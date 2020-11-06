@@ -1,22 +1,26 @@
-package PRAC.TQS;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.util.*;
-import java.awt.*;
+package PRAC.TQS.Vista;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.lang.Object;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Tablero extends JPanel implements ActionListener{
+import PRAC.TQS.Modelo.Casilla;
+import PRAC.TQS.Modelo.Tablero;
+
+public class VistaVentana extends JPanel implements ActionListener{
+
 	private int alto=700;	//39 por arriba
     private int ancho=700;	//16 por lados
-    private int filas;
-    private int columnas;
-    private Casilla[][] tablero;
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
@@ -25,32 +29,35 @@ public class Tablero extends JPanel implements ActionListener{
     private JPanel restart;
     private JButton restartb;
     private JPanel extra;
-    //private JPanel[][] casillas;
+    
     mouselistener mouse;
     private JFrame ventana_menu;
     private  JButton aceptar=new JButton("ACEPTAR");
     JTextField input_filas = new JTextField();
     JTextField input_columnas= new JTextField();
     JTextField input_nivel=new JTextField();
-
-    public Tablero() {
-
-    }
- 
-    public void crearVentana() throws IOException {
-           ventana = new JFrame("BUSCAMINAS TQS");
-           ventana.setSize(ancho,alto);
-           ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-           ventana.setVisible(true);
-           ventana.setResizable(true);
-           crearTablero(filas,columnas);
-           ventana.setVisible(true);
-    }
     
-    public void crearTablero(int filas, int columnas) throws IOException {
+    private int filas;
+    private int columnas;
+    private int nivel;
+    
+    private Tablero t;
+    
+	
+	public void crearVentana() throws IOException {
+	        ventana = new JFrame("BUSCAMINAS TQS");
+	        ventana.setSize(ancho,alto);
+	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        ventana.setVisible(true);
+	        ventana.setResizable(true);
+	        crearVistaTablero();
+	        ventana.setVisible(true);
+	 }
+	
+	public void crearVistaTablero() throws IOException {
         todo = new JPanel();
         todo.setLayout(new BoxLayout(todo,BoxLayout.Y_AXIS));
-        content=new JPanel(new GridLayout(filas,columnas));
+        content=new JPanel(new GridLayout(this.filas,this.columnas));
         content.setBackground(Color.black);
         //casillas=new JPanel[filas][columnas];
         mouse=new mouselistener();
@@ -80,16 +87,13 @@ public class Tablero extends JPanel implements ActionListener{
         arriba.add(banderas);
         arriba.add(extra);
 
+        t=new Tablero();
+        t.crearTablero(this.filas,this.columnas,this.alto,this.ancho);
 
-
-        tablero = new Casilla[this.filas][this.columnas];
-        for (int fila=0; fila<filas; fila++) {
-            for (int col=0; col<columnas; col++) {
-                Casilla c = new Casilla(fila,col,alto,ancho,filas,columnas);
-                tablero[fila][col]=c;
-                content.add(c.getLabel());
+        for (int fila=0; fila<this.filas; fila++) {
+            for (int col=0; col<this.columnas; col++) {
+                content.add(t.getCasilla(fila, col).getLabel());
             }
-
         }
 
         todo.add(arriba);
@@ -97,8 +101,8 @@ public class Tablero extends JPanel implements ActionListener{
 
         ventana.setContentPane(todo);
     }
-    
-    public void crearVentanaMenu() {
+	
+	public void crearVentanaMenu() {
 
         ventana_menu=new JFrame("MENU BUSCAMINAS");
         GridLayout g1=new GridLayout();
@@ -134,10 +138,10 @@ public class Tablero extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         if(ae.getActionCommand()==aceptar.getActionCommand()) {
             try {
-                int valor=Integer.parseInt(input_nivel.getText());
+                this.nivel=Integer.parseInt(input_nivel.getText());
                 this.filas=Integer.parseInt(input_filas.getText());
                 this.columnas=Integer.parseInt(input_columnas.getText());
-                if(valor>3) {
+                if((this.nivel>3)||(this.nivel<1)) {
                     JOptionPane.showMessageDialog(null,"Número no valido");
                 }else {
                     ventana_menu.setVisible(false);
@@ -146,4 +150,5 @@ public class Tablero extends JPanel implements ActionListener{
             } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
         }
     }
+	
 }

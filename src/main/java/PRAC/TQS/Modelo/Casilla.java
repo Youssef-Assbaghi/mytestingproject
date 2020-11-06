@@ -1,4 +1,4 @@
-package PRAC.TQS;
+package PRAC.TQS.Modelo;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.Object;
 
 public class Casilla extends JPanel{
+	
 	private int pos_fila, pos_columna;
     private int tot_filas,tot_columnas;
     private int height,width;
@@ -21,7 +22,7 @@ public class Casilla extends JPanel{
     private ImageIcon newimage;
     private JLabel picLabel;
     private BufferedImage sprite;
-
+ 
     private boolean bomba;
     private final int CERRADO=0;
     private final int ABIERTO=1;
@@ -32,7 +33,7 @@ public class Casilla extends JPanel{
     
     
     public Casilla() {
-        oldimage=new ImageIcon("sprites/casilla.png");
+        oldimage=new ImageIcon("casilla.png");
         bomba=false;
         estado=CERRADO;
         vecinos=0;
