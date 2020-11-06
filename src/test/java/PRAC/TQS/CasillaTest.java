@@ -43,9 +43,11 @@ public class CasillaTest {
     }
     
     @Test
-    public void testsetVecinos() {
-        int expected=3;
-        c.setVecinos(3);
-        assertTrue(c.getVecinos()==expected);
-    }
+	public void testsetVecinos() {
+		int expected=0;
+		assertTrue(c.getVecinos()==expected);
+		expected=3;
+		c.setVecinos(3);
+		assertTrue(c.getVecinos()==expected);
+	}
 }

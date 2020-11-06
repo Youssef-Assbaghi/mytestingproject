@@ -88,8 +88,9 @@ public class Casilla extends JPanel{
     }
     
     public void setVecinos(int v) {
+    	vecinos=v;
     }
-
+    
     public int getVecinos() {
         return vecinos;
     }
