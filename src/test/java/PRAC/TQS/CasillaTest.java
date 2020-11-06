@@ -21,16 +21,22 @@ public class CasillaTest {
 
 	@Test
 	public void testsetBomba() {
-		boolean expected=true;
+		boolean expected=false;
+		assertTrue(c.getBomba()==expected);
 		c.setBomba();
+		expected=true;
 		assertTrue(c.getBomba()==expected);		
 	}
 	
 	@Test
 	public void testsetEstado() {
-		int expected=1;
+		int expected=0;
+		assertTrue(c.getEstado()==expected);
+		expected=1;
 		c.setEstado(1);
 		assertTrue(c.getEstado()==expected);
+		expected=2;
+		assertFalse(c.getEstado()==expected);
 	}
 
 } 
