@@ -18,7 +18,7 @@ public class Tablero {
     private int columnas;
     private Casilla[][] tablero;
     private int nivel;
-    
+    int a=0;
     
     public Tablero() {
 
