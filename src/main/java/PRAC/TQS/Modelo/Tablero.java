@@ -36,6 +36,12 @@ public class Tablero {
         crearTablero();
     }
     
+    
+    public boolean equals(Object anObject) {
+        Tablero tab= (Tablero)anObject;
+        return((tab.getFilas()==this.filas)&&(tab.getColumnas()==this.columnas)&&(tab.getNivel()==this.nivel));
+    }
+    
     public void crearTablero() {
     	tablero = new Casilla[filas][columnas];
         for (int fila=0; fila<filas; fila++) {
@@ -46,16 +52,15 @@ public class Tablero {
         }
     }
 
-    public boolean equals(Object anObject) {
-        Tablero tab= (Tablero)anObject;
-        return((tab.getFilas()==this.filas)&&(tab.getColumnas()==this.columnas)&&(tab.getNivel()==this.nivel));
-    }
-
     public Casilla getCasilla(int fila, int columna) {return tablero[fila][columna];}
     public int getFilas() {return this.filas;}
     public int getColumnas() {return this.columnas;}
     public int getNivel() {return this.nivel;}
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
+
+    
+
+   
 
 }

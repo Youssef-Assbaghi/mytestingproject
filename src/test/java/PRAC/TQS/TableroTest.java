@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import PRAC.TQS.Modelo.Campo_minas;
 import PRAC.TQS.Modelo.Casilla;
 import PRAC.TQS.Modelo.Tablero;
 import junit.framework.TestCase;
@@ -47,6 +46,8 @@ public class TableroTest extends TestCase{
         assertTrue(t2.getAncho()==ancho);
     }
 
+    
+    
     @Test
     public void testTableroEquals() {
         Tablero tab_prueba = new Tablero();
