@@ -13,22 +13,17 @@ import junit.framework.TestCase;
 public class CasillaTest extends TestCase{
 
     Casilla c,c2;
-    int fila=1;
-    int columna=2;
-    int h=70;
-    int w=70;
-    int tot_filas=8;
-    int tot_columnas=8;
 
     @Before
     public void setUp() throws Exception {
         c=new Casilla();
-        c2=new Casilla(fila,columna,h,w,tot_filas,tot_columnas);
+        c2=new Casilla(1,2,70,70,8,8);
     }
 
     @After
     public void tearDown() throws Exception {
     	c=null;
+    	c2=null;
     }
     
     @Test
@@ -47,6 +42,13 @@ public class CasillaTest extends TestCase{
     
     @Test
     public void testConstructorPar() {
+    	int fila=1;
+        int columna=2;
+        int h=70;
+        int w=70;
+        int tot_filas=8;
+        int tot_columnas=8;
+        
     	assertTrue(c2.getFila()==fila);
     	assertTrue(c2.getColumna()==columna);
     	assertTrue(c2.getAltura()==h);
@@ -60,8 +62,8 @@ public class CasillaTest extends TestCase{
     }
     
     @Test
-    public void testTableroEquals() {
-		Casilla equalcasilla = new Casilla(fila,columna,h,w,tot_filas,tot_columnas);
+    public void testCasillaEquals() {
+		Casilla equalcasilla = new Casilla(1,2,70,70,8,8);
 		assertEquals(c2,equalcasilla);
     }
 
@@ -83,7 +85,6 @@ public class CasillaTest extends TestCase{
         assertTrue(c.getEstado()==expected);
         expected=2;
         assertFalse(c.getEstado()==expected);
-    
     }
     
     @Test

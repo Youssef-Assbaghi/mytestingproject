@@ -30,8 +30,6 @@ public class Casilla extends JPanel{
     private int estado;
     private int vecinos;
     
-    
-    
     public Casilla() {
     	this.fila=0;
         this.columna=0;
@@ -86,15 +84,15 @@ public class Casilla extends JPanel{
     public int getEstado() {return estado;}
     public boolean getBomba() {return bomba;}
     public int getVecinos() {return vecinos;}
-    
+    public JPanel getPanel() {return panel;}
+    public JLabel getLabel() {return picLabel;}
     
     public void changeSprite() {
     	switch(getEstado())
     	{
     	case CERRADO:
     		oldimage=new ImageIcon("sprites/casilla.png");
-    		break;
-    		
+    		break;	
     	case ABIERTO:
     		if(getBomba()) {
     			oldimage=new ImageIcon("sprites/bomba.png");
@@ -131,8 +129,7 @@ public class Casilla extends JPanel{
         			break;		
         		}
     		}
-    		break;
-    	
+    		break;  	
     	case BANDERA:
     		oldimage=new ImageIcon("sprites/flag.png");
     		break;
@@ -145,12 +142,6 @@ public class Casilla extends JPanel{
         picLabel.setIcon(newimage);
     }
     
-    public JPanel getPanel() {
-    	return panel;
-    }
-    public JLabel getLabel() {
-    	return picLabel;
-    }
     public void setBomba() {
         bomba=true;
     }
