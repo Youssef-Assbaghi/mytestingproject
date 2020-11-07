@@ -95,4 +95,11 @@ public class CasillaTest extends TestCase{
 		c.setVecinos(3);
 		assertTrue(c.getVecinos()==expected);
 	}
+    
+    @Test
+	public void testsetPrimera() {
+		boolean expected=true;
+		c.setPrimera();
+		assertEquals(c.getPrimera(),expected);
+	}
 }

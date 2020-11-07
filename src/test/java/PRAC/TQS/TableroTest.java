@@ -63,28 +63,28 @@ public class TableroTest extends TestCase{
         assertEquals(t3.getCasilla(1, 2),c);
     }
     
+    //mock objects?
     @Test
     public void testprueba() {
-        MockVentana mockVentana=new MockVentana();
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
         Tablero t4=new Tablero();
         t4.setVentana(mockVentana);
         
         int x=t4.prueba2(5, mockVentana.prueba(2, 29));
         assertTrue(x==10);
-    }
+    } 
     
     @Test
     public void testmodTablero() throws IOException {
-        MockVentana mockVentana=new MockVentana();
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
         Tablero t5=new Tablero();
         Tablero t6=new Tablero(1,2,3,4,5);
-        t1.setVentana(mockVentana);
+        t5.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
         t5.modTablero(dat);
-        System.out.println(t5.getNivel()+ " " + t6.getNivel());
         
         assertTrue(t5.getFilas()==t6.getFilas());
         assertTrue(t5.getColumnas()==t6.getColumnas());
@@ -92,5 +92,27 @@ public class TableroTest extends TestCase{
         assertEquals(t5.getAlto(),t6.getAlto());
         assertTrue(t5.getAncho()==t5.getAncho());
     }
+    /*
+    @Test
+    public void testrepartirBombas() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tbombas=new Tablero();
+    	tbombas.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        tbombas.modTablero(dat);
+    	
+    	for(int i=1;i<=tbombas.getNBombas();i++) {
+    		if() {
+    			
+    		}
+    		else {
+    			
+    		}
+    	}
+    }
+    */
+    
 
 }

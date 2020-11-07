@@ -2,9 +2,9 @@ package PRAC.TQS;
 import java.util.Hashtable;
 
 import PRAC.TQS.Modelo.Tablero;
-import PRAC.TQS.Vista.Ventana;
+import PRAC.TQS.Vista.VistaVentanaAux;
 
-public class MockVentana implements Ventana{
+public class VistaVentanaAuxMock implements VistaVentanaAux{
 
 	@Override
 	public Tablero getTablero() {
@@ -22,6 +22,11 @@ public class MockVentana implements Ventana{
 		int[] datos= {1,2,3,4,5};
 		return datos;
 	}
-	
+
+	@Override
+	public int[] registraClick() {
+		int[] coords= {2,3};
+		return coords;
+	}
 	
 }

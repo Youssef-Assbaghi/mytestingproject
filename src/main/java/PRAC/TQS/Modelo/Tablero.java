@@ -3,7 +3,7 @@ package PRAC.TQS.Modelo;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import PRAC.TQS.Vista.Ventana;
+import PRAC.TQS.Vista.VistaVentanaAux;
  
 import java.util.*;
 import java.awt.*;
@@ -23,9 +23,10 @@ public class Tablero {
     private int nivel;
     private int ancho;
     private int alto;
+    private int n_bombas;
     
-    private Ventana ventana;
-    public void setVentana(Ventana ven) {
+    private VistaVentanaAux ventana;
+    public void setVentana(VistaVentanaAux ven) {
     	this.ventana=ven;
     }
     
@@ -40,6 +41,7 @@ public class Tablero {
         nivel=0;
         ancho=0;
         alto=0;
+        n_bombas=0;
     } 
 
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
@@ -48,6 +50,7 @@ public class Tablero {
         this.nivel=nivel;
         this.alto=alto;
         this.ancho=ancho;
+        n_bombas=0;
         crearTablero();
     }
     
@@ -58,7 +61,7 @@ public class Tablero {
         this.alto=datos[2];
         this.ancho=datos[3];
         this.nivel=datos[4];
-        crearTablero();
+        crearTablero();    	
     }
     
     
@@ -83,7 +86,12 @@ public class Tablero {
     public int getNivel() {return this.nivel;}
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
+    public int getNBombas() {return this.n_bombas;}
 
+    
+    public void repartirBombas() {
+    	
+    }
     
 
    

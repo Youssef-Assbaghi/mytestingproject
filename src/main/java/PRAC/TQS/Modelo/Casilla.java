@@ -29,6 +29,7 @@ public class Casilla extends JPanel{
     private final int BANDERA=2;
     private int estado;
     private int vecinos;
+    private boolean primera;
     
     public Casilla() {
     	this.fila=0;
@@ -37,6 +38,7 @@ public class Casilla extends JPanel{
         this.width=70;
         this.tot_columnas=1;
         this.tot_filas=1;
+        this.primera=false;
         
         bomba=false;
         setEstado(CERRADO);
@@ -50,6 +52,7 @@ public class Casilla extends JPanel{
         this.width=w;
         this.tot_columnas=columnas;
         this.tot_filas=filas;
+        this.primera=false;
         
         bomba=false;
         setEstado(CERRADO);
@@ -84,6 +87,7 @@ public class Casilla extends JPanel{
     public int getEstado() {return estado;}
     public boolean getBomba() {return bomba;}
     public int getVecinos() {return vecinos;}
+    public boolean getPrimera() {return primera;}
     public JPanel getPanel() {return panel;}
     public JLabel getLabel() {return picLabel;}
     
@@ -152,6 +156,10 @@ public class Casilla extends JPanel{
 
     public void setVecinos(int v) {
     	vecinos=v;
+    }
+    
+    public void setPrimera() {
+
     }
       
 }
