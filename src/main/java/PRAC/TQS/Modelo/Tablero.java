@@ -89,35 +89,8 @@ public class Tablero {
     public int getNBombas() {return this.n_bombas;}
     
     public int calculaNumBombas() {
-    	double porcentaje;
-    	if(this.nivel==1) {
-    		porcentaje=0.125;
-    	}else if(this.nivel==2) {
-    		porcentaje=0.16;
-    	}else {
-    		porcentaje=0.205;
-    	}
-    	this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
+    	this.n_bombas=(int) (0.125*(this.filas*this.columnas));
     	
      	return this.n_bombas;
     }
-
-    
-    public void repartirBombas() {
-    	Random rand=new Random();
-    	
-    	for(int i=1;i<=getNBombas();i++) {
-    		int xbomba=rand.nextInt(getFilas());
-    		int ybomba=rand.nextInt(getColumnas());
-    		if((getCasilla(xbomba, ybomba).getBomba()==true)||(getCasilla(xbomba, ybomba).getPrimera())) {
-    			i-=1;
-    		}else {
-    			getCasilla(xbomba, ybomba).setBomba();
-    		}
-    	}
-    }
-    
-
-   
-
 }
