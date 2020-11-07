@@ -58,8 +58,16 @@ public class TableroTest extends TestCase{
         Casilla c = new Casilla(1,2,200,100,3,3);
         assertEquals(t3.getCasilla(1, 2),c);
     }
-
-
-
+    
+    @Test
+    public void testprueba() {
+        MockVentana mockVentana=new MockVentana();
+        
+        Tablero t1=new Tablero();
+        t1.setVentana(mockVentana);
+        
+        int x=t1.prueba2(5, mockVentana.prueba(2, 29));
+        assertTrue(x==10);
+    }
 
 }

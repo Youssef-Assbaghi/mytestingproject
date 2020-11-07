@@ -2,6 +2,9 @@ package PRAC.TQS.Modelo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import PRAC.TQS.Vista.Ventana;
+ 
 import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,16 @@ public class Tablero {
     private int nivel;
     private int ancho;
     private int alto;
+    
+    private Ventana ventana;
+    public void setVentana(Ventana ven) {
+    	this.ventana=ven;
+    }
+    
+    public int prueba2(int a,int b) {
+    	int y=a+b;
+		return y;
+    }
 
     public Tablero() {
         filas=0;
