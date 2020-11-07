@@ -3,6 +3,7 @@ package PRAC.TQS;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
@@ -92,6 +93,49 @@ public class TableroTest extends TestCase{
         assertEquals(t5.getAlto(),t6.getAlto());
         assertTrue(t5.getAncho()==t5.getAncho());
     }
+    
+    
+    @Test
+    public void testCalculaNumBombas() {
+    	VistaVentanaAuxMock resultado=new VistaVentanaAuxMock();
+    	Tablero t5=new Tablero();
+        t5.setVentana(resultado);
+        
+        int[] dat=resultado.pasarDatos();
+        int expected1=8;
+        dat[0]=8;
+        dat[1]=8;
+        dat[4]=1;
+        t5.modTablero(dat);
+        assertTrue(t5.getFilas()==8);
+        assertTrue(t5.getColumnas()==8);
+        assertTrue(t5.getNivel()==1);
+        assertTrue(t5.calculaNumBombas()==expected1);
+        
+        dat[0]=7;
+        dat[1]=4;
+        dat[4]=2;
+        t5.modTablero(dat);
+        
+        int expected2=4;
+        assertTrue(t5.getFilas()==7);
+        assertTrue(t5.getColumnas()==4);
+        assertTrue(t5.getNivel()==2);
+        assertTrue(t5.calculaNumBombas()==expected2);
+        
+        dat[0]=10;
+        dat[1]=8;
+        dat[4]=3;
+        t5.modTablero(dat);
+        
+        int expected3=16;
+        assertTrue(t5.getFilas()==10);
+        assertTrue(t5.getColumnas()==8);
+        assertTrue(t5.getNivel()==3);
+        assertTrue(t5.calculaNumBombas()==expected3);
+    	
+    }
+    
     /*
     @Test
     public void testrepartirBombas() {
@@ -102,17 +146,8 @@ public class TableroTest extends TestCase{
         
         int[] dat=mockVentana.pasarDatos();
         tbombas.modTablero(dat);
-    	
-    	for(int i=1;i<=tbombas.getNBombas();i++) {
-    		if() {
-    			
-    		}
-    		else {
-    			
-    		}
-    	}
+  
     }
     */
     
-
 }
