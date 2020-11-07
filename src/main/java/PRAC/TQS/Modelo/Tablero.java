@@ -38,6 +38,8 @@ public class Tablero {
         filas=0;
         columnas=0;
         nivel=0;
+        ancho=0;
+        alto=0;
     } 
 
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
@@ -46,6 +48,16 @@ public class Tablero {
         this.nivel=nivel;
         this.alto=alto;
         this.ancho=ancho;
+        crearTablero();
+    }
+    
+    //para probar el mock object de la ventana
+    public void modTablero(int[] datos){
+        this.filas=datos[0];
+        this.columnas=datos[1];
+        this.alto=datos[2];
+        this.ancho=datos[3];
+        this.nivel=datos[4];
         crearTablero();
     }
     

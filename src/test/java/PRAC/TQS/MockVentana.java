@@ -16,6 +16,12 @@ public class MockVentana implements Ventana{
 		int c=5;
 		return c;
 	}
+
+	@Override
+	public int[] pasarDatos() {
+		int[] datos= {1,2,3,4,5};
+		return datos;
+	}
 	
 	
 }

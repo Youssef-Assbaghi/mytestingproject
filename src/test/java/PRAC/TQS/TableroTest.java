@@ -1,6 +1,9 @@
 package PRAC.TQS;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,11 +67,30 @@ public class TableroTest extends TestCase{
     public void testprueba() {
         MockVentana mockVentana=new MockVentana();
         
-        Tablero t1=new Tablero();
+        Tablero t4=new Tablero();
+        t4.setVentana(mockVentana);
+        
+        int x=t4.prueba2(5, mockVentana.prueba(2, 29));
+        assertTrue(x==10);
+    }
+    
+    @Test
+    public void testmodTablero() throws IOException {
+        MockVentana mockVentana=new MockVentana();
+        
+        Tablero t5=new Tablero();
+        Tablero t6=new Tablero(1,2,3,4,5);
         t1.setVentana(mockVentana);
         
-        int x=t1.prueba2(5, mockVentana.prueba(2, 29));
-        assertTrue(x==10);
+        int[] dat=mockVentana.pasarDatos();
+        t5.modTablero(dat);
+        System.out.println(t5.getNivel()+ " " + t6.getNivel());
+        
+        assertTrue(t5.getFilas()==t6.getFilas());
+        assertTrue(t5.getColumnas()==t6.getColumnas());
+        assertTrue(t5.getNivel()==t6.getNivel());
+        assertEquals(t5.getAlto(),t6.getAlto());
+        assertTrue(t5.getAncho()==t5.getAncho());
     }
 
 }
