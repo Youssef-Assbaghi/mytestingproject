@@ -132,8 +132,21 @@ public class TableroTest extends TestCase{
         assertTrue(t5.getFilas()==10);
         assertTrue(t5.getColumnas()==8);
         assertTrue(t5.getNivel()==3);
-        assertTrue(t5.calculaNumBombas()==expected3);
-    	
+        assertTrue(t5.calculaNumBombas()==expected3);  	
     }   
+    
+    /*
+    @Test
+    public void testrepartirBombas() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tbombas=new Tablero();
+    	tbombas.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        tbombas.modTablero(dat);
+  
+    }
+    */
     
 }

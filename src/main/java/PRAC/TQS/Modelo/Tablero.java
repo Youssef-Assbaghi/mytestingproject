@@ -101,4 +101,18 @@ public class Tablero {
     	
      	return this.n_bombas;
     }
+    
+    public void repartirBombas() {
+    	Random rand=new Random();
+    	
+    	for(int i=1;i<=getNBombas();i++) {
+    		int xbomba=rand.nextInt(getFilas());
+    		int ybomba=rand.nextInt(getColumnas());
+    		if((getCasilla(xbomba, ybomba).getBomba()==true)||(getCasilla(xbomba, ybomba).getPrimera())) {
+    			i-=1;
+    		}else {
+    			getCasilla(xbomba, ybomba).setBomba();
+    		}
+    	}
+    }
 }
