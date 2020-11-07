@@ -61,7 +61,7 @@ public class CasillaTest extends TestCase{
     
     @Test
     public void testTableroEquals() {
-		Casilla equalcasilla = new Casilla(fila,columna,70,71,tot_filas,tot_columnas);
+		Casilla equalcasilla = new Casilla(fila,columna,h,w,tot_filas,tot_columnas);
 		assertEquals(c2,equalcasilla);
     }
 

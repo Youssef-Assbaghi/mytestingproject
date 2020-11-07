@@ -67,7 +67,7 @@ public class Casilla extends JPanel{
     
     public boolean equals(Object anObject) {
 		Casilla c= (Casilla)anObject;
-		return((c.getFila()==this.getFila())&&(c.getColumna()==this.getColumna())&&(c.gettotalFilas()==this.gettotalFilas())&&(c.gettotalColumnas()==this.gettotalColumnas()));
+		return((c.getFila()==this.getFila())&&(c.getColumna()==this.getColumna())&&(c.getAltura()==this.getAltura())&&(c.getAnchura()==this.getAnchura())&&(c.gettotalFilas()==this.gettotalFilas())&&(c.gettotalColumnas()==this.gettotalColumnas()));
 	}
     
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
