@@ -14,14 +14,14 @@ import java.lang.Object;
 
 public class Casilla extends JPanel{
 	
-	private int pos_fila, pos_columna;
-    private int tot_filas,tot_columnas;
+	private int fila, columna;
+    private int tot_filas=1;
+    private int tot_columnas=1;
     private int height,width;
     private JPanel panel;
     private ImageIcon oldimage;
     private ImageIcon newimage;
     private JLabel picLabel;
-    private BufferedImage sprite;
  
     private boolean bomba;
     private final int CERRADO=0;
@@ -33,10 +33,9 @@ public class Casilla extends JPanel{
     
     
     public Casilla() {
-        oldimage=new ImageIcon("/PRAC TQS/sprites/casilla.png");
         bomba=false;
-        estado=CERRADO;
-        vecinos=0;
+        setEstado(CERRADO);
+        setVecinos(0);
     }
     
     
@@ -47,25 +46,85 @@ public class Casilla extends JPanel{
         return newimage;
     }
     
-    public Casilla(int fila, int columna,int h,int w,int filas, int columnas) throws IOException {
-        this.pos_fila=fila;
-        this.pos_columna=columna;
-        this.height=h;
-        this.width=w;
-        this.tot_columnas=columnas;
-        this.tot_filas=filas;
-        
-        oldimage=new ImageIcon("sprites/casilla.png");
-        
+    public Casilla(int fila, int columna,int h,int w,int filas, int columnas) {
+        bomba=false;
+        setEstado(CERRADO);
+        setVecinos(0);
+
         panel = new JPanel();
         picLabel = new JLabel();
         
-        //panel.setBackground(Color.black);
-        newimage = new ImageIcon();
-        newimage=changesize(oldimage,h,w);
-       
-    	picLabel.setIcon(newimage);
+        changeSprite();
+        
     	panel.add(picLabel);
+    }
+    
+    public int getFila() {return fila;}
+    public int getColumna() {return columna;}
+    public int getAltura() {return height;}
+    public int getAnchura() {return width;}
+    public int gettotalFilas() {return tot_filas;}
+    public int gettotalColumnas() {return tot_columnas;}
+    public int getEstado() {return estado;}
+    public boolean getBomba() {return bomba;}
+    public int getVecinos() {return vecinos;}
+    
+    
+    public void changeSprite() {
+    	switch(getEstado())
+    	{
+    	case CERRADO:
+    		oldimage=new ImageIcon("sprites/casilla.png");
+    		break;
+    		
+    	case ABIERTO:
+    		if(getBomba()) {
+    			oldimage=new ImageIcon("sprites/bomba.png");
+    		}
+    		else {
+    			switch(getVecinos())
+        		{
+        		case 0:
+        			oldimage=new ImageIcon("sprites/vacio.png");
+        			break;
+        		case 1:
+        			oldimage=new ImageIcon("sprites/1.png");
+        			break;
+        		case 2:
+        			oldimage=new ImageIcon("sprites/2.png");
+        			break;
+        		case 3:
+        			oldimage=new ImageIcon("sprites/3.png");
+        			break;
+        		case 4:
+        			oldimage=new ImageIcon("sprites/4.png");
+        			break;
+        		case 5:
+        			oldimage=new ImageIcon("sprites/5.png");
+        			break;
+        		case 6:
+        			oldimage=new ImageIcon("sprites/6.png");
+        			break;
+        		case 7:
+        			oldimage=new ImageIcon("sprites/7.png");
+        			break;
+        		case 8:
+        			oldimage=new ImageIcon("sprites/8.png");
+        			break;		
+        		}
+    		}
+    		break;
+    	
+    	case BANDERA:
+    		oldimage=new ImageIcon("sprites/flag.png");
+    		break;
+    	
+    	default:
+    		oldimage=new ImageIcon("sprites/casilla.png");
+    	}
+    	newimage = new ImageIcon();
+        newimage=changesize(oldimage,height,width);
+        picLabel.setIcon(newimage);
     }
     
     public JPanel getPanel() {
@@ -82,21 +141,12 @@ public class Casilla extends JPanel{
         estado=x;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-    
-    public boolean getBomba() {
-        return bomba;
-    }
-    
     public void setVecinos(int v) {
     	vecinos=v;
     }
     
-    public int getVecinos() {
-        return vecinos;
-    }
+    
+    
     
 
    

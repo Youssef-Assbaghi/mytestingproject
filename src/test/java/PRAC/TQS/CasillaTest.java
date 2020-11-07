@@ -9,17 +9,44 @@ import org.junit.Test;
 import PRAC.TQS.Modelo.Casilla;
 import junit.framework.TestCase;
 
-public class CasillaTest {
+public class CasillaTest extends TestCase{
 
-    Casilla c;
+    Casilla c,c2;
+    int fila=1;
+    int columna=2;
+    int h=70;
+    int w=70;
+    int tot_filas=8;
+    int tot_columnas=8;
 
     @Before
     public void setUp() throws Exception {
         c=new Casilla();
+        c2=new Casilla(fila,columna,h,w,tot_filas,tot_columnas);
     }
 
     @After
     public void tearDown() throws Exception {
+    	c=null;
+    }
+    
+    @Test
+    public void testConstructor() {
+    	assertTrue(c.getFila()==0);
+    	assertTrue(c.getColumna()==0);
+    	assertTrue(c.getAltura()==70);
+    	assertTrue(c.getAnchura()==70);
+    	assertTrue(c.gettotalFilas()==1);
+    	assertTrue(c.gettotalColumnas()==1);
+    }
+    @Test
+    public void testConstructorPar() {
+    	assertTrue(c2.getFila()==fila);
+    	assertTrue(c2.getColumna()==columna);
+    	assertTrue(c2.getAltura()==h);
+    	assertTrue(c2.getAnchura()==w);
+    	assertTrue(c2.gettotalFilas()==tot_filas);
+    	assertTrue(c2.gettotalColumnas()==tot_columnas);
     }
 
     @Test
