@@ -45,14 +45,6 @@ public class Casilla extends JPanel{
         setVecinos(0);
     }
     
-    
-    public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
-        Image auximage=oldimage.getImage();
-        Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
-        ImageIcon newimage=new ImageIcon(output_image);
-        return newimage;
-    }
-    
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) {
         this.fila=fila;
         this.columna=columna;
@@ -73,6 +65,18 @@ public class Casilla extends JPanel{
     	panel.add(picLabel);
     }
     
+    public boolean equals(Object anObject) {
+		Casilla c= (Casilla)anObject;
+		return((c.getFila()==this.getFila())&&(c.getColumna()==this.getColumna())&&(c.gettotalFilas()==this.gettotalFilas())&&(c.gettotalColumnas()==this.gettotalColumnas()));
+	}
+    
+    public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
+        Image auximage=oldimage.getImage();
+        Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newimage=new ImageIcon(output_image);
+        return newimage;
+    }
+
     public int getFila() {return fila;}
     public int getColumna() {return columna;}
     public int getAltura() {return height;}
@@ -158,10 +162,5 @@ public class Casilla extends JPanel{
     public void setVecinos(int v) {
     	vecinos=v;
     }
-    
-    
-    
-    
-
-   
+      
 }

@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import PRAC.TQS.Modelo.Campo_minas;
 import PRAC.TQS.Modelo.Casilla;
 import junit.framework.TestCase;
 
@@ -56,6 +57,12 @@ public class CasillaTest extends TestCase{
     	assertTrue(c2.getBomba()==false);
     	assertTrue(c2.getEstado()==0);
     	assertTrue(c2.getVecinos()==0);
+    }
+    
+    @Test
+    public void testTableroEquals() {
+		Casilla equalcasilla = new Casilla(fila,columna,70,71,tot_filas,tot_columnas);
+		assertEquals(c2,equalcasilla);
     }
 
     @Test
