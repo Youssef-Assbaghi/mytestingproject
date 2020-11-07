@@ -44,4 +44,8 @@ public class Tablero {
     	return tablero[fila][columna];
     }
     
+    public int getFilas() {return this.filas;}
+    public int getColumnas() {return this.columnas;}
+    public int getNivel() {return this.nivel;}
+    
 }
