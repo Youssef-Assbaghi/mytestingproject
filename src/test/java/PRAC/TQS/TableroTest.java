@@ -112,6 +112,28 @@ public class TableroTest extends TestCase{
         assertTrue(t5.getNivel()==1);
         assertTrue(t5.calculaNumBombas()==expected1);
         
+        dat[0]=7;
+        dat[1]=4;
+        dat[4]=2;
+        t5.modTablero(dat);
+        
+        int expected2=4;
+        assertTrue(t5.getFilas()==7);
+        assertTrue(t5.getColumnas()==4);
+        assertTrue(t5.getNivel()==2);
+        assertTrue(t5.calculaNumBombas()==expected2);
+        
+        dat[0]=10;
+        dat[1]=8;
+        dat[4]=3;
+        t5.modTablero(dat);
+        
+        int expected3=16;
+        assertTrue(t5.getFilas()==10);
+        assertTrue(t5.getColumnas()==8);
+        assertTrue(t5.getNivel()==3);
+        assertTrue(t5.calculaNumBombas()==expected3);
+    	
     }   
     
 }

@@ -89,7 +89,15 @@ public class Tablero {
     public int getNBombas() {return this.n_bombas;}
     
     public int calculaNumBombas() {
-    	this.n_bombas=(int) (0.125*(this.filas*this.columnas));
+    	double porcentaje;
+    	if(this.nivel==1) {
+    		porcentaje=0.125;
+    	}else if(this.nivel==2) {
+    		porcentaje=0.16;
+    	}else {
+    		porcentaje=0.205;
+    	}
+    	this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
     	
      	return this.n_bombas;
     }
