@@ -33,6 +33,13 @@ public class Casilla extends JPanel{
     
     
     public Casilla() {
+    	this.fila=0;
+        this.columna=0;
+        this.height=70;
+        this.width=70;
+        this.tot_columnas=1;
+        this.tot_filas=1;
+        
         bomba=false;
         setEstado(CERRADO);
         setVecinos(0);
@@ -47,6 +54,13 @@ public class Casilla extends JPanel{
     }
     
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) {
+        this.fila=fila;
+        this.columna=columna;
+        this.height=h;
+        this.width=w;
+        this.tot_columnas=columnas;
+        this.tot_filas=filas;
+        
         bomba=false;
         setEstado(CERRADO);
         setVecinos(0);

@@ -38,7 +38,12 @@ public class CasillaTest extends TestCase{
     	assertTrue(c.getAnchura()==70);
     	assertTrue(c.gettotalFilas()==1);
     	assertTrue(c.gettotalColumnas()==1);
+    	
+    	assertTrue(c.getBomba()==false);
+    	assertTrue(c.getEstado()==0);
+    	assertTrue(c.getVecinos()==0);
     }
+    
     @Test
     public void testConstructorPar() {
     	assertTrue(c2.getFila()==fila);
@@ -47,6 +52,10 @@ public class CasillaTest extends TestCase{
     	assertTrue(c2.getAnchura()==w);
     	assertTrue(c2.gettotalFilas()==tot_filas);
     	assertTrue(c2.gettotalColumnas()==tot_columnas);
+    	
+    	assertTrue(c2.getBomba()==false);
+    	assertTrue(c2.getEstado()==0);
+    	assertTrue(c2.getVecinos()==0);
     }
 
     @Test
