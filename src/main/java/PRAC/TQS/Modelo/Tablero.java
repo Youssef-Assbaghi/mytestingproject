@@ -38,7 +38,7 @@ public class Tablero {
         filas=0;
         columnas=0;
         nivel=0;
-    }
+    } 
 
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
         this.filas=filas;
