@@ -159,7 +159,7 @@ public class Casilla extends JPanel{
     }
     
     public void setPrimera() {
-
+    	primera=true;
     }
       
 }

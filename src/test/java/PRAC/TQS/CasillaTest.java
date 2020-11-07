@@ -98,7 +98,9 @@ public class CasillaTest extends TestCase{
     
     @Test
 	public void testsetPrimera() {
-		boolean expected=true;
+    	boolean expected=false;
+		assertEquals(c.getPrimera(),expected);
+		expected=true;
 		c.setPrimera();
 		assertEquals(c.getPrimera(),expected);
 	}
