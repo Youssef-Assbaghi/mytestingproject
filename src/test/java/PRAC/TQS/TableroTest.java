@@ -1,16 +1,15 @@
 package PRAC.TQS;
 
 import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.util.Random;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import PRAC.TQS.Modelo.Casilla;
 import PRAC.TQS.Modelo.Tablero;
 import junit.framework.TestCase;
+
 
 public class TableroTest extends TestCase{
 	
@@ -53,15 +52,23 @@ public class TableroTest extends TestCase{
     
     
     @Test
-    public void testTableroEquals() {
+    public void testTableroEquals() {		
         Tablero tab_prueba = new Tablero();
         assertEquals(t1,tab_prueba);
     }
     
     @Test
-    public void testcrearTablero() {
+    public void testcrearTablero() throws IOException {	//MOCK OBJECT CASILLA
         Casilla c = new Casilla(1,2,200,100,3,3);
         assertEquals(t3.getCasilla(1, 2),c);
+    	
+    	/*
+    	Casilla mcasilla=org.Mockito.mock(Casilla.class);
+    	Casilla mockCasilla=new Casilla(1,2,200,100,3,3);
+        Tablero tpruebamock=new Tablero(3,3,300,400,1);
+        tpruebamock.setCasilla(mockCasilla);
+    	assertEquals(tpruebamock.getCasilla(1, 2),mockCasilla);
+    	*/
     }
     
     //mock objects?
@@ -165,5 +172,23 @@ public class TableroTest extends TestCase{
         assertTrue(numBombas==expected3); //miramos que se repartan el numero correcto no donde pq es aleatorio
     }
     
+    @Test
+    public void testabrirCasilla() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tabrir=new Tablero();
+    	tabrir.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
+        tabrir.modTablero(dat);
+        
+        int[] coords=mockVentana.registraClick();
+        tabrir.abrirCasilla(coords);
+        
+        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==1);
+    }
     
 }

@@ -25,9 +25,20 @@ public class Tablero {
     private int alto;
     private int n_bombas;
     
+    private final int CERRADO=0;
+    private final int ABIERTO=1;
+    private final int BANDERA=2;
+    
+    private boolean explosion=false;
+    
     private VistaVentanaAux ventana;
     public void setVentana(VistaVentanaAux ven) {
     	this.ventana=ven;
+    }
+    
+    private Casilla casilla;
+    public void setCasilla(Casilla c) {
+    	this.casilla=c;
     }
     
     public int prueba2(int a,int b) {
@@ -115,4 +126,13 @@ public class Tablero {
     		}
     	}
     }
+    
+    public void abrirCasilla(int[] coords) {
+    	
+    }
+    
+    
+    
+    
+    
 }
