@@ -135,7 +135,7 @@ public class TableroTest extends TestCase{
         assertTrue(t5.calculaNumBombas()==expected3);  	
     }   
     
-    /*
+    
     @Test
     public void testrepartirBombas() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
@@ -144,9 +144,26 @@ public class TableroTest extends TestCase{
     	tbombas.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
+        dat[0]=10;
+        dat[1]=8;
+        dat[4]=3;
         tbombas.modTablero(dat);
-  
+        int expected3=16;
+        assertTrue(tbombas.getFilas()==10);
+        assertTrue(tbombas.getColumnas()==8);
+        assertTrue(tbombas.getNivel()==3);
+        int numBombas=0;
+        tbombas.calculaNumBombas();
+        tbombas.repartirBombas();
+        for(int i=0;i<tbombas.getFilas();i++) {
+        	for (int j=0;j<tbombas.getColumnas();j++) {
+        		if (tbombas.getCasilla(i, j).getBomba()==true) {
+        			numBombas+=1;
+        		}
+        	}
+        }
+        assertTrue(numBombas==expected3); //miramos que se repartan el numero correcto no donde pq es aleatorio
     }
-    */
+    
     
 }
