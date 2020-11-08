@@ -25,4 +25,6 @@ public class mouselistener extends MouseAdapter {
         }
 
     }
+	
+	public boolean getClick() {return this.click;}
 }

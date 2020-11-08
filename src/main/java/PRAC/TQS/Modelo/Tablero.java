@@ -30,6 +30,7 @@ public class Tablero {
     private final int BANDERA=2;
     
     private boolean explosion=false;
+    private int n_banderas=0;
     
     private VistaVentanaAux ventana;
     public void setVentana(VistaVentanaAux ven) {
@@ -127,22 +128,28 @@ public class Tablero {
     	}
     }
     
-    public void abrirCasilla(int[] coords) {
-    	if (getCasilla(coords[0],coords[1]).getEstado()==CERRADO) {
-    		getCasilla(coords[0],coords[1]).setEstado(ABIERTO);
-    		if(getCasilla(coords[0],coords[1]).getBomba()==true) {
+    public void abrirCasilla(int x, int y) {
+    	if (getCasilla(x,y).getEstado()==CERRADO) {
+    		getCasilla(x,y).setEstado(ABIERTO);
+    		if(getCasilla(x,y).getBomba()==true) {
     			explosion=true;
     		}
     	}
     }
     
-    public void marcarCasilla(int[] coords) {
-    	if (getCasilla(coords[0],coords[1]).getEstado()==CERRADO) {
-    		getCasilla(coords[0],coords[1]).setEstado(BANDERA);
+    public void marcarCasilla(int x, int y) {
+    	if (getCasilla(x,y).getEstado()==CERRADO) {
+    		getCasilla(x,y).setEstado(BANDERA);
+    		n_banderas+=1;
     	} else {
-    		if (getCasilla(coords[0],coords[1]).getEstado()==BANDERA) {
-        		getCasilla(coords[0],coords[1]).setEstado(CERRADO);
+    		if (getCasilla(x,y).getEstado()==BANDERA) {
+        		getCasilla(x,y).setEstado(CERRADO);
+        		n_banderas-=1;
         	}
     	}	
-    }    
+    }
+    
+    public void insertarJugarda(int[] jugada) {
+
+    }
 }

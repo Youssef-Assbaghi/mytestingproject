@@ -187,7 +187,7 @@ public class TableroTest extends TestCase{
         
         int[] coords=mockVentana.registraClick();
         assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==0);
-        tabrir.abrirCasilla(coords);    
+        tabrir.abrirCasilla(coords[0],coords[1]);    
         assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==1);
     }
     
@@ -195,19 +195,37 @@ public class TableroTest extends TestCase{
     public void testmarcarCasilla() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	
-    	Tablero tabrir=new Tablero();
-    	tabrir.setVentana(mockVentana);
+    	Tablero tmarcar=new Tablero();
+    	tmarcar.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
         dat[0]=5;
         dat[1]=5;
         dat[4]=1;
-        tabrir.modTablero(dat);
+        tmarcar.modTablero(dat);
         
         int[] coords=mockVentana.registraClick();
-        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==0);
-        tabrir.marcarCasilla(coords);    
-        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==2);
+        assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==0);
+        tmarcar.marcarCasilla(coords[0],coords[1]);    
+        assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==2);
+    }
+    
+    @Test
+    public void testinsertarJugada() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tjugada=new Tablero();
+    	tjugada.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
+        tjugada.modTablero(dat);
+        
+        int[] jugada=mockVentana.registraClick();
+        tjugada.insertarJugarda(jugada);
+        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
     }
     
 }

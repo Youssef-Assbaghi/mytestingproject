@@ -24,8 +24,8 @@ public class VistaVentanaAuxMock implements VistaVentanaAux{
 	}
 
 	@Override
-	public int[] registraClick() {
-		int[] coords= {1,2};
+	public int[] registraClick() { //COORX, COORY, BOTON RATON 0->IZQ 1->DER
+		int[] coords= {1,2,0};
 		return coords;
 	}
 	
