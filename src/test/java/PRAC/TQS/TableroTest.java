@@ -89,7 +89,7 @@ public class TableroTest extends TestCase{
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
         Tablero t5=new Tablero();
-        Tablero t6=new Tablero(1,2,3,4,5);
+        Tablero t6=new Tablero(1,2,300,400,5);
         t5.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();

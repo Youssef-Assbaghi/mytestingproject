@@ -19,7 +19,7 @@ public class VistaVentanaAuxMock implements VistaVentanaAux{
 
 	@Override
 	public int[] pasarDatos() {
-		int[] datos= {1,2,3,4,5};
+		int[] datos= {1,2,300,400,5};
 		return datos;
 	}
 

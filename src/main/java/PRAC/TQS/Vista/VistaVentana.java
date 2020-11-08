@@ -43,7 +43,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private int nivel;
     private int fila_click;
     private int columna_click;
-    private boolean click;
+    private int click;
     private Tablero t;
     
 	
@@ -182,10 +182,10 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		if(arg0.getButton()==MouseEvent.BUTTON1) {
-            this.click=false;
+            this.click=0;
             System.out.println("CLICK IZQUIERDO");
         }else if(arg0.getButton()==MouseEvent.BUTTON3) {
-            this.click=true;
+            this.click=1;
             System.out.println("CLICK DERECHO");
         }
 		this.fila_click=((arg0.getY())/(this.alto/this.filas));
