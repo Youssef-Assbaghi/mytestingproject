@@ -195,13 +195,17 @@ public class TableroTest extends TestCase{
         
         assertTrue(n_bombas==expected3);
         int bombas_correctas=0;
-        int bombas_correctas_expected=n_bombas;
+        int bombas_correctas_expected=tbombas.getNBombas();
         
-        for(int i=0;i<n_bombas;i++) {
-        	if(tbombas.getCasilla(cas_sel[i][0], cas_sel[i][1]).getBomba()==true) {
-        		bombas_correctas+=1;
-        		//System.out.println("BOMBA EN: "+ cas_sel[i][0]+" " +cas_sel[i][1]);
-        	}      		
+        for(int i=0;i<tbombas.getFilas();i++) {
+        	for (int j=0;j<tbombas.getColumnas();j++) {
+        		if (tbombas.getCasilla(i, j).getBomba()==true) {
+        			if((tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[0][0], cas_sel[0][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[1][0], cas_sel[1][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[2][0], cas_sel[2][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[3][0], cas_sel[3][1]))){
+        				bombas_correctas+=1;
+        			}
+
+        		}
+        	}
         }
         assertEquals(bombas_correctas,bombas_correctas_expected);
     }
