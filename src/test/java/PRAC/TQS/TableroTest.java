@@ -181,17 +181,14 @@ public class TableroTest extends TestCase{
     	tbombas.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=5;
-        dat[1]=5;
-        dat[4]=2;
+        dat[0]=10;
+        dat[1]=10;
+        dat[4]=3;
         int n_bombas=4;
         tbombas.modTablero(dat);
-        
-        int expected3=4;
-        assertTrue(tbombas.getFilas()==5);
-        assertTrue(tbombas.getColumnas()==5);
-        assertTrue(tbombas.getNivel()==2);
-        int [][] cas_sel=mockVentana.getTableroConBombas();
+
+        int [][] cas_sel= {{0,1},{1,0},{1,4},{2,2},{5,1},{4,1},{5,4},{7,0},{7,7}};
+        int expected3=cas_sel.length;
         tbombas.repartirBombasManual(cas_sel);
         assertTrue(tbombas.getNBombas()==expected3);
         
@@ -271,32 +268,101 @@ public class TableroTest extends TestCase{
         int[] jugada=mockVentana.registraClick();
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
         jugada[2]=1;
-        tjugada.insertarJugarda(jugada);
+        tjugada.insertarJugada(jugada);
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==2);
-        tjugada.insertarJugarda(jugada);
+        tjugada.insertarJugada(jugada);
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
         jugada[2]=0;
-        tjugada.insertarJugarda(jugada);
+        tjugada.insertarJugada(jugada);
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
     }
     
     @Test 
     public void testNumVecinos() throws IOException {
-        VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
-        Tablero t=new Tablero(5,5,200,203,2);
-
-        int [][] casillas_seleccionadas=mockobj.getTableroConBombas();
-        int [] coordenadas=mockobj.registraClick();
-        coordenadas[0]=1;
-        coordenadas[1]=2;
-
-        int num_bombas=4;
-        int num_bombas_expected=3;
-        t.setVentana(mockobj);
-        t.repartirBombasManual(casillas_seleccionadas);
-
-        t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
-        assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+    	VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
+    	
+    	Tablero t=new Tablero(5,5,200,203,2);
+    	
+    	int [] coordenadas=mockobj.registraClick();
+    	//probando esquina arriba izquierda
+    	coordenadas[0]=0;
+    	coordenadas[1]=0;
+    	
+    	int num_bombas=t.calculaNumBombas(); //4
+    	int num_bombas_expected=2;
+    	t.setVentana(mockobj);
+    	int[][] casillas_seleccionadas= {{0,1},{1,0},{1,4},{2,2}};
+	    t.repartirBombasManual(casillas_seleccionadas);
+	    num_bombas=t.getNBombas();
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    //probando esquina arriba derecha
+	    coordenadas[0]=0;
+    	coordenadas[1]=4;
+    	num_bombas_expected=1;
+    	 t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+ 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+   
+	    //probando esquina abajo izquierda
+ 	    Tablero t2=new Tablero(6,6,100,100,3);
+ 	    coordenadas[0]=5;
+ 	    coordenadas[1]=0;
+ 	    int [][] casilla_bomb= {{0,1},{1,0},{1,4},{2,2},{5,1},{4,1},{5,4}};
+	   	num_bombas=t2.calculaNumBombas(); //4
+	   	num_bombas_expected=2;
+	   	t2.setVentana(mockobj);
+	    t2.repartirBombasManual(casilla_bomb);
+	    num_bombas=t2.getNBombas();
+	    t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+ 	    
+	    //probando esquina abajo derecha
+	    coordenadas[0]=5;
+    	coordenadas[1]=5;
+    	num_bombas_expected=1;
+    	 t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+ 	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    
+	    //probando tope inferior
+ 	    coordenadas[0]=5;
+	   	coordenadas[1]=2;
+	   	num_bombas_expected=2;
+	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    
+	    
+	  //probando tope superior
+ 	    coordenadas[0]=0;
+	   	coordenadas[1]=4;
+	   	num_bombas_expected=1;
+	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    
+	    
+	    //probando tope izquierdo
+	    
+	    coordenadas[0]=4;
+	   	coordenadas[1]=0;
+	   	num_bombas_expected=2;
+	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    
+	    //probando tope derecho
+	    
+	    coordenadas[0]=2;
+	   	coordenadas[1]=5;
+	   	num_bombas_expected=1;
+	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    
+	    
+	    //probando uno central sin bordes
+	   
+	    coordenadas[0]=1;
+	   	coordenadas[1]=1;
+	   	num_bombas_expected=3;
+	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
     }
     
 }

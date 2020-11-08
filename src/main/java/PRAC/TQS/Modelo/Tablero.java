@@ -99,6 +99,7 @@ public class Tablero {
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
     public int getNBombas() {return this.n_bombas;}
+    public boolean getExplosion() {return this.explosion;}
     
     public int calculaNumBombas() {
     	double porcentaje;
@@ -161,7 +162,7 @@ public class Tablero {
     	}	
     }
     
-    public void insertarJugarda(int[] jugada) {
+    public void insertarJugada(int[] jugada) {
     	if(jugada[2]==0) {	//Click izq
     		abrirCasilla(jugada[0], jugada[1]);
     	} else {	//Click der
@@ -173,91 +174,141 @@ public class Tablero {
     	int fil=c.getFila();
     	int col=c.getColumna();
     	int numbomb=0;
-    	
-    	if(fil==0) { 
-    		if(col==0){ //   [0][0]    --> esquina arriba izq
-        		if(tablero[fil+1][col].getBomba()) {
+    	if(!c.getBomba()) {
+    		if(fil==0) { 
+        		if(col==0){ //   [0][0]    --> esquina arriba izq
+            		if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col+1].getBomba()) {
+            			numbomb++;
+            		}	
+            	}else if (col==this.columnas-1) {   //   [0][MAX]       -->esquina arriba der
+            		if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+            	
+            	}else {     //[0][x]
+            		if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col+1].getBomba()) {
+            			numbomb++;
+            		}	
+            		if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+            	} 
+        	}else if(col==0) { // [X][0]
+        		
+        		if(fil==this.filas-1) {
+        			if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        		
+        		}else {
+        		if(tablero[fil-1][col].getBomba()) {
         			numbomb++;
         		}
         		if(tablero[fil][col+1].getBomba()) {
         			numbomb++;
         		}
-        		if(tablero[fil+1][col+1].getBomba()) {
-        			numbomb++;
-        		}	
-        	}else if (col==this.columnas) {   //   [0][MAX]       -->esquina arriba der
-        		if(tablero[fil][col-1].getBomba()) {
-        			numbomb++;
-        		}
         		if(tablero[fil+1][col].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-        	
-        	}else {     //[0][x]
-        		if(tablero[fil+1][col].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil][col+1].getBomba()) {
         			numbomb++;
         		}
         		if(tablero[fil+1][col+1].getBomba()) {
         			numbomb++;
+        		}
+        		if(tablero[fil-1][col+1].getBomba()) {
+        			numbomb++;
+        		}
+        		}
+        	}else if(fil==this.filas-1) { 
+        		if(col==this.filas-1) {    //[MAX][MAX]   -->esquina abajo der
+        			if(tablero[fil-1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+        			
+        		}else {     //     [MAX][X]
+        			if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        		
         		}	
+        	}else if(col==this.columnas-1) {  //[X][MAX]
         		if(tablero[fil][col-1].getBomba()) {
         			numbomb++;
         		}
-        		if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-        	}
-    	}else if(col==0) { // [X][0]
-    		if(tablero[fil-1][col].getBomba()) {
-    			numbomb++;
-    		}
-    		if(tablero[fil][col+1].getBomba()) {
-    			numbomb++;
-    		}
-    		if(tablero[fil+1][col].getBomba()) {
-    			numbomb++;
-    		}
-    		if(tablero[fil+1][col+1].getBomba()) {
-    			numbomb++;
-    		}
-    		if(tablero[fil-1][col+1].getBomba()) {
-    			numbomb++;
-    		}
-    		
-    	}else if(fil==this.filas-1) { 
-    		if(col==this.filas-1) {    //[MAX][MAX]   -->esquina abajo der
     			if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil][col-1].getBomba()) {
         			numbomb++;
         		}
     			if(tablero[fil-1][col].getBomba()) {
         			numbomb++;
         		}
+    			if(tablero[fil+1][col-1].getBomba()) {
+        			numbomb++;
+        		}
+    			if(tablero[fil+1][col].getBomba()) {
+        			numbomb++;
+        		}	
+        		
+        	}else {  // posicion sin bordes
+        		if(tablero[fil][col-1].getBomba()) {
+        			numbomb++;
+        		}
+    			if(tablero[fil-1][col-1].getBomba()) {
+        			numbomb++;
+        		}
+    			if(tablero[fil-1][col].getBomba()) {
+        			numbomb++;
+        		}
+    			if(tablero[fil+1][col-1].getBomba()) {
+        			numbomb++;
+        		}
+    			if(tablero[fil+1][col].getBomba()) {
+        			numbomb++;
+        		}	
     			
-    		}else if(col==0) {          //[MAX][0] --> esquina abajo izq
-    			if(tablero[fil-1][col].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col+1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil][col+1].getBomba()) {
-        			numbomb++;
-        		}
-    		}
-    		else {     //     [MAX][X]
-    			if(tablero[fil-1][col].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil][col-1].getBomba()) {
+    			if(tablero[fil+1][col+1].getBomba()) {
         			numbomb++;
         		}
     			if(tablero[fil][col+1].getBomba()) {
@@ -265,57 +316,11 @@ public class Tablero {
         		}
     			if(tablero[fil-1][col+1].getBomba()) {
         			numbomb++;
-        		}
-    			if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    		
-    		}	
-    	}else if(col==this.columnas-1) {  //[X][MAX]
-    		if(tablero[fil][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil-1][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil-1][col].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil+1][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil+1][col].getBomba()) {
-    			numbomb++;
-    		}	
-    		
-    	}else {  // posicion sin bordes
-    		if(tablero[fil][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil-1][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil-1][col].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil+1][col-1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil+1][col].getBomba()) {
-    			numbomb++;
-    		}	
-			
-			if(tablero[fil+1][col+1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil][col+1].getBomba()) {
-    			numbomb++;
-    		}
-			if(tablero[fil-1][col+1].getBomba()) {
-    			numbomb++;
-    		}		
+        		}		
+        	}
+        
+        	tablero[c.getFila()][c.getColumna()].setVecinos(numbomb);	 
+        }
+
     	}
-    
-    	tablero[c.getFila()][c.getColumna()].setVecinos(numbomb);	 
-    }
 }

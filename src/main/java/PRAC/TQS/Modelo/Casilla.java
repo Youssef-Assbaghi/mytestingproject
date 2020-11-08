@@ -161,5 +161,12 @@ public class Casilla extends JPanel{
     public void setPrimera() {
     	primera=true;
     }
+    
+    public JPanel actualizar_casilla() {		//Cosa de vista
+    	changeSprite();
+    	return panel;
+    }
+    
+    
       
 }
