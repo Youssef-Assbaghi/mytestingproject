@@ -128,6 +128,9 @@ public class Tablero {
     	}
     }
     
+    public void repartirBombasManual(int nbombas, int[][] coords) {
+    }
+    
     public void abrirCasilla(int x, int y) {
     	if (getCasilla(x,y).getEstado()==CERRADO) {
     		getCasilla(x,y).setEstado(ABIERTO);

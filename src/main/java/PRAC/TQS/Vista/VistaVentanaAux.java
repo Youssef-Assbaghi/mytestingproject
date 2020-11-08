@@ -7,4 +7,5 @@ public interface VistaVentanaAux {
 	int prueba(int a, int b);
 	int[] pasarDatos();
 	int [] registraClick();
+	int [][] getTableroConBombas();
 }

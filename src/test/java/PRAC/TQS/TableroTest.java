@@ -173,6 +173,40 @@ public class TableroTest extends TestCase{
     }
     
     @Test
+    public void testrepartirBombasManual() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tbombas=new Tablero();
+    	tbombas.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=2;
+        int n_bombas=4;
+        tbombas.modTablero(dat);
+        
+        int expected3=4;
+        assertTrue(tbombas.getFilas()==5);
+        assertTrue(tbombas.getColumnas()==5);
+        assertTrue(tbombas.getNivel()==2);
+        int [][] cas_sel=mockVentana.getTableroConBombas();
+        tbombas.repartirBombasManual(n_bombas,cas_sel);
+        
+        assertTrue(n_bombas==expected3);
+        int bombas_correctas=0;
+        int bombas_correctas_expected=n_bombas;
+        
+        for(int i=0;i<n_bombas;i++) {
+        	if(tbombas.getCasilla(cas_sel[i][0], cas_sel[i][1]).getBomba()==true) {
+        		bombas_correctas+=1;
+        		//System.out.println("BOMBA EN: "+ cas_sel[i][0]+" " +cas_sel[i][1]);
+        	}      		
+        }
+        assertEquals(bombas_correctas,bombas_correctas_expected);
+    }
+    
+    @Test
     public void testabrirCasilla() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	
@@ -197,7 +231,7 @@ public class TableroTest extends TestCase{
     	
     	Tablero tmarcar=new Tablero();
     	tmarcar.setVentana(mockVentana);
-        
+         
         int[] dat=mockVentana.pasarDatos();
         dat[0]=5;
         dat[1]=5;
