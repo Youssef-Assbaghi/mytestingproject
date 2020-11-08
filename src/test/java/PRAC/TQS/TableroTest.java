@@ -191,4 +191,22 @@ public class TableroTest extends TestCase{
         assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==1);
     }
     
+    @Test
+    public void testmarcarCasilla() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	
+    	Tablero tabrir=new Tablero();
+    	tabrir.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
+        tabrir.modTablero(dat);
+        
+        int[] coords=mockVentana.registraClick();
+        tabrir.marcarCasilla(coords);    
+        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==2);
+    }
+    
 }

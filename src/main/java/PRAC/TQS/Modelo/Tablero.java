@@ -136,8 +136,6 @@ public class Tablero {
     	}
     }
     
-    
-    
-    
-    
+    public void marcarCasilla(int[] coords) {	
+    }    
 }
