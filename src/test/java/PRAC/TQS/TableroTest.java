@@ -224,6 +224,13 @@ public class TableroTest extends TestCase{
         tjugada.modTablero(dat);
         
         int[] jugada=mockVentana.registraClick();
+        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
+        jugada[2]=1;
+        tjugada.insertarJugarda(jugada);
+        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==2);
+        tjugada.insertarJugarda(jugada);
+        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
+        jugada[2]=0;
         tjugada.insertarJugarda(jugada);
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
     }

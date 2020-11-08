@@ -150,6 +150,10 @@ public class Tablero {
     }
     
     public void insertarJugarda(int[] jugada) {
-
+    	if(jugada[2]==0) {	//Click izq
+    		abrirCasilla(jugada[0], jugada[1]);
+    	} else {	//Click der
+    		marcarCasilla(jugada[0], jugada[1]);
+    	}
     }
 }
