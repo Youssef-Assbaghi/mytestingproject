@@ -19,7 +19,7 @@ public class Tablero {
 
     private int filas;
     private int columnas;
-    private Casilla[][] tablero;
+    private Casilla[][] tablero; 
     private int nivel;
     private int ancho;
     private int alto;

@@ -70,10 +70,10 @@ public class Casilla extends JPanel{
 		Casilla c= (Casilla)anObject;
 		return((c.getFila()==this.getFila())&&(c.getColumna()==this.getColumna())&&(c.getAltura()==this.getAltura())&&(c.getAnchura()==this.getAnchura())&&(c.gettotalFilas()==this.gettotalFilas())&&(c.gettotalColumnas()==this.gettotalColumnas()));
 	}
-    
+     
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
         Image auximage=oldimage.getImage();
-        Image output_image=auximage.getScaledInstance((altura/this.tot_columnas)-20,((anchura/this.tot_filas)-20), java.awt.Image.SCALE_SMOOTH);
+        Image output_image=auximage.getScaledInstance((altura/this.tot_columnas),((anchura/this.tot_filas)), java.awt.Image.SCALE_SMOOTH);
         ImageIcon newimage=new ImageIcon(output_image);
         return newimage;
     }
