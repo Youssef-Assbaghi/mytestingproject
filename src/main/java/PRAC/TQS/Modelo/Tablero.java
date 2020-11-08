@@ -128,7 +128,12 @@ public class Tablero {
     }
     
     public void abrirCasilla(int[] coords) {
-    	
+    	if (getCasilla(coords[0],coords[1]).getEstado()==CERRADO) {
+    		getCasilla(coords[0],coords[1]).setEstado(ABIERTO);
+    		if(getCasilla(coords[0],coords[1]).getBomba()==true) {
+    			explosion=true;
+    		}
+    	}
     }
     
     
