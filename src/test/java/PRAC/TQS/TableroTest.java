@@ -205,6 +205,7 @@ public class TableroTest extends TestCase{
         tabrir.modTablero(dat);
         
         int[] coords=mockVentana.registraClick();
+        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==0);
         tabrir.marcarCasilla(coords);    
         assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==2);
     }

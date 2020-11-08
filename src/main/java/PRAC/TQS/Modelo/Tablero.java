@@ -136,6 +136,13 @@ public class Tablero {
     	}
     }
     
-    public void marcarCasilla(int[] coords) {	
+    public void marcarCasilla(int[] coords) {
+    	if (getCasilla(coords[0],coords[1]).getEstado()==CERRADO) {
+    		getCasilla(coords[0],coords[1]).setEstado(BANDERA);
+    	} else {
+    		if (getCasilla(coords[0],coords[1]).getEstado()==BANDERA) {
+        		getCasilla(coords[0],coords[1]).setEstado(CERRADO);
+        	}
+    	}	
     }    
 }
