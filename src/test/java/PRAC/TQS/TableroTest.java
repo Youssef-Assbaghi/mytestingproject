@@ -274,7 +274,6 @@ public class TableroTest extends TestCase{
         VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
         Tablero t=new Tablero(5,5,200,203,2);
 
-
         int [][] casillas_seleccionadas=mockobj.getTableroConBombas();
         int [] coordenadas=mockobj.registraClick();
         coordenadas[0]=1;

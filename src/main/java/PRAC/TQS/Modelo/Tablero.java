@@ -129,6 +129,10 @@ public class Tablero {
     }
     
     public void repartirBombasManual(int nbombas, int[][] coords) {
+    	this.n_bombas=nbombas;
+    	for(int i=0;i<nbombas;i++) {
+    		getCasilla(coords[i][0],coords[i][1]).setBomba();
+    	}
     }
     
     public void abrirCasilla(int x, int y) {
@@ -305,8 +309,8 @@ public class Tablero {
 			if(tablero[fil-1][col+1].getBomba()) {
     			numbomb++;
     		}		
-    	}   
+    	}
+    
     	tablero[c.getFila()][c.getColumna()].setVecinos(numbomb);	 
     }
-    
 }
