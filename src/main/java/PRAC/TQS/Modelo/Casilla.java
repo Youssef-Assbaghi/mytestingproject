@@ -133,7 +133,7 @@ public class Casilla extends JPanel{
         			break;		
         		}
     		}
-    		break;  	
+    		break;
     	case BANDERA:
     		oldimage=new ImageIcon("sprites/flag.png");
     		break;

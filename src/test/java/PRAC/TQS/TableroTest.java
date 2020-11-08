@@ -269,4 +269,24 @@ public class TableroTest extends TestCase{
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
     }
     
+    @Test 
+    public void testNumVecinos() throws IOException {
+        VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
+        Tablero t=new Tablero(5,5,200,203,2);
+
+
+        int [][] casillas_seleccionadas=mockobj.getTableroConBombas();
+        int [] coordenadas=mockobj.registraClick();
+        coordenadas[0]=1;
+        coordenadas[1]=2;
+
+        int num_bombas=4;
+        int num_bombas_expected=3;
+        t.setVentana(mockobj);
+        t.repartirBombasManual(num_bombas, casillas_seleccionadas);
+
+        t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+        assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+    }
+    
 }
