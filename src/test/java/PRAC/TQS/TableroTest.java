@@ -2,6 +2,7 @@ package PRAC.TQS;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
@@ -191,19 +192,25 @@ public class TableroTest extends TestCase{
         assertTrue(tbombas.getColumnas()==5);
         assertTrue(tbombas.getNivel()==2);
         int [][] cas_sel=mockVentana.getTableroConBombas();
-        tbombas.repartirBombasManual(n_bombas,cas_sel);
+        tbombas.repartirBombasManual(cas_sel);
+        assertTrue(tbombas.getNBombas()==expected3);
         
-        assertTrue(n_bombas==expected3);
         int bombas_correctas=0;
         int bombas_correctas_expected=tbombas.getNBombas();
         
+        boolean yacontado=false;
         for(int i=0;i<tbombas.getFilas();i++) {
         	for (int j=0;j<tbombas.getColumnas();j++) {
         		if (tbombas.getCasilla(i, j).getBomba()==true) {
-        			if((tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[0][0], cas_sel[0][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[1][0], cas_sel[1][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[2][0], cas_sel[2][1]))||(tbombas.getCasilla(i, j)==tbombas.getCasilla(cas_sel[3][0], cas_sel[3][1]))){
-        				bombas_correctas+=1;
+        			for (int x=0;x<cas_sel.length;x++) {
+        				if((tbombas.getCasilla(i, j).getFila()==cas_sel[x][0])&&(tbombas.getCasilla(i, j).getColumna()==cas_sel[x][1])) {
+        					if(!yacontado) {
+        						bombas_correctas+=1;
+            					yacontado=true;
+        					} 					
+        				}
         			}
-
+        			yacontado=false;
         		}
         	}
         }
@@ -286,7 +293,7 @@ public class TableroTest extends TestCase{
         int num_bombas=4;
         int num_bombas_expected=3;
         t.setVentana(mockobj);
-        t.repartirBombasManual(num_bombas, casillas_seleccionadas);
+        t.repartirBombasManual(casillas_seleccionadas);
 
         t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
         assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);

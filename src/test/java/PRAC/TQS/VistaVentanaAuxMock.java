@@ -31,7 +31,7 @@ public class VistaVentanaAuxMock implements VistaVentanaAux{
 	
 	@Override
 	public int[][] getTableroConBombas() {
-		int[][] casilla_bomb= {{0,1},{0,4},{1,3},{2,2}};
+		int[][] casilla_bomb= {{0,1},{0,1},{0,4},{1,3},{2,2}};
 		return casilla_bomb;
 	}
 	

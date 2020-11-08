@@ -128,9 +128,9 @@ public class Tablero {
     	}
     }
     
-    public void repartirBombasManual(int nbombas, int[][] coords) {
+    public void repartirBombasManual(int[][] coords) {
     	int bombas_colocadas=0;
-    	for(int i=0;i<nbombas;i++) {
+    	for(int i=0;i<coords.length;i++) {
     		if((getCasilla(coords[i][0],coords[i][1]).getBomba()==false)) {
     			getCasilla(coords[i][0],coords[i][1]).setBomba();
     			bombas_colocadas+=1;
