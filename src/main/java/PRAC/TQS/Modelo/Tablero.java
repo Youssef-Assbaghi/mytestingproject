@@ -31,6 +31,7 @@ public class Tablero {
     
     private boolean explosion=false;
     private int n_banderas=0;
+    private int n_casillascerradas;
     
     private VistaVentanaAux ventana;
     public void setVentana(VistaVentanaAux ven) {
@@ -90,6 +91,7 @@ public class Tablero {
                 tablero[fila][col]=c;
             }
         }
+        this.n_casillascerradas=this.filas*this.columnas;
     }
 
     public Casilla getCasilla(int fila, int columna) {return tablero[fila][columna];}
@@ -99,7 +101,6 @@ public class Tablero {
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
     public int getNBombas() {return this.n_bombas;}
-    public boolean getExplosion() {return this.explosion;}
     
     public int calculaNumBombas() {
     	double porcentaje;
@@ -146,7 +147,7 @@ public class Tablero {
     		if(getCasilla(x,y).getBomba()==true) {
     			explosion=true;
     		}
-    	}
+    	}this.n_casillascerradas--;
     }
     
     public void marcarCasilla(int x, int y) {
@@ -167,7 +168,28 @@ public class Tablero {
     	} else {	//Click der
     		marcarCasilla(jugada[0], jugada[1]);
     	}
+    	System.out.println(this.n_casillascerradas);
     }
+    
+    public boolean checkWin() {
+    	int correctas=0;
+        boolean win=false;
+        if(this.n_casillascerradas==getNBombas())
+        {
+        	for (int fila=0; fila<filas; fila++) {
+                for (int col=0; col<columnas; col++) {
+                    if(((getCasilla(fila,col).getEstado()==0)||(getCasilla(fila,col).getEstado()==2))&&(getCasilla(fila,col).getBomba()==true)){                   	
+                    	correctas+=1;
+                    }
+                }
+            }
+        	if(correctas==getNBombas())       		
+        		win=true;
+        }
+        return win;
+    }
+
+    public boolean checkLose() {return this.explosion; }
     
     public void getNumVecinos(Casilla c) {
     	int fil=c.getFila();

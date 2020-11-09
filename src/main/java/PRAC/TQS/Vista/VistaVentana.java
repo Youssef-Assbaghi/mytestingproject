@@ -2,12 +2,16 @@ package PRAC.TQS.Vista;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import PRAC.TQS.Modelo.Casilla;
 import PRAC.TQS.Modelo.Tablero;
@@ -33,11 +38,16 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private JButton restartb;
     private JPanel extra;
     */   
+    private JLabel game_over;
+    private JPanel game_final;
     private JFrame ventana_menu;
     private  JButton aceptar=new JButton("ACEPTAR");
     JTextField input_filas = new JTextField();
     JTextField input_columnas= new JTextField();
     JTextField input_nivel=new JTextField();
+    
+    private JFrame win;
+    private JFrame lose;
     
     private int filas=-1;
     private int columnas;
@@ -59,6 +69,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 	        ventana.setSize(ancho,alto);
 	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        ventana.setVisible(true);
+	        ventana.setLocationRelativeTo(null);
 	        ventana.setResizable(true);
 	        crearVistaTablero(t);
 	        ventana.setVisible(true);
@@ -130,7 +141,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         JLabel mensaje_level=new JLabel("Inserte el nivel(entre 1-3)");
         JLabel vacio= new JLabel();
 
-        g1.setRows(4);
+        g1.setRows(3);
         g1.setColumns(2);
         
         tv=t;
@@ -150,6 +161,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         ventana_menu.setSize(600,200);
         ventana_menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana_menu.setVisible(true);
+        ventana_menu.setLocationRelativeTo(null);
         ventana_menu.setResizable(true);
         /*
         int x=0;
@@ -188,6 +200,52 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
             } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
         }     
     }
+    
+    public void crearVentanaLose() {
+        ventana.setVisible(false);
+        JFrame frame_over = new JFrame("LOSE");
+        frame_over.setSize(400, 400);
+        frame_over.setLocationRelativeTo(null);
+        frame_over.setVisible(true);
+        frame_over.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame_over.setLayout(new GridBagLayout());
+        JPanel panel = new JPanel();
+        JLabel jlabel = new JLabel("HAS PERDIDO");
+        jlabel.setFont(new Font("Comic Sans",3,50));
+        jlabel.setForeground(Color.yellow);
+        panel.add(jlabel);
+        Border Borde =BorderFactory.createLineBorder(Color.MAGENTA,10);
+        panel.setBorder(Borde);
+        panel.setBackground(Color.pink);
+        frame_over.getContentPane().setBackground(Color.cyan);
+        frame_over.add(panel);
+        
+        
+
+    }
+    public void crearVentanaWin() {
+
+        ventana.setVisible(false);
+        JFrame frame_over = new JFrame("WIN");
+        frame_over.setSize(400, 400);
+        frame_over.setLocationRelativeTo(null);
+
+        frame_over.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame_over.setLayout(new GridBagLayout());
+        JPanel panel = new JPanel();
+        JLabel jlabel = new JLabel("HAS GANADO");
+        jlabel.setFont(new Font("Cortana",7,50));
+        jlabel.setForeground(Color.yellow);
+        panel.add(jlabel);
+        Border Borde =BorderFactory.createLineBorder(Color.CYAN,10);
+        panel.setBorder(Borde);
+        panel.setBackground(Color.white);
+        frame_over.getContentPane().setBackground(Color.GREEN);
+        frame_over.add(panel);
+
+        frame_over.setVisible(true);
+
+}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

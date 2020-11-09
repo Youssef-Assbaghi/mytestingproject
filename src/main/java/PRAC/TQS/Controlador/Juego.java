@@ -46,7 +46,6 @@ public class Juego {
 		System.out.println(jugada[0] + " " + jugada[1] + " " + jugada[2]);
 		
 		t.abrirCasilla(jugada[0], jugada[1]);
-		t.getCasilla(jugada[0], jugada[1]).actualizar_casilla();
 		t.getCasilla(jugada[0], jugada[1]).setPrimera();
 		t.repartirBombas();
 		
@@ -55,11 +54,13 @@ public class Juego {
 				t.getNumVecinos(t.getCasilla(f, c));
 			}
 		}
+		
 		t.getCasilla(jugada[0], jugada[1]).actualizar_casilla();
 		
-		int a=1;
+		boolean win=false;
+		boolean lose=false;
 		
-		while(a==1) {
+		while((!win)&&(!lose)) {
 			jugada=v.getJugada();
 			if(jugada[2]==1) {	//bandera
 				t.marcarCasilla(jugada[0], jugada[1]);
@@ -67,8 +68,15 @@ public class Juego {
 			}else {		//abrir
 				t.abrirCasilla(jugada[0], jugada[1]);
 				t.getCasilla(jugada[0], jugada[1]).actualizar_casilla();
-				//check
-			}
+				lose=t.checkLose();
+			}			
+			win=t.checkWin();
+		}
+		
+		if(win) {		//SI GANAS
+			v.crearVentanaWin();
+		}else {			//SI PIERDES
+			v.crearVentanaLose();
 		}
 		
 	}

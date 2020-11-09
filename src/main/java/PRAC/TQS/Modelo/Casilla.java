@@ -30,6 +30,7 @@ public class Casilla extends JPanel{
     private int estado;
     private int vecinos;
     private boolean primera;
+
     
     public Casilla() {
     	this.fila=0;
