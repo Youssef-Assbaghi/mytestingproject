@@ -26,39 +26,44 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
+    /*
     private JPanel arriba;
     private JPanel banderas;
     private JPanel restart;
     private JButton restartb;
     private JPanel extra;
-    
+    */   
     private JFrame ventana_menu;
     private  JButton aceptar=new JButton("ACEPTAR");
     JTextField input_filas = new JTextField();
     JTextField input_columnas= new JTextField();
     JTextField input_nivel=new JTextField();
     
-    private int filas;
+    private int filas=-1;
     private int columnas;
     private int nivel;
     private int fila_click;
     private int columna_click;
     private int click;
-    private Tablero t;
+    private Tablero tv;
+    private int[] jugada={0,0,0};
+    boolean i=false;
+    int contador=-1;
+    
     
 	
-	public void crearVentana() throws IOException {
+	public void crearVentana(Tablero t) throws IOException {
 	        ventana = new JFrame("BUSCAMINAS TQS");
 	        ventana.setSize(ancho,alto);
 	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        ventana.setVisible(true);
 	        ventana.setResizable(true);
-	        crearVistaTablero();
+	        crearVistaTablero(t);
 	        ventana.setVisible(true);
 	        
 	 }
 	
-	public void crearVistaTablero() throws IOException {
+	public void crearVistaTablero(Tablero t) throws IOException {
         todo = new JPanel();
         todo.setLayout(new BoxLayout(todo,BoxLayout.Y_AXIS));
         content=new JPanel(new GridLayout(this.filas,this.columnas));
@@ -91,10 +96,12 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         arriba.add(banderas);
         arriba.add(extra);
 		*/
-        t=new Tablero(this.filas,this.columnas,this.alto,this.ancho,this.nivel);
+        
+        int[] datos= {this.filas,this.columnas,this.alto,this.ancho,this.nivel};
+        t.modTablero(datos);
 
-        for (int fila=0; fila<this.filas; fila++) {
-            for (int col=0; col<this.columnas; col++) {
+        for (int fila=0; fila<t.getFilas(); fila++) {
+            for (int col=0; col<t.getColumnas(); col++) {
                 content.add(t.getCasilla(fila, col).getLabel());
             }
         }
@@ -102,9 +109,10 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
        // todo.add(arriba);
         todo.add(content);
         ventana.setContentPane(todo);
+        
     }
 
-	public void crearVentanaMenu() {
+	public void crearVentanaMenu(Tablero t) {
 
         ventana_menu=new JFrame("MENU BUSCAMINAS");
         GridLayout g1=new GridLayout();
@@ -118,6 +126,8 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 
         g1.setRows(4);
         g1.setColumns(2);
+        
+        tv=t;
 
         ventana_menu.getContentPane();
         ventana_menu.setLayout(g1);
@@ -134,7 +144,12 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         ventana_menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana_menu.setVisible(true);
         ventana_menu.setResizable(true);
+        while(this.filas==-1) {
+        	//bucle para que no avance sin los datos
+        }
     }
+	
+	public int[] getJugada() {return jugada;}
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -147,10 +162,10 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
                     JOptionPane.showMessageDialog(null,"Número no valido. Pruebe otra vez");
                 }else {
                     ventana_menu.setVisible(false);
-                    crearVentana();
+                    crearVentana(tv);                
                 }
             } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
-        }
+        }     
     }
 
 	@Override
@@ -190,6 +205,13 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         }
 		this.fila_click=((arg0.getY())/(this.alto/this.filas));
 		this.columna_click=(arg0.getX()/(this.ancho/this.columnas));
+		jugada[0]=this.fila_click;
+		jugada[1]=this.columna_click;
+		jugada[2]=this.click;
+		contador++;
+		if(contador<1)
+			jugada[2]=1;
+		
 		System.out.println("FILA:"+this.fila_click+"    COLUMNA:"+this.columna_click);		
 	}
 

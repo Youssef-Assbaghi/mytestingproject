@@ -141,6 +141,12 @@ public class Casilla extends JPanel{
     	default:
     		oldimage=new ImageIcon("sprites/casilla.png");
     	}
+    	/*
+    	panel.remove(picLabel);
+        picLabel = new JLabel();
+        panel.add(picLabel);
+        */
+    	
     	newimage = new ImageIcon();
         newimage=changesize(oldimage,height,width);
         picLabel.setIcon(newimage);
@@ -163,7 +169,14 @@ public class Casilla extends JPanel{
     }
     
     public JPanel actualizar_casilla() {		//Cosa de vista
+    	//panel = new JPanel();
+        //picLabel = new JLabel();
+    	
     	changeSprite();
+    	//picLabel.revalidate();
+    	
+    	//panel.add(picLabel);
+    	//repaint();
     	return panel;
     }
     

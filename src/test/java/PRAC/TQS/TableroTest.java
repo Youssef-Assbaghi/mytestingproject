@@ -250,7 +250,7 @@ public class TableroTest extends TestCase{
         assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==0);
         tmarcar.marcarCasilla(coords[0],coords[1]);    
         assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==2);
-    }
+    } 
     
     @Test
     public void testinsertarJugada() {

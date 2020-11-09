@@ -111,7 +111,7 @@ public class Tablero {
     		porcentaje=0.205;
     	}
     	this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
-    	
+    	System.out.println("hola " + this.n_bombas);
      	return this.n_bombas;
     }
     
