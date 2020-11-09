@@ -219,17 +219,15 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         panel.setBackground(Color.pink);
         frame_over.getContentPane().setBackground(Color.cyan);
         frame_over.add(panel);
-        
-        
-
     }
+    
     public void crearVentanaWin() {
 
         ventana.setVisible(false);
         JFrame frame_over = new JFrame("WIN");
         frame_over.setSize(400, 400);
         frame_over.setLocationRelativeTo(null);
-
+        frame_over.setVisible(true);
         frame_over.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame_over.setLayout(new GridBagLayout());
         JPanel panel = new JPanel();
@@ -242,9 +240,6 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         panel.setBackground(Color.white);
         frame_over.getContentPane().setBackground(Color.GREEN);
         frame_over.add(panel);
-
-        frame_over.setVisible(true);
-
 }
 
 	@Override
