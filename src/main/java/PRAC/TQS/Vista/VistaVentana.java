@@ -22,7 +22,7 @@ import PRAC.TQS.Modelo.Tablero;
 public class VistaVentana extends JPanel implements MouseListener,ActionListener{
 
 	private int alto=639;	//39 por arriba
-    private int ancho=600;	//16 por lados
+    private int ancho=620;	//16 por lados
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
@@ -47,12 +47,14 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private int click;
     private Tablero tv;
     private int[] jugada={0,0,0};
-    boolean i=false;
+    boolean finalizado=false;
+    boolean fmenu=false;
     int contador=-1;
     
     
 	
 	public void crearVentana(Tablero t) throws IOException {
+			System.out.println("CONTROL VENTANA");
 	        ventana = new JFrame("BUSCAMINAS TQS");
 	        ventana.setSize(ancho,alto);
 	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +72,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         content.setBackground(Color.lightGray);
 
         todo.addMouseListener(this);
-   
+        
         /*
         arriba = new JPanel();
         //arriba.setSize(new Dimension(800,100));
@@ -109,10 +111,14 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
        // todo.add(arriba);
         todo.add(content);
         ventana.setContentPane(todo);
-        
-    }
+        System.out.println("CONTROL VISTATABLERO");
+        boolean fin=true;
+        setFinalizado(fin);
+        System.out.println("CONTROL FIN VISTATABLERO");
+        System.out.println(getFinalizado());
+    }	
 
-	public void crearVentanaMenu(Tablero t) {
+	public void crearVentanaMenu(Tablero t) throws IOException {
 
         ventana_menu=new JFrame("MENU BUSCAMINAS");
         GridLayout g1=new GridLayout();
@@ -128,7 +134,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         g1.setColumns(2);
         
         tv=t;
-
+        System.out.println("CONTROL VENTANA MENU");
         ventana_menu.getContentPane();
         ventana_menu.setLayout(g1);
         ventana_menu.add(mensaje_filas);
@@ -139,17 +145,31 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         ventana_menu.add(input_nivel);
         ventana_menu.add(vacio);
         ventana_menu.add(aceptar);
+
         aceptar.addActionListener(this);
         ventana_menu.setSize(600,200);
         ventana_menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana_menu.setVisible(true);
         ventana_menu.setResizable(true);
-        while(this.filas==-1) {
-        	//bucle para que no avance sin los datos
-        }
+        /*
+        int x=0;
+        while(getFinalizado()==false) {
+        	if(x<4) {
+        		System.out.println("ATASCO");
+        	x++;
+        	}      		
+        }*/
+        System.out.println("CONTROL FIN VENTANA MENU");
+        boolean b=true;
+        setFMenu(b);
     }
 	
 	public int[] getJugada() {return jugada;}
+	public int getFilas() {return filas;}
+	public boolean getFMenu() {return fmenu;}
+	public void setFMenu(boolean d) {fmenu=d;}
+	public boolean getFinalizado() {return finalizado;}
+	public void setFinalizado(boolean f) {finalizado=f;}
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -162,7 +182,8 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
                     JOptionPane.showMessageDialog(null,"Número no valido. Pruebe otra vez");
                 }else {
                     ventana_menu.setVisible(false);
-                    crearVentana(tv);                
+                    System.out.println("CONTROL ACTION");
+                    crearVentana(tv);    
                 }
             } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
         }     

@@ -16,13 +16,26 @@ public class Juego {
 		boolean comienzo=false;
 		t=new Tablero();
 		VistaVentana v= new VistaVentana();
-		
-		//while(comienzo==true) {
-		v.crearVentanaMenu(t); //crearVMenu -> crearV -> crearVistaTab -> crearTab
+		System.out.println("CONTROL 1");
 
+		v.crearVentanaMenu(t); //crearVMenu -> crearV -> crearVistaTab -> crearTab
+		boolean menu=false;
+		boolean resto=false;
+		menu=v.getFMenu();
+		resto=v.getFinalizado();
+		int z=0;
+		while((resto==false)||(menu==false)) {
+			if(z<5) {
+				System.out.println("ATASCO EN MAIN");
+				z++;
+			}
+			menu=v.getFMenu();
+			resto=v.getFinalizado();
+		}
+		
+		System.out.println("CONTROL 2");
 		
 		t.calculaNumBombas();
-		
 		
 		while(jugada[2]==1) {
 			System.out.println(jugada[0] + " " + jugada[1] + " " + jugada[2]);
