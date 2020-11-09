@@ -26,8 +26,8 @@ import PRAC.TQS.Modelo.Tablero;
 
 public class VistaVentana extends JPanel implements MouseListener,ActionListener{
 
-	private int alto=639;	//39 por arriba
-    private int ancho=620;	//16 por lados
+	private int alto=839;	//39 por arriba
+    private int ancho=820;	//16 por lados
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
@@ -64,13 +64,13 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     
 	
 	public void crearVentana(Tablero t) throws IOException {
-			System.out.println("CONTROL VENTANA");
+			//System.out.println("CONTROL VENTANA");
 	        ventana = new JFrame("BUSCAMINAS TQS");
 	        ventana.setSize(ancho,alto);
 	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        ventana.setVisible(true);
 	        ventana.setLocationRelativeTo(null);
-	        ventana.setResizable(true);
+	        ventana.setResizable(false);
 	        crearVistaTablero(t);
 	        ventana.setVisible(true);
 	        
@@ -122,11 +122,11 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
        // todo.add(arriba);
         todo.add(content);
         ventana.setContentPane(todo);
-        System.out.println("CONTROL VISTATABLERO");
+        //System.out.println("CONTROL VISTATABLERO");
         boolean fin=true;
         setFinalizado(fin);
-        System.out.println("CONTROL FIN VISTATABLERO");
-        System.out.println(getFinalizado());
+        //System.out.println("CONTROL FIN VISTATABLERO");
+        //System.out.println(getFinalizado());
     }	
 
 	public void crearVentanaMenu(Tablero t) throws IOException {
@@ -145,7 +145,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         g1.setColumns(2);
         
         tv=t;
-        System.out.println("CONTROL VENTANA MENU");
+        //System.out.println("CONTROL VENTANA MENU");
         ventana_menu.getContentPane();
         ventana_menu.setLayout(g1);
         ventana_menu.add(mensaje_filas);
@@ -171,18 +171,32 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         	x++;
         	}      		
         }*/
-        System.out.println("CONTROL FIN VENTANA MENU");
+        //System.out.println("CONTROL FIN VENTANA MENU");
         boolean b=true;
         setFMenu(b);
     }
 	
 	public int[] getJugada() {
+		try {
+			Thread.sleep((long) 0.5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return jugada;
 	}
 	public int getFilas() {return filas;}
 	public boolean getFMenu() {return fmenu;}
 	public void setFMenu(boolean d) {fmenu=d;}
-	public boolean getFinalizado() {return finalizado;}
+	public boolean getFinalizado() {
+		try {
+			Thread.sleep((long) 0.5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return finalizado;
+		}
 	public void setFinalizado(boolean f) {finalizado=f;}
     
     @Override
@@ -196,7 +210,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
                     JOptionPane.showMessageDialog(null,"Número no valido. Pruebe otra vez");
                 }else {
                     ventana_menu.setVisible(false);
-                    System.out.println("CONTROL ACTION");
+                    //System.out.println("CONTROL ACTION");
                     crearVentana(tv);    
                 }
             } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
@@ -274,10 +288,10 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 	public void mousePressed(MouseEvent arg0) {
 		if(arg0.getButton()==MouseEvent.BUTTON1) {
             this.click=0;
-            System.out.println("CLICK IZQUIERDO");
+            //System.out.println("CLICK IZQUIERDO");
         }else if(arg0.getButton()==MouseEvent.BUTTON3) {
             this.click=1;
-            System.out.println("CLICK DERECHO");
+            //System.out.println("CLICK DERECHO");
         }
 		contador++;
 		this.fila_click=((arg0.getY())/(this.alto/this.filas));
@@ -287,7 +301,8 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 		jugada[2]=this.click;
 		jugada[3]=this.contador;
 		
-		System.out.println("FILA:"+this.fila_click+"    COLUMNA:"+this.columna_click);		
+		//System.out.println("FILA:"+this.fila_click+"    COLUMNA:"+this.columna_click);
+		System.out.println("FILA:"+this.fila_click+"  COLUMNA:"+this.columna_click+"  ACCION:"+this.click+"  JUGADA:"+this.contador);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class Juego {
 		boolean comienzo=false;
 		t=new Tablero();
 		VistaVentana v= new VistaVentana();
-		System.out.println("CONTROL 1");
+
 
 		v.crearVentanaMenu(t); //crearVMenu -> crearV -> crearVistaTab -> crearTab
 		boolean resto=false;
@@ -28,15 +28,16 @@ public class Juego {
 			//System.out.println("ATASCO EN MAIN");
 			resto=v.getFinalizado();
 		}
-		
-		System.out.println("NO LLEGA EN EJECUCION NORMAL COÑO");
-		
+
 		t.calculaNumBombas();
+		System.out.println(t.calculaNumBombas());
 		
 		jugada_ant=v.getJugada();
-		while((jugada_ant[3]==0)||(jugada_ant[2]==1)) {	//bandera
+			
+		while((jugada_ant[3]==0)||(jugada_ant[2]==1)) {	
 			jugada_ant=v.getJugada();
 		}
+
 		jugada_ant_array[0]=jugada_ant[0];
 		jugada_ant_array[1]=jugada_ant[1];
 		jugada_ant_array[2]=jugada_ant[2];
