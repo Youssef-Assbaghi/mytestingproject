@@ -56,10 +56,10 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private int columna_click;
     private int click;
     private Tablero tv;
-    private int[] jugada={0,0,0};
+    private int[] jugada={0,0,0,0};
     boolean finalizado=false;
     boolean fmenu=false;
-    int contador=-1;
+    int contador=0;
     
     
 	
@@ -176,7 +176,9 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         setFMenu(b);
     }
 	
-	public int[] getJugada() {return jugada;}
+	public int[] getJugada() {
+		return jugada;
+	}
 	public int getFilas() {return filas;}
 	public boolean getFMenu() {return fmenu;}
 	public void setFMenu(boolean d) {fmenu=d;}
@@ -277,14 +279,13 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
             this.click=1;
             System.out.println("CLICK DERECHO");
         }
+		contador++;
 		this.fila_click=((arg0.getY())/(this.alto/this.filas));
 		this.columna_click=(arg0.getX()/(this.ancho/this.columnas));
 		jugada[0]=this.fila_click;
 		jugada[1]=this.columna_click;
 		jugada[2]=this.click;
-		contador++;
-		if(contador<1)
-			jugada[2]=1;
+		jugada[3]=this.contador;
 		
 		System.out.println("FILA:"+this.fila_click+"    COLUMNA:"+this.columna_click);		
 	}
