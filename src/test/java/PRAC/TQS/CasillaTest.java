@@ -35,6 +35,7 @@ public class CasillaTest extends TestCase{
     	assertTrue(c.getBomba()==false);
     	assertTrue(c.getEstado()==0);
     	assertTrue(c.getVecinos()==0);
+    	assertTrue(c.getPrimera()==false);
     }
     
     @Test
@@ -56,6 +57,7 @@ public class CasillaTest extends TestCase{
     	assertTrue(c2.getBomba()==false);
     	assertTrue(c2.getEstado()==0);
     	assertTrue(c2.getVecinos()==0);
+    	assertTrue(c2.getPrimera()==false);
     }
     
     @Test

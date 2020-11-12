@@ -31,6 +31,9 @@ public class TableroTest extends TestCase{
         assertTrue(t1.getFilas()==0);
         assertTrue(t1.getColumnas()==0);
         assertTrue(t1.getNivel()==0);
+        assertTrue(t1.getAncho()==0);
+        assertTrue(t1.getAlto()==0);
+        assertTrue(t1.getNBombas()==0);
     }
 
     @Test
@@ -45,6 +48,7 @@ public class TableroTest extends TestCase{
         assertTrue(t2.getNivel()==nivel);
         assertEquals(t2.getAlto(),alto);
         assertTrue(t2.getAncho()==ancho);
+        assertTrue(t1.getNBombas()==0);
     }
   
     @Test
