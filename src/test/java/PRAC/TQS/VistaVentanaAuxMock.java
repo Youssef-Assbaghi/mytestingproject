@@ -1,5 +1,4 @@
 package PRAC.TQS;
-import java.util.Hashtable;
 
 import PRAC.TQS.Modelo.Tablero;
 import PRAC.TQS.Vista.VistaVentanaAux;

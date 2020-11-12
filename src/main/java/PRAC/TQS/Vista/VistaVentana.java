@@ -1,7 +1,6 @@
 package PRAC.TQS.Vista;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,13 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import PRAC.TQS.Modelo.Casilla;
 import PRAC.TQS.Modelo.Tablero;
 
 public class VistaVentana extends JPanel implements MouseListener,ActionListener{
 
-	private int alto=839;	//39 por arriba
-    private int ancho=820;	//16 por lados
+	private int alto=639;	//39 por arriba
+    private int ancho=600;	//16 por lados
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
@@ -72,8 +70,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 	        ventana.setLocationRelativeTo(null);
 	        ventana.setResizable(false);
 	        crearVistaTablero(t);
-	        ventana.setVisible(true);
-	        
+	        ventana.setVisible(true);	        
 	 }
 	
 	public void crearVistaTablero(Tablero t) throws IOException {
@@ -218,7 +215,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     }
     
     public void crearVentanaLose() {
-        ventana.setVisible(false);
+        ventana.setVisible(true);
         JFrame frame_over = new JFrame("LOSE");
         frame_over.setSize(400, 400);
         frame_over.setLocationRelativeTo(null);
@@ -239,7 +236,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     
     public void crearVentanaWin() {
 
-        ventana.setVisible(false);
+        ventana.setVisible(true);
         JFrame frame_over = new JFrame("WIN");
         frame_over.setSize(400, 400);
         frame_over.setLocationRelativeTo(null);

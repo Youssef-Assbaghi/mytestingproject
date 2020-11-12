@@ -15,7 +15,6 @@ public class Juego {
 		int [] jugada_ant;
 		int [] jugada_array= {0,0,0,0};
 		int [] jugada_ant_array= {0,0,0,0};
-		boolean comienzo=false;
 		t=new Tablero();
 		VistaVentana v= new VistaVentana();
 
@@ -23,14 +22,14 @@ public class Juego {
 		v.crearVentanaMenu(t); //crearVMenu -> crearV -> crearVistaTab -> crearTab
 		boolean resto=false;
 		resto=v.getFinalizado();
-		int z=0;
 		while(resto==false) {
 			//System.out.println("ATASCO EN MAIN");
 			resto=v.getFinalizado();
 		}
 
 		t.calculaNumBombas();
-		System.out.println(t.calculaNumBombas());
+		System.out.println("MATRIZ: "+t.getFilas()+"x"+t.getColumnas()+ "  --  NIVEL: " + t.getNivel());
+		System.out.println("BOMBAS: " + t.calculaNumBombas());
 		
 		jugada_ant=v.getJugada();
 			
@@ -43,7 +42,6 @@ public class Juego {
 		jugada_ant_array[2]=jugada_ant[2];
 		jugada_ant_array[3]=jugada_ant[3];
 		
-		t.abrirCasilla(jugada_ant_array[0], jugada_ant_array[1]);
 		t.getCasilla(jugada_ant_array[0], jugada_ant_array[1]).setPrimera();
 		t.repartirBombas();
 		
@@ -53,7 +51,7 @@ public class Juego {
 			}
 		}
 		
-		t.getCasilla(jugada_ant_array[0], jugada_ant_array[1]).actualizar_casilla();
+		t.abrirCasilla(jugada_ant_array[0], jugada_ant_array[1]);
 		
 		boolean win=false;
 		boolean lose=false;
@@ -71,26 +69,25 @@ public class Juego {
 				jugada_array[2]=jugada[2];
 				jugada_array[3]=jugada[3];
 			}
-			if(jugada[2]==1) {	//bandera
+			if(jugada[2]==1) {	//CLICK DERECHO --> MARCAR_CASILLA
 				t.marcarCasilla(jugada[0], jugada[1]);
-				t.getCasilla(jugada[0], jugada[1]).actualizar_casilla();
-			}else {		//abrir
+			}else {		//CLICK IZQUIERDO --> ABRIR CASILLA
 				t.abrirCasilla(jugada[0], jugada[1]);
-				t.getCasilla(jugada[0], jugada[1]).actualizar_casilla();
 				lose=t.checkLose();
-			}			
+			}	
 			win=t.checkWin();
+			
 			jugada_ant_array[0]=jugada_array[0];
 			jugada_ant_array[1]=jugada_array[1];
 			jugada_ant_array[2]=jugada_array[2];
 			jugada_ant_array[3]=jugada_array[3];
-		}
-		
+		}		
 		if(win) {		//SI GANAS
+			t.descubrirTablero();
 			v.crearVentanaWin();
 		}else {			//SI PIERDES
+			t.descubrirTablero();
 			v.crearVentanaLose();
 		}
-		
 	}
 }

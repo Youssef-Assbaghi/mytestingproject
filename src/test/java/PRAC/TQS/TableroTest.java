@@ -1,9 +1,6 @@
 package PRAC.TQS;
 
-import static org.junit.Assert.*;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,9 +46,7 @@ public class TableroTest extends TestCase{
         assertEquals(t2.getAlto(),alto);
         assertTrue(t2.getAncho()==ancho);
     }
-
-    
-    
+  
     @Test
     public void testTableroEquals() {		
         Tablero tab_prueba = new Tablero();
@@ -102,7 +97,6 @@ public class TableroTest extends TestCase{
         assertTrue(t5.getAncho()==t5.getAncho());
     }
     
-    
     @Test
     public void testCalculaNumBombas() {
     	VistaVentanaAuxMock resultado=new VistaVentanaAuxMock();
@@ -142,8 +136,7 @@ public class TableroTest extends TestCase{
         assertTrue(t5.getNivel()==3);
         assertTrue(t5.calculaNumBombas()==expected3);  	
     }   
-    
-    
+   
     @Test
     public void testrepartirBombas() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
@@ -275,6 +268,129 @@ public class TableroTest extends TestCase{
         jugada[2]=0;
         tjugada.insertarJugada(jugada);
         assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
+    }
+    
+    @Test
+    public void testcheckWin() {
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+        Tablero twin=new Tablero();
+        twin.setVentana(mockVentana);
+
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=2;
+        dat[1]=2;
+        dat[4]=1;
+        twin.modTablero(dat);
+        boolean expected=false;
+
+        int [][] cas_sel= {{0,1},{1,1},{1,0}};
+        twin.repartirBombasManual(cas_sel);
+        twin.getNumVecinos(twin.getCasilla(0, 0));
+        twin.getNumVecinos(twin.getCasilla(1, 0));
+        twin.getNumVecinos(twin.getCasilla(1, 1));
+ 
+        
+        int[] jugada=mockVentana.registraClick();
+        jugada[0]=0;
+        jugada[1]=0;
+        jugada[2]=0;
+
+        assertEquals(twin.checkWin(),expected);
+    }
+    
+    @Test
+    public void testcheckLose() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	Tablero tlose=new Tablero();
+        tlose.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=4;
+        dat[1]=4;
+        dat[4]=1;
+        tlose.modTablero(dat);
+        
+        int [][] cas_sel= {{0,1},{1,0}};
+        tlose.repartirBombasManual(cas_sel);
+        
+        int[] jugada=mockVentana.registraClick();
+        jugada[0]=0;
+        jugada[1]=1;
+        jugada[2]=0;
+        
+        for (int fila=0; fila<tlose.getFilas(); fila++) {
+            for (int col=0; col<tlose.getColumnas(); col++) {
+                tlose.getNumVecinos(tlose.getCasilla(fila,col));
+            }
+        }
+        
+        tlose.insertarJugada(jugada);
+        
+        boolean expected=true;
+        
+        assertTrue(tlose.checkLose()==expected);       
+    }
+    	
+    @Test
+    public void testdescubrirTablero() {
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+        Tablero tabrir=new Tablero();
+        tabrir.setVentana(mockVentana);
+
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=2;
+        dat[1]=2;
+        dat[4]=1;
+        tabrir.modTablero(dat);
+        int[] jugada=mockVentana.registraClick();
+        boolean expected=true;
+        tabrir.descubrirTablero();
+        for(int i=0;i<tabrir.getFilas();i++) {
+            for(int j=0;j<tabrir.getColumnas();j++) {
+                if(tabrir.getCasilla(i, j).getEstado()!=1) {
+                    expected=false;
+                }
+            }
+        }
+        assertEquals(expected,true);
+	}
+    
+    @Test
+    public void testabrirAlrededor() {
+    	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+    	Tablero tabrirAl=new Tablero();
+    	tabrirAl.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
+        tabrirAl.modTablero(dat);
+        
+        int [][] cas_sel= {{3,0},{2,1},{1,2},{0,3}};
+        tabrirAl.repartirBombasManual(cas_sel);
+        
+        int[] jugada=mockVentana.registraClick();
+        jugada[0]=4;
+        jugada[1]=4;
+        jugada[2]=0;
+        
+        for (int fila=0; fila<tabrirAl.getFilas(); fila++) {
+            for (int col=0; col<tabrirAl.getColumnas(); col++) {
+            	tabrirAl.getNumVecinos(tabrirAl.getCasilla(fila,col));
+            }
+        }
+        
+        tabrirAl.insertarJugada(jugada);
+        
+        int expected=1;
+        
+        assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(3, 3).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(4, 3).getEstado()==1);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==0);
+        
     }
     
     @Test 

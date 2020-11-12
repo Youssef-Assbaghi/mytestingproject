@@ -1,15 +1,9 @@
 package PRAC.TQS.Modelo;
-import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.lang.Object;
 
 public class Casilla extends JPanel{

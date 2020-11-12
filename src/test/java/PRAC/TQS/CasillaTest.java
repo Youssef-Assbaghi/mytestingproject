@@ -1,12 +1,9 @@
 package PRAC.TQS;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import PRAC.TQS.Modelo.Campo_minas;
 import PRAC.TQS.Modelo.Casilla;
 import junit.framework.TestCase;
 

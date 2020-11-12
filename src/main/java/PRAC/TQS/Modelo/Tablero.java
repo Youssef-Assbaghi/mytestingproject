@@ -1,17 +1,7 @@
 package PRAC.TQS.Modelo;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 import PRAC.TQS.Vista.VistaVentanaAux;
- 
 import java.util.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.lang.Object;
 
@@ -135,19 +125,24 @@ public class Tablero {
     		if((getCasilla(coords[i][0],coords[i][1]).getBomba()==false)) {
     			getCasilla(coords[i][0],coords[i][1]).setBomba();
     			bombas_colocadas+=1;
-    		}
-    		
+    		}	
     	}
     	this.n_bombas=bombas_colocadas;
     }
     
     public void abrirCasilla(int x, int y) {
-    	if (getCasilla(x,y).getEstado()==CERRADO) {
+    	if ((getCasilla(x,y).getEstado()==CERRADO)||(getCasilla(x,y).getEstado()==BANDERA)) {
     		getCasilla(x,y).setEstado(ABIERTO);
+    		this.n_casillascerradas--;
     		if(getCasilla(x,y).getBomba()==true) {
+    			getCasilla(x,y).setVecinos(1);
     			explosion=true;
     		}
-    	}this.n_casillascerradas--;
+    		if(getCasilla(x,y).getVecinos()==0) {
+    			abrirAlrededor(getCasilla(x,y));
+    		}
+    	}
+    	getCasilla(x,y).actualizar_casilla();
     }
     
     public void marcarCasilla(int x, int y) {
@@ -159,7 +154,8 @@ public class Tablero {
         		getCasilla(x,y).setEstado(CERRADO);
         		n_banderas-=1;
         	}
-    	}	
+    	}
+    	getCasilla(x,y).actualizar_casilla();
     }
     
     public void insertarJugada(int[] jugada) {
@@ -168,7 +164,7 @@ public class Tablero {
     	} else {	//Click der
     		marcarCasilla(jugada[0], jugada[1]);
     	}
-    	System.out.println(this.n_casillascerradas);
+    	//System.out.println(this.n_casillascerradas);
     }
     
     public boolean checkWin() {
@@ -190,6 +186,78 @@ public class Tablero {
     }
 
     public boolean checkLose() {return this.explosion; }
+    
+    public void descubrirTablero() {
+    	for (int fila=0; fila<filas; fila++) {
+            for (int col=0; col<columnas; col++) {
+                if(getCasilla(fila,col).getEstado()==CERRADO) {
+                	getCasilla(fila,col).setEstado(1);
+                	getCasilla(fila,col).actualizar_casilla();
+                }		
+            }		
+        }
+    }
+    
+    public void abrirAlrededor(Casilla c) {
+    	int fil=c.getFila();
+    	int col=c.getColumna();
+
+		if(fil==0) { 
+    		if(col==0){ //   [0][0]    --> esquina arriba izq
+    			abrirCasilla(fil+1,col);
+        		abrirCasilla(fil,col+1);
+        		abrirCasilla(fil+1,col+1);	
+        	}else if (col==this.columnas-1) {   //   [0][MAX]       -->esquina arriba der
+        		abrirCasilla(fil,col-1);
+        		abrirCasilla(fil+1,col);
+        		abrirCasilla(fil+1,col-1);	       	
+        	}else {     //[0][x]
+        		abrirCasilla(fil+1,col);
+        		abrirCasilla(fil,col+1);
+        		abrirCasilla(fil+1,col+1);	
+        		abrirCasilla(fil,col-1);
+        		abrirCasilla(fil+1,col-1);
+        	} 
+    	}else if(col==0) { // [X][0] 		
+    		if(fil==this.filas-1) {
+    			abrirCasilla(fil-1,col);
+        		abrirCasilla(fil-1,col+1);
+        		abrirCasilla(fil,col+1);
+    		}else {
+    			abrirCasilla(fil-1,col);
+        		abrirCasilla(fil,col+1);
+        		abrirCasilla(fil+1,col);	
+        		abrirCasilla(fil+1,col+1);
+        		abrirCasilla(fil-1,col+1);
+    		}
+    	}else if(fil==this.filas-1) { 
+    		if(col==this.filas-1) {    //[MAX][MAX]   -->esquina abajo der
+    			abrirCasilla(fil-1,col-1);
+        		abrirCasilla(fil,col-1);
+        		abrirCasilla(fil-1,col);  			
+    		}else {     //     [MAX][X]
+    			abrirCasilla(fil-1,col);
+        		abrirCasilla(fil,col-1);
+        		abrirCasilla(fil,col+1);	
+        		abrirCasilla(fil-1,col+1);
+        		abrirCasilla(fil-1,col-1);		
+    		}	
+    	}else if(col==this.columnas-1) {  //[X][MAX]
+    		abrirCasilla(fil,col-1);
+    		abrirCasilla(fil-1,col-1);
+    		abrirCasilla(fil-1,col);	
+    		abrirCasilla(fil+1,col-1);   		
+    	}else {  // posicion sin bordes
+    		abrirCasilla(fil,col-1);
+    		abrirCasilla(fil-1,col-1);
+    		abrirCasilla(fil-1,col);	
+    		abrirCasilla(fil+1,col-1);
+    		abrirCasilla(fil+1,col);
+    		abrirCasilla(fil+1,col+1);	
+    		abrirCasilla(fil,col+1);
+    		abrirCasilla(fil-1,col+1);		
+    	}
+    }
     
     public void getNumVecinos(Casilla c) {
     	int fil=c.getFila();
