@@ -283,22 +283,29 @@ public class TableroTest extends TestCase{
         twin.modTablero(dat);
         boolean expected=false;
 
-        int [][] cas_sel= {{0,1},{1,1},{1,0}};
+        int [][] cas_sel= {{0,1},{1,1}};
         twin.repartirBombasManual(cas_sel);
         twin.getNumVecinos(twin.getCasilla(0, 0));
         twin.getNumVecinos(twin.getCasilla(1, 0));
-        twin.getNumVecinos(twin.getCasilla(1, 1));
  
-        
+        assertEquals(twin.checkWin(),expected);
         int[] jugada=mockVentana.registraClick();
         jugada[0]=0;
         jugada[1]=0;
         jugada[2]=0;
 
-        assertEquals(twin.checkWin(),expected);
+        twin.insertarJugada(jugada);
+        
+        assertEquals(twin.checkWin(), expected);
+        jugada[0]=1;
+        jugada[1]=0;
+        jugada[2]=0;
+        
+        twin.insertarJugada(jugada);
+        expected=true;
+        assertEquals(twin.checkWin(), expected);
     }
     
-    @Test
     public void testcheckLose() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	Tablero tlose=new Tablero();
@@ -312,10 +319,10 @@ public class TableroTest extends TestCase{
         
         int [][] cas_sel= {{0,1},{1,0}};
         tlose.repartirBombasManual(cas_sel);
-        
+    
         int[] jugada=mockVentana.registraClick();
         jugada[0]=0;
-        jugada[1]=1;
+        jugada[1]=0;
         jugada[2]=0;
         
         for (int fila=0; fila<tlose.getFilas(); fila++) {
@@ -325,10 +332,17 @@ public class TableroTest extends TestCase{
         }
         
         tlose.insertarJugada(jugada);
+            
+        boolean expected=false;
+        assertTrue(tlose.checkLose()==expected);
         
-        boolean expected=true;
+        jugada[0]=0;
+        jugada[1]=1;
+        jugada[2]=0;
         
-        assertTrue(tlose.checkLose()==expected);       
+        tlose.insertarJugada(jugada);
+        expected=true;
+        assertTrue(tlose.checkLose()==expected);        
     }
     	
     @Test
@@ -342,18 +356,40 @@ public class TableroTest extends TestCase{
         dat[1]=2;
         dat[4]=1;
         tabrir.modTablero(dat);
-        int[] jugada=mockVentana.registraClick();
-        boolean expected=true;
+ 
+        boolean expected1=true;
+
+        for(int i=0;i<tabrir.getFilas();i++) {
+            for(int j=0;j<tabrir.getColumnas();j++) {
+                if(tabrir.getCasilla(i, j).getEstado()!=0) {
+                    expected1=false;
+                }
+            }
+        }
+        assertEquals(expected1,true);
+
+        boolean expected2=true;
         tabrir.descubrirTablero();
         for(int i=0;i<tabrir.getFilas();i++) {
             for(int j=0;j<tabrir.getColumnas();j++) {
                 if(tabrir.getCasilla(i, j).getEstado()!=1) {
-                    expected=false;
+                    expected2=false;
                 }
             }
         }
-        assertEquals(expected,true);
-	}
+        assertEquals(expected2,true);
+
+        boolean expected3=true;
+        tabrir.getCasilla(0, 0).setEstado(0);
+        for(int i=0;i<tabrir.getFilas();i++) {
+            for(int j=0;j<tabrir.getColumnas();j++) {
+                if(tabrir.getCasilla(i, j).getEstado()!=1) {
+                    expected3=false;
+                }
+            }
+            assertEquals(expected3,false);
+        }
+    }
     
     @Test
     public void testabrirAlrededor() {
