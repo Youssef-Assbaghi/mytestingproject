@@ -12,4 +12,10 @@ public class TableroAuxMock implements TableroAux{
 		return datos;
 	}
 
+	@Override
+	public int prueba(int a, int b) {
+		int c=5;
+		return c;
+	}
+
 }

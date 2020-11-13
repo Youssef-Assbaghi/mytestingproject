@@ -107,6 +107,17 @@ public class CasillaTest extends TestCase{
     
     //MOCK OBJECT DE TABLERO
     @Test
+    public void testpruebamockCasilla() {
+    	TableroAuxMock mockTablero=new TableroAuxMock();
+        
+        Casilla cmock=new Casilla();
+        cmock.setTablero(mockTablero);
+        
+        int x=cmock.prueba2(5, mockTablero.prueba(2, 29));
+        assertTrue(x==10);
+    } 
+    
+    @Test
     public void testmodCasilla() {   	
     	TableroAuxMock mockTablero=new TableroAuxMock();
         

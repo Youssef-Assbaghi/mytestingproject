@@ -11,4 +11,10 @@ public class CasillaAuxMock implements CasillaAux{
 		return Coordenadas;
 	}
 
+	@Override
+	public int prueba(int a, int b) {
+		int c=5;
+		return c;
+	}
+
 }

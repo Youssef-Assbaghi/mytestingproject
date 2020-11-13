@@ -73,13 +73,24 @@ public class TableroTest extends TestCase{
     
     //mock objects?
     @Test
-    public void testprueba() {
+    public void testpruebamockVentana() {
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
         Tablero t4=new Tablero();
         t4.setVentana(mockVentana);
         
         int x=t4.prueba2(5, mockVentana.prueba(2, 29));
+        assertTrue(x==10);
+    } 
+    
+    @Test
+    public void testpruebamockCasilla() {
+    	CasillaAuxMock mockCasilla=new CasillaAuxMock();
+        
+        Tablero tmock=new Tablero();
+        tmock.setCasilla(mockCasilla);
+        
+        int x=tmock.prueba2(5, mockCasilla.prueba(2, 29));
         assertTrue(x==10);
     } 
     
@@ -104,9 +115,7 @@ public class TableroTest extends TestCase{
         tmock.colocar1bomba(coords[0], coords[1]);
         expected=true;
         assertTrue(tmock.getCasilla(coords[0], coords[1]).getBomba()==expected);
-    } 
-    
-    
+    }   
     
     @Test
     public void testmodTablero() throws IOException {

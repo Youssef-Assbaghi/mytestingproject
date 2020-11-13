@@ -30,6 +30,11 @@ public class Casilla extends JPanel{
     	this.tab=t;
     }
     
+    public int prueba2(int a,int b) {
+    	int y=a+b;
+		return y;
+    }
+    
     public Casilla() {
     	this.fila=0;
         this.columna=0;
