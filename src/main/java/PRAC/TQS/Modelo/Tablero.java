@@ -48,55 +48,42 @@ public class Tablero {
     } 
 
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
-    	if((filas>=3)&&(columnas>=3)&&(filas<=20)&&(columnas<=20)) {
+    	if((filas<3)||(filas>20)||(columnas<3)||(columnas>20)
+    			||(alto<300)||(alto>2000)||(ancho<300)
+    			||(ancho>2000)||(nivel<1)||(nivel>3)) {
+    		this.filas=3;
+    		this.columnas=3;
+    		this.alto=300;
+    		this.ancho=300;
+    		this.nivel=1;
+    	}else {
     		this.filas=filas;
-            this.columnas=columnas;
-    	}else {
-    		if((filas<3)||(columnas<3)){
-        		this.filas=3;
-                this.columnas=3;
-        	}	
-        	if((filas>20)||(columnas>20)){
-        		this.filas=20;
-                this.columnas=20;
-        	}
-    	}
-    	
-    	if((alto>=30)&&(ancho>=30)&&(alto<=2000)&&(ancho<=2000)) {
+    		this.columnas=columnas;
     		this.alto=alto;
-            this.ancho=ancho;
-    	}else {
-    		if((alto<30)||(ancho<30)){
-        		this.alto=30;
-                this.ancho=30;
-        	}	
-        	if((alto>2000)||(ancho>2000)){
-        		this.alto=2000;
-                this.ancho=2000;
-        	}
-    	}
-    	
-    	if((nivel>=1)&&(nivel<=3)) {
+    		this.ancho=ancho;
     		this.nivel=nivel;
-        }else {
-        	if(nivel<1) {
-        		this.nivel=1;
-        	}
-        	if(nivel>3) {
-        		this.nivel=3;
-        	}
-        }
+    	}
         n_bombas=0;
         crearTablero();
     }
     
     //para probar el mock object de la ventana
     public void modTablero(int[] datos){
-        this.filas=datos[0];
-        this.columnas=datos[1];
-        this.alto=datos[2];
-        this.ancho=datos[3];
-        this.nivel=datos[4];
+    	if((datos[0]<3)||(datos[0]>20)||(datos[1]<3)||(datos[1]>20)
+    			||(datos[2]<300)||(datos[2]>2000)||(datos[3]<300)
+    			||(datos[3]>2000)||(datos[4]<1)||(datos[4]>3)) {
+    		this.filas=3;
+    		this.columnas=3;
+    		this.alto=300;
+    		this.ancho=300;
+    		this.nivel=1;
+    	}else {
+    		this.filas=datos[0];
+    		this.columnas=datos[1];
+    		this.alto=datos[2];
+    		this.ancho=datos[3];
+    		this.nivel=datos[4];
+    	}
         crearTablero();    	
     }
     /*

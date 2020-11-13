@@ -16,15 +16,15 @@ public class TableroTest extends TestCase{
     @Before
     public void setUp() throws Exception {
         t1=new Tablero();
-        t2=new Tablero(13,11,200,100,2);
-        t3=new Tablero(3,3,200,100,2);
+        t2=new Tablero(13,11,500,500,2);
+        t3=new Tablero(3,3,500,500,2);
     }
 
     @After
     public void tearDown() throws Exception {
-
         t1=null;
         t2=null;
+        t3=null;
     }
 
     public void testTablero() {
@@ -37,25 +37,49 @@ public class TableroTest extends TestCase{
     }
 
     @Test
-    public void testTableroPar() {
-    	/*	Particiones equivalentes (para filas y columnas será igual):
+    public void testTableroPar() throws IOException {
+    	/*	FILAS COLUMNAS Particiones equivalentes (para filas y columnas será igual):
          * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (inválido)
     	 *	Valores interiores:	6
     	 *	Valores Frontera:	3,20
     	 *	Valores interior Frontera:	4,19
     	 *  Valores exterior Frontera: 	2,21
+    	 *  
+    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho será igual):
+         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (inválido)
+    	 *	Valores interiores:	600
+    	 *	Valores Frontera:	300,2000
+    	 *	Valores interior Frontera:	301,1999
+    	 *  Valores exterior Frontera: 	299,2001
+    	 *  
+    	 *  NIVEL Particiones equivalentes
+         * 	x<1 (invalido), 1<=x<=3 (valido), x>3 (inválido)
+    	 *	Valores interiores:	2
+    	 *	Valores Frontera:	1,3
+    	 *  Valores exterior Frontera: 	0,4
+    	 *  
+    	 *  COMO ES UN CONSTRUCTOR NECESITARÍAMOS CREAR 7x3=21 TABLEROS
+    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARÁ UN
+    	 *  TABLERO POR DEFECTO
     	 */
-        int ancho=100;
-        int alto=200;
-        int filas=13;
-        int columnas=11;
-        int nivel=2;
-        assertTrue(t2.getFilas()==filas);
-        assertTrue(t2.getColumnas()==columnas);
-        assertTrue(t2.getNivel()==nivel);
-        assertEquals(t2.getAlto(),alto);
-        assertTrue(t2.getAncho()==ancho);
-        assertTrue(t1.getNBombas()==0);
+    	
+    	Tablero tconst=new Tablero(4,4,500,500,2);
+
+        assertTrue(tconst.getFilas()==4);
+        assertTrue(tconst.getColumnas()==4);
+        assertTrue(tconst.getNivel()==2);
+        assertEquals(tconst.getAlto(),500);
+        assertTrue(tconst.getAncho()==500);
+        assertTrue(tconst.getNBombas()==0);
+        
+        Tablero tconst2=new Tablero(0,4,500,500,2);
+
+        assertFalse(tconst2.getFilas()==4);
+        assertFalse(tconst2.getColumnas()==4);
+        assertFalse(tconst2.getNivel()==2);
+        assertFalse(tconst2.getAlto()==500);
+        assertFalse(tconst2.getAncho()==500);
+
     }
     /*
     @Test
@@ -65,8 +89,8 @@ public class TableroTest extends TestCase{
     }
     */
     @Test
-    public void testcrearTablero() throws IOException {	//MOCK OBJECT CASILLA
-        Casilla c = new Casilla(1,2,200,100,3,3);
+    public void testcrearTablero() throws IOException {
+        Casilla c = new Casilla(1,2,500,500,3,3);
         assertEquals(t3.getCasilla(1, 2),c);
     }
     
@@ -119,23 +143,21 @@ public class TableroTest extends TestCase{
     @Test
     public void testmodTablero() throws IOException {
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
-        
+
         Tablero t5=new Tablero();
-        Tablero t6=new Tablero(3,3,300,400,2);
+        Tablero t6=new Tablero(1,2,300,400,5);
         t5.setVentana(mockVentana);
-        
+        //PARTICIONES --> ARRAY VACIO // INSERTAR AL PRINCIPIO // INSERTAR AL FINAL
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=3;
-        dat[1]=3;
-        dat[4]=2;
         t5.modTablero(dat);
-        
-        
-        assertTrue(t5.getFilas()==t6.getFilas());
-        assertTrue(t5.getColumnas()==t6.getColumnas());
+        //PARTICION VACIO
+        assertFalse(t5==t6);
+
+        //PARTICION INSERTAR AL INICIO
+        assertTrue(t5.getFilas()==t6.getFilas()); 
+
+        //PARTICION INSERTAR AL FINAL
         assertTrue(t5.getNivel()==t6.getNivel());
-        assertEquals(t5.getAlto(),t6.getAlto());
-        assertTrue(t5.getAncho()==t5.getAncho());
     }
     
     @Test
@@ -176,35 +198,35 @@ public class TableroTest extends TestCase{
         dat[4]=0;
         t5.modTablero(dat);
         
-        int expected5=0;
-        assertEquals(t5.calculaNumBombas(),expected5);  //VALOR EXTERIOR NIVEL=0
+        //Como se crea con nivel inválido, se crea un tablero 5x5 nivel 1 con 3 bombas
+        assertEquals(t5.calculaNumBombas(),1);  //VALOR EXTERIOR NIVEL=0
         
         dat[0]=10;
         dat[1]=8;                                          
-        dat[4]=0;
+        dat[4]=4;
         t5.modTablero(dat);
-        
-        int expectednivel4=0;
-        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=4
+
+        assertTrue(t5.calculaNumBombas()==1);  //VALOR EXTERIOR NIVEL=4
 
         dat[0]=10;
         dat[1]=8;                                          
         dat[4]=100;
         t5.modTablero(dat);
         
-        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=100
+        assertTrue(t5.calculaNumBombas()==1);  //VALOR EXTERIOR NIVEL=100
                 
         dat[0]=10;
         dat[1]=8;                                          
         dat[4]=-100;
         t5.modTablero(dat);        
-        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=-100
+        assertTrue(t5.calculaNumBombas()==1);  //VALOR EXTERIOR NIVEL=-100
     }   
    
     @Test
     public void testrepartirBombas() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
-    	
+    	//No comprobamos valores limite, fronteras y particiones porque es aleatorio
+    	//Creamos la función para asignarlas nosotros manualmente
     	Tablero tbombas=new Tablero();
     	tbombas.setVentana(mockVentana);
         
@@ -238,19 +260,23 @@ public class TableroTest extends TestCase{
     	tbombas.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=10;
-        dat[1]=10;
-        dat[4]=3;
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
         int n_bombas=4;
         tbombas.modTablero(dat);
-
-        int [][] cas_sel= {{0,1},{1,0},{1,4},{2,2},{5,1},{4,1},{5,4},{7,0},{7,7}};
-        int expected3=cas_sel.length;
-        tbombas.repartirBombasManual(cas_sel);
-        assertTrue(tbombas.getNBombas()==expected3);
+        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+         *    Valores interiores:    2
+         *    Valores Frontera:    0,4 --> (num_filas-1)
+         *    Valores interior Frontera:    1,3
+         *  Valores exterior Frontera:     -1,5
+         *
+        */
+        int [][] cas_sel= {{-1,0},{0,0},{1,0},{2,0},{3,0},{4,0},{5,0}};
         
+        tbombas.repartirBombasManual(cas_sel);
         int bombas_correctas=0;
-        int bombas_correctas_expected=tbombas.getNBombas();
+        int bombas_correctas_expected=5;
         
         boolean yacontado=false;
         for(int i=0;i<tbombas.getFilas();i++) {
@@ -269,69 +295,500 @@ public class TableroTest extends TestCase{
         	}
         }
         assertEquals(bombas_correctas,bombas_correctas_expected);
+        
+        
+        /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+         *    Valores interiores:    2
+         *    Valores Frontera:    0,4 --> (num_filas-1)
+         *    Valores interior Frontera:    1,3
+         *  Valores exterior Frontera:     -1,5
+         *  
+        */
+        int [][] cas_sel3= {{0,-1},{0,0},{0,1},{0,2},{0,3},{0,4},{0,5}};
+        
+        tbombas.repartirBombasManual(cas_sel3);
+        bombas_correctas=0;
+        bombas_correctas_expected=5;
+        
+        yacontado=false;
+        for(int i=0;i<tbombas.getFilas();i++) {
+        	for (int j=0;j<tbombas.getColumnas();j++) {
+        		if (tbombas.getCasilla(i, j).getBomba()==true) {
+        			for (int x=0;x<cas_sel3.length;x++) {
+        				if((tbombas.getCasilla(i, j).getFila()==cas_sel3[x][0])&&(tbombas.getCasilla(i, j).getColumna()==cas_sel3[x][1])) {
+        					if(!yacontado) {
+        						bombas_correctas+=1;
+            					yacontado=true;
+        					} 					
+        				}
+        			}
+        			yacontado=false;
+        		}
+        	}
+        }
+        assertEquals(bombas_correctas,bombas_correctas_expected);
+        
+        //VALORES INTERIORES Y FRONTERA DE FILAS Y COLUMNAS
+        
+        int [][] cas_sel4= {{4,4},{2,0},{3,4}};
+        
+        tbombas.repartirBombasManual(cas_sel4);
+        bombas_correctas=0;
+        bombas_correctas_expected=3;
+        
+        yacontado=false;
+        for(int i=0;i<tbombas.getFilas();i++) {
+        	for (int j=0;j<tbombas.getColumnas();j++) {
+        		if (tbombas.getCasilla(i, j).getBomba()==true) {
+        			for (int x=0;x<cas_sel4.length;x++) {
+        				if((tbombas.getCasilla(i, j).getFila()==cas_sel4[x][0])&&(tbombas.getCasilla(i, j).getColumna()==cas_sel4[x][1])) {
+        					if(!yacontado) {
+        						bombas_correctas+=1;
+            					yacontado=true;
+        					} 					
+        				}
+        			}
+        			yacontado=false;
+        		}
+        	}
+        }
+        assertEquals(bombas_correctas,bombas_correctas_expected);
+    
     }
     
     @Test
     public void testabrirCasilla() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	
-    	Tablero tabrir=new Tablero();
-    	tabrir.setVentana(mockVentana);
+    	Tablero tabrirAl=new Tablero();
+    	tabrirAl.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
         dat[0]=5;
         dat[1]=5;
         dat[4]=1;
-        tabrir.modTablero(dat);
-        
-        int[] coords=mockVentana.registraClick();
-        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==0);
-        tabrir.abrirCasilla(coords[0],coords[1]);    
-        assertTrue(tabrir.getCasilla(coords[0], coords[1]).getEstado()==1);
+        tabrirAl.modTablero(dat);
+        int [][] cas_sel= {{1,0},{1,1},{1,2},{1,3},{1,4},
+        		{0,1},{1,1},{2,1},{3,1},{4,1},
+        		{3,3},{3,4},{4,3}
+       		};
+        tabrirAl.repartirBombasManual(cas_sel);
+      
+       int[] jugada=mockVentana.registraClick();
+       
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+     
+       jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);      
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+
+       jugada[0]=1;	//[1][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);
+       assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+       
+       jugada[0]=2;	//[2][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
+       assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==1);
+      
+       jugada[0]=3;	//[3][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
+       assertTrue(tabrirAl.getCasilla(3, 0).getEstado()==1);
+       
+       jugada[0]=4;	//[4][0]			//CASO ESQUINA ABAJO IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);  
+       assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==1);
+
+       jugada[0]=5;	//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.abrirCasilla(jugada[0],jugada[1]);    
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[1]=-1;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   
+	   jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+	   jugada[1]=0;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);      
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   jugada[0]=0;	//[0][1]
+	   jugada[1]=1;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);
+	   assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);
+	
+	   
+	   jugada[0]=0;	//[0][2]
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
+	   assertTrue(tabrirAl.getCasilla(0, 2).getEstado()==1);
+	
+	   
+	   jugada[0]=0;	//[0][3]
+	   jugada[1]=3;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);    
+	   assertTrue(tabrirAl.getCasilla(0, 3).getEstado()==1);
+	   
+	   jugada[0]=0;	//[0][4]			//CASO ESQUINA ARRIBA DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
+	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==1);
+	
+	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[1]=5;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);   
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+       /*	OTROS PUNTOS:	
+	     * 	LA 4º ESQUINA
+	     * 	1 DENTRO
+	     */
+       
+       jugada[0]=4;	//[4][4]			//CASO ESQUINA ABAJO DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);
+	   assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==1);
+	   
+	   jugada[0]=2;	//[2][2]			//MITAD
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);
+	   assertTrue(tabrirAl.getCasilla(2, 2).getEstado()==1);
     }
     
     @Test
     public void testmarcarCasilla() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	
-    	Tablero tmarcar=new Tablero();
-    	tmarcar.setVentana(mockVentana);
-         
+    	Tablero tabrirAl=new Tablero();
+    	tabrirAl.setVentana(mockVentana);
+        
         int[] dat=mockVentana.pasarDatos();
         dat[0]=5;
         dat[1]=5;
         dat[4]=1;
-        tmarcar.modTablero(dat);
-        
-        int[] coords=mockVentana.registraClick();
-        assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==0);
-        tmarcar.marcarCasilla(coords[0],coords[1]);    
-        assertTrue(tmarcar.getCasilla(coords[0], coords[1]).getEstado()==2);
+        tabrirAl.modTablero(dat);
+        int [][] cas_sel= {{1,0},{1,1},{1,2},{1,3},{1,4},
+        		{0,1},{1,1},{2,1},{3,1},{4,1},
+        		{3,3},{3,4},{4,3}
+       		};
+        tabrirAl.repartirBombasManual(cas_sel);
+      
+       int[] jugada=mockVentana.registraClick();
+       
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);     
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+     
+       jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);      
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+
+       jugada[0]=1;	//[1][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);     
+       assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==2);
+       
+       jugada[0]=2;	//[2][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);        
+       assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==2);
+      
+       jugada[0]=3;	//[3][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);           
+       assertTrue(tabrirAl.getCasilla(3, 0).getEstado()==2);
+       
+       jugada[0]=4;	//[4][0]			//CASO ESQUINA ABAJO IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);          
+       assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==2);
+
+       jugada[0]=5;	//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.marcarCasilla(jugada[0],jugada[1]);           
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[1]=-1;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);       
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   
+	   jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+	   jugada[1]=0;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);      
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   jugada[0]=0;	//[0][1]
+	   jugada[1]=1;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);     
+	   assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==2);
+	
+	   
+	   jugada[0]=0;	//[0][2]
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);     
+	   assertTrue(tabrirAl.getCasilla(0, 2).getEstado()==2);
+	
+	   
+	   jugada[0]=0;	//[0][3]
+	   jugada[1]=3;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);       
+	   assertTrue(tabrirAl.getCasilla(0, 3).getEstado()==2);
+	   
+	   jugada[0]=0;	//[0][4]			//CASO ESQUINA ARRIBA DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);          
+	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==2);
+	
+	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[1]=5;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);        
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+       /*	OTROS PUNTOS:	
+	     * 	LA 4º ESQUINA
+	     * 	1 DENTRO
+	     */
+       
+       jugada[0]=4;	//[4][4]			//CASO ESQUINA ABAJO DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);       
+	   assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==2);
+	   
+	   jugada[0]=2;	//[2][2]			//MITAD
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);         
+	   assertTrue(tabrirAl.getCasilla(2, 2).getEstado()==2);
     } 
     
     @Test
-    public void testinsertarJugada() {
+    public void testinsertarJugada() {		//En realidad insertarJugada hace lo mismo k abrir y marcar casilla
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	
-    	Tablero tjugada=new Tablero();
-    	tjugada.setVentana(mockVentana);
+    	Tablero tabrirAl=new Tablero();
+    	tabrirAl.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
         dat[0]=5;
         dat[1]=5;
         dat[4]=1;
-        tjugada.modTablero(dat);
-        
-        int[] jugada=mockVentana.registraClick();
-        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
-        jugada[2]=1;
-        tjugada.insertarJugada(jugada);
-        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==2);
-        tjugada.insertarJugada(jugada);
-        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==0);
-        jugada[2]=0;
-        tjugada.insertarJugada(jugada);
-        assertTrue(tjugada.getCasilla(jugada[0], jugada[1]).getEstado()==1);
+        tabrirAl.modTablero(dat);
+        int [][] cas_sel= {{1,0},{1,1},{1,2},{1,3},{1,4},
+        		{0,1},{1,1},{2,1},{3,1},{4,1},
+        		{3,3},{3,4},{4,3}
+       		};
+        tabrirAl.repartirBombasManual(cas_sel);
+      
+       int[] jugada=mockVentana.registraClick();
+       
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);     
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+     
+       jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);     
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+
+       jugada[0]=1;	//[1][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);   
+       assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+       
+       jugada[0]=2;	//[2][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);       
+       assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==1);
+      
+       jugada[0]=3;	//[3][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);    
+       assertTrue(tabrirAl.getCasilla(3, 0).getEstado()==1);
+       
+       jugada[0]=4;	//[4][0]			//CASO ESQUINA ABAJO IZQUIERDA
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);         
+       assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==1);
+
+       jugada[0]=5;	//Abrirá [0][0]
+       jugada[1]=0;
+       jugada[2]=0;
+       tabrirAl.insertarJugada(jugada);     
+       assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	   	 *	Valores interiores:	2
+	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
+	   	 *	Valores interior Frontera:	1,3
+	   	 *  Valores exterior Frontera: 	-1,5
+	   	 *  
+	   	*/
+	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[1]=-1;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);    
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   
+	   jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+	   jugada[1]=0;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);    
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+	
+	   jugada[0]=0;	//[0][1]
+	   jugada[1]=1;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);
+	   assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);
+	
+	   
+	   jugada[0]=0;	//[0][2]
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);  
+	   assertTrue(tabrirAl.getCasilla(0, 2).getEstado()==1);
+	
+	   
+	   jugada[0]=0;	//[0][3]
+	   jugada[1]=3;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);
+	   assertTrue(tabrirAl.getCasilla(0, 3).getEstado()==1);
+	   
+	   jugada[0]=0;	//[0][4]			//CASO ESQUINA ARRIBA DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);       
+	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==1);
+	
+	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[1]=5;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);     
+	   assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+       tabrirAl.getCasilla(0, 0).setEstado(0);
+       
+       /*	OTROS PUNTOS:	
+	     * 	LA 4º ESQUINA
+	     * 	1 DENTRO
+	     */
+       
+       jugada[0]=4;	//[4][4]			//CASO ESQUINA ABAJO DERECHA
+	   jugada[1]=4;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);   
+	   assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==1);
+	   
+	   jugada[0]=2;	//[2][2]			//MITAD
+	   jugada[1]=2;
+	   jugada[2]=0;
+	   tabrirAl.insertarJugada(jugada);
+	   assertTrue(tabrirAl.getCasilla(2, 2).getEstado()==1);
     }
     
     @Test
@@ -341,27 +798,27 @@ public class TableroTest extends TestCase{
         twin.setVentana(mockVentana);
 
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=2;
-        dat[1]=2;
+        dat[0]=3;
+        dat[1]=3;
         dat[4]=1;
         twin.modTablero(dat);
         boolean expected=false;
 
-        int [][] cas_sel= {{0,1},{1,1}};
+        int [][] cas_sel= {{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{0,1}};
         twin.repartirBombasManual(cas_sel);
         twin.getNumVecinos(twin.getCasilla(0, 0));
-        twin.getNumVecinos(twin.getCasilla(1, 0));
- 
+        twin.getNumVecinos(twin.getCasilla(2, 2));
+        
         assertEquals(twin.checkWin(),expected);
         int[] jugada=mockVentana.registraClick();
-        jugada[0]=0;
-        jugada[1]=0;
+        jugada[0]=2;
+        jugada[1]=2;
         jugada[2]=0;
 
         twin.insertarJugada(jugada);
         //CASO DE NO GANAR
         assertEquals(twin.checkWin(), expected);
-        jugada[0]=1;
+        jugada[0]=0;
         jugada[1]=0;
         jugada[2]=0;
         //CASO DE GANAR
@@ -719,7 +1176,7 @@ public class TableroTest extends TestCase{
     public void testNumVecinos() throws IOException {
     	VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
     	
-    	Tablero t=new Tablero(7,7,200,203,2);
+    	Tablero t=new Tablero(7,7,500,500,2);
     	t.setVentana(mockobj);
     	int[][] casillas_seleccionadas= {{0,2},{0,4},{1,1},{1,5},{1,6},{2,0},{2,2},{2,4},{3,1},{3,3},{3,4},{3,5},{4,0},{4,3},{4,5},{5,1},{5,3},{5,4},{5,5},{5,6},{6,1},{6,5}};
 	    t.repartirBombasManual(casillas_seleccionadas);
