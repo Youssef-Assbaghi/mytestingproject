@@ -119,8 +119,10 @@ public class Tablero {
     }
     
     public void colocar1bomba(int x, int y) {
-    	this.n_bombas+=1;
-    	getCasilla(x,y).setBomba();
+    	if(getCasilla(x,y).getBomba()==false) {
+	    	this.n_bombas+=1;
+	    	getCasilla(x,y).setBomba();
+    	}
     }
     
     public void repartirBombasManual(int[][] coords) {

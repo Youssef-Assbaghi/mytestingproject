@@ -99,8 +99,10 @@ public class TableroTest extends TestCase{
         tmock.modTablero(dat);
         
         int []coords=mockCasilla.pasarCoordenadas();
+        boolean expected=false;
+        assertTrue(tmock.getCasilla(coords[0], coords[1]).getBomba()==expected);
         tmock.colocar1bomba(coords[0], coords[1]);
-        boolean expected=true;
+        expected=true;
         assertTrue(tmock.getCasilla(coords[0], coords[1]).getBomba()==expected);
     } 
     
