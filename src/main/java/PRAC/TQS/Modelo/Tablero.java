@@ -83,7 +83,13 @@ public class Tablero {
         this.n_casillascerradas=this.filas*this.columnas;
     }
 
-    public Casilla getCasilla(int fila, int columna) {return tablero[fila][columna];}
+    public Casilla getCasilla(int fila, int columna) {	//Si pones un valor fuera de límites, devuelves [0][0] de placeholder
+    	try {
+    		return tablero[fila][columna];
+		} catch (Exception e) {
+			return tablero[0][0];
+		}  	
+    }
     public int getFilas() {return this.filas;}
     public int getColumnas() {return this.columnas;}
     public int getNivel() {return this.nivel;}
@@ -273,152 +279,156 @@ public class Tablero {
     	int col=c.getColumna();
     	int numbomb=0;
     	if(!c.getBomba()) {
-    		if(fil==0) { 
-        		if(col==0){ //   [0][0]    --> esquina arriba izq
-            		if(tablero[fil+1][col].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil][col+1].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil+1][col+1].getBomba()) {
-            			numbomb++;
-            		}	
-            	}else if (col==this.columnas-1) {   //   [0][MAX]       -->esquina arriba der
-            		if(tablero[fil][col-1].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil+1][col].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil+1][col-1].getBomba()) {
-            			numbomb++;
-            		}
-            	
-            	}else {     //[0][x]
-            		if(tablero[fil+1][col].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil][col+1].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil+1][col+1].getBomba()) {
-            			numbomb++;
-            		}	
-            		if(tablero[fil][col-1].getBomba()) {
-            			numbomb++;
-            		}
-            		if(tablero[fil+1][col-1].getBomba()) {
-            			numbomb++;
-            		}
-            	} 
-        	}else if(col==0) { // [X][0]
-        		
-        		if(fil==this.filas-1) {
-        			if(tablero[fil-1][col].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil-1][col+1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil][col+1].getBomba()) {
-            			numbomb++;
-            		}
-        		
-        		}else {
-        		if(tablero[fil-1][col].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil][col+1].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil+1][col].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil+1][col+1].getBomba()) {
-        			numbomb++;
-        		}
-        		if(tablero[fil-1][col+1].getBomba()) {
-        			numbomb++;
-        		}
-        		}
-        	}else if(fil==this.filas-1) { 
-        		if(col==this.filas-1) {    //[MAX][MAX]   -->esquina abajo der
-        			if(tablero[fil-1][col-1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil][col-1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil-1][col].getBomba()) {
-            			numbomb++;
-            		}
-        			
-        		}else {     //     [MAX][X]
-        			if(tablero[fil-1][col].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil][col-1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil][col+1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil-1][col+1].getBomba()) {
-            			numbomb++;
-            		}
-        			if(tablero[fil-1][col-1].getBomba()) {
-            			numbomb++;
-            		}
-        		
-        		}	
-        	}else if(col==this.columnas-1) {  //[X][MAX]
-        		if(tablero[fil][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil+1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil+1][col].getBomba()) {
-        			numbomb++;
-        		}	
-        		
-        	}else {  // posicion sin bordes
-        		if(tablero[fil][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil+1][col-1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil+1][col].getBomba()) {
-        			numbomb++;
-        		}	
+    		if((fil<0)||(fil>=this.filas)||(col<0)||(col>=this.columnas)) {
     			
-    			if(tablero[fil+1][col+1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil][col+1].getBomba()) {
-        			numbomb++;
-        		}
-    			if(tablero[fil-1][col+1].getBomba()) {
-        			numbomb++;
-        		}		
-        	}
-        
+    			numbomb=-1;
+    		}else {
+    			if(fil==0) { 
+            		if(col==0){ //   [0][0]    --> esquina arriba izq
+                		if(tablero[fil+1][col].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil][col+1].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil+1][col+1].getBomba()) {
+                			numbomb++;
+                		}	
+                	}else if (col==this.columnas-1) {   //   [0][MAX]       -->esquina arriba der
+                		if(tablero[fil][col-1].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil+1][col].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil+1][col-1].getBomba()) {
+                			numbomb++;
+                		}
+                	
+                	}else {     //[0][x]
+                		if(tablero[fil+1][col].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil][col+1].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil+1][col+1].getBomba()) {
+                			numbomb++;
+                		}	
+                		if(tablero[fil][col-1].getBomba()) {
+                			numbomb++;
+                		}
+                		if(tablero[fil+1][col-1].getBomba()) {
+                			numbomb++;
+                		}
+                	} 
+            	}else if(col==0) { // [X][0]
+            		
+            		if(fil==this.filas-1) {
+            			if(tablero[fil-1][col].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil-1][col+1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil][col+1].getBomba()) {
+                			numbomb++;
+                		}
+            		
+            		}else {
+            		if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil+1][col+1].getBomba()) {
+            			numbomb++;
+            		}
+            		if(tablero[fil-1][col+1].getBomba()) {
+            			numbomb++;
+            		}
+            		}
+            	}else if(fil==this.filas-1) { 
+            		if(col==this.filas-1) {    //[MAX][MAX]   -->esquina abajo der
+            			if(tablero[fil-1][col-1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil][col-1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil-1][col].getBomba()) {
+                			numbomb++;
+                		}
+            			
+            		}else {     //     [MAX][X]
+            			if(tablero[fil-1][col].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil][col-1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil][col+1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil-1][col+1].getBomba()) {
+                			numbomb++;
+                		}
+            			if(tablero[fil-1][col-1].getBomba()) {
+                			numbomb++;
+                		}
+            		
+            		}	
+            	}else if(col==this.columnas-1) {  //[X][MAX]
+            		if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil+1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}	
+            		
+            	}else {  // posicion sin bordes
+            		if(tablero[fil][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil+1][col-1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil+1][col].getBomba()) {
+            			numbomb++;
+            		}	
+        			
+        			if(tablero[fil+1][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil][col+1].getBomba()) {
+            			numbomb++;
+            		}
+        			if(tablero[fil-1][col+1].getBomba()) {
+            			numbomb++;
+            		}		
+            	}    			
+    		}       
         	tablero[c.getFila()][c.getColumna()].setVecinos(numbomb);	 
         }
-
     	}
+    
 }

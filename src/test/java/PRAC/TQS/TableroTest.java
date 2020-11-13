@@ -494,88 +494,147 @@ public class TableroTest extends TestCase{
     public void testNumVecinos() throws IOException {
     	VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
     	
-    	Tablero t=new Tablero(5,5,200,203,2);
+    	Tablero t=new Tablero(7,7,200,203,2);
+    	int num_bombas=t.calculaNumBombas(); //4
+    	int num_bombas_expected=2;
+    	t.setVentana(mockobj);
+    	int[][] casillas_seleccionadas= {{0,2},{0,4},{1,1},{1,5},{1,6},{2,0},{2,2},{2,4},{3,1},{3,3},{3,4},{3,5},{4,0},{4,3},{4,5},{5,1},{5,3},{5,4},{5,5},{5,6},{6,1},{6,5}};
+	    t.repartirBombasManual(casillas_seleccionadas);
+	    num_bombas=t.getNBombas();		//22
     	
     	int [] coordenadas=mockobj.registraClick();
+    	coordenadas[1]=0;
+    	/*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+    	 *	Valores interiores:	3
+    	 *	Valores Frontera:	0,6 --> (num_filas-1)
+    	 *	Valores interior Frontera:	1,5
+    	 *  Valores exterior Frontera: 	-1,7
+    	*/
+   	
+    	coordenadas[0]=-1;	//Dará el resultado de [0][0]
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+	    
+    	coordenadas[0]=0;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+
+    	coordenadas[0]=1;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
+    	coordenadas[0]=3;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),3);
+	    
+    	coordenadas[0]=5;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),3);
+	    
+    	coordenadas[0]=6;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
+    	coordenadas[0]=7;	//Dará el resultado de [0][0]
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+ 
+	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_clumnas-1 (invàlid)
+    	 *	Valores interiores:	3
+    	 *	Valores Frontera:	0,6 --> (num_columnas-1)
+    	 *	Valores interior Frontera:	1,5
+    	 *  Valores exterior Frontera: 	-1,7
+    	*/
+	    coordenadas[0]=0;
+	    
+	    coordenadas[1]=-1;	//Dará el resultado de [0][0]
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+	    
+	    coordenadas[1]=0;	
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+	     
+	    coordenadas[1]=1;	
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
+	    coordenadas[1]=3;	
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
+	    coordenadas[1]=5;	
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),3);
+	    
+	    coordenadas[1]=6;	
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
+	    coordenadas[1]=7;	//Dará el resultado de [0][0]
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+	    
+	    /*	OTROS PUNTOS:	
+	     * 	LAS 4 ESQUINAS
+	     * 	2 DENTRO
+	     */
+	        
     	//probando esquina arriba izquierda
     	coordenadas[0]=0;
     	coordenadas[1]=0;
     	
-    	int num_bombas=t.calculaNumBombas(); //4
-    	int num_bombas_expected=2;
-    	t.setVentana(mockobj);
-    	int[][] casillas_seleccionadas= {{0,1},{1,0},{1,4},{2,2}};
-	    t.repartirBombasManual(casillas_seleccionadas);
-	    num_bombas=t.getNBombas();
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-	    //probando esquina arriba derecha
-	    coordenadas[0]=0;
-    	coordenadas[1]=4;
-    	num_bombas_expected=1;
-    	 t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
- 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-   
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
+	    
 	    //probando esquina abajo izquierda
- 	    Tablero t2=new Tablero(6,6,100,100,3);
- 	    coordenadas[0]=5;
- 	    coordenadas[1]=0;
- 	    int [][] casilla_bomb= {{0,1},{1,0},{1,4},{2,2},{5,1},{4,1},{5,4}};
-	   	num_bombas=t2.calculaNumBombas(); //4
-	   	num_bombas_expected=2;
-	   	t2.setVentana(mockobj);
-	    t2.repartirBombasManual(casilla_bomb);
-	    num_bombas=t2.getNBombas();
-	    t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    coordenadas[0]=6;
+    	coordenadas[1]=0;
+
+    	 t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+ 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
  	    
+    	//probando esquina arriba derecha
+    	coordenadas[0]=6;
+    	coordenadas[1]=0;
+    	
+	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
+	    
 	    //probando esquina abajo derecha
-	    coordenadas[0]=5;
-    	coordenadas[1]=5;
-    	num_bombas_expected=1;
-    	 t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
- 	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+	    coordenadas[0]=6;
+    	coordenadas[1]=6;
+
+    	t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+ 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),3);
+   
+ 	    //probando [2][3]
+ 	    coordenadas[0]=2;
+ 	    coordenadas[1]=3;
+
+ 	   	t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),4);
 	    
-	    //probando tope inferior
- 	    coordenadas[0]=5;
-	   	coordenadas[1]=2;
-	   	num_bombas_expected=2;
-	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-	    
-	    
-	  //probando tope superior
- 	    coordenadas[0]=0;
-	   	coordenadas[1]=4;
-	   	num_bombas_expected=1;
-	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-	    
-	    
-	    //probando tope izquierdo
-	    
-	    coordenadas[0]=4;
-	   	coordenadas[1]=0;
-	   	num_bombas_expected=2;
-	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-	    
-	    //probando tope derecho
-	    
-	    coordenadas[0]=2;
-	   	coordenadas[1]=5;
-	   	num_bombas_expected=1;
-	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
-	    
-	    
-	    //probando uno central sin bordes
-	   
-	    coordenadas[0]=1;
-	   	coordenadas[1]=1;
-	   	num_bombas_expected=3;
-	   	t2.getNumVecinos(t2.getCasilla(coordenadas[0], coordenadas[1]));
-	    assertEquals(t2.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),num_bombas_expected);
+ 	    //probando [4][4]
+ 	    coordenadas[0]=4;
+ 	    coordenadas[1]=4;
+
+ 	   	t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
+	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),8);	        
     }
     
 }
