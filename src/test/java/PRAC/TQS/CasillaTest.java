@@ -108,12 +108,18 @@ public class CasillaTest extends TestCase{
     //MOCK OBJECT DE TABLERO
     @Test
     public void testmodCasilla() {   	
-    	Casilla cmock = new Casilla();
-    	int []dat= {1,2,70,70,8,8};
+    	TableroAuxMock mockTablero=new TableroAuxMock();
+        
+        Casilla cmock=new Casilla();
+        cmock.setTablero(mockTablero);
+    	int[]dat=mockTablero.pasarDatos();
+        
     	cmock.modCasilla(dat);
     	
     	assertTrue(cmock.getFila()==dat[0]);
     	assertTrue(cmock.getColumna()==dat[1]);
+    	assertTrue(cmock.getAltura()==dat[2]);
+    	assertTrue(cmock.getAnchura()==dat[3]);
     	assertTrue(cmock.gettotalFilas()==dat[4]);
     	assertTrue(cmock.gettotalColumnas()==dat[5]);   	
     }

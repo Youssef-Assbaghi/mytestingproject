@@ -68,6 +68,8 @@ public class Casilla extends JPanel{
     public void modCasilla(int[] datos){
         this.fila=datos[0];
         this.columna=datos[1];
+        this.height=datos[2];
+        this.width=datos[3];
         this.tot_filas=datos[4];
         this.tot_columnas=datos[5]; 	
     }
