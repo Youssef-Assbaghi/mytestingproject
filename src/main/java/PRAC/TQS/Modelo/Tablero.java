@@ -66,8 +66,7 @@ public class Tablero {
         this.nivel=datos[4];
         crearTablero();    	
     }
-    
-    
+       
     public boolean equals(Object anObject) {
         Tablero tab= (Tablero)anObject;
         return((tab.getFilas()==this.filas)&&(tab.getColumnas()==this.columnas)&&(tab.getNivel()==this.nivel));
@@ -117,6 +116,11 @@ public class Tablero {
     			getCasilla(xbomba, ybomba).setBomba();
     		}
     	}
+    }
+    
+    public void colocar1bomba(int x, int y) {
+    	this.n_bombas+=1;
+    	getCasilla(x,y).setBomba();
     }
     
     public void repartirBombasManual(int[][] coords) {

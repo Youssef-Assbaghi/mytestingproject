@@ -84,6 +84,29 @@ public class TableroTest extends TestCase{
     } 
     
     @Test
+    public void testcolocar1bomba() {
+        CasillaAuxMock mockCasilla=new CasillaAuxMock();
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+        
+        Tablero tmock=new Tablero();
+        tmock.setCasilla(mockCasilla);
+        tmock.setVentana(mockVentana);
+        
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=5;
+        dat[1]=5;
+        dat[4]=1;
+        tmock.modTablero(dat);
+        
+        int []coords=mockCasilla.pasarCoordenadas();
+        tmock.colocar1bomba(coords[0], coords[1]);
+        boolean expected=true;
+        assertTrue(tmock.getCasilla(coords[0], coords[1]).getBomba()==expected);
+    } 
+    
+    
+    
+    @Test
     public void testmodTablero() throws IOException {
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
