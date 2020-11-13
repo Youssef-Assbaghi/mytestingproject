@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import PRAC.TQS.Modelo.Casilla;
+import PRAC.TQS.Modelo.Tablero;
 import junit.framework.TestCase;
 
 public class CasillaTest extends TestCase{
@@ -103,4 +104,17 @@ public class CasillaTest extends TestCase{
 		c.setPrimera();
 		assertEquals(c.getPrimera(),expected);
 	}
+    
+    //MOCK OBJECT DE TABLERO
+    @Test
+    public void testmodCasilla() {   	
+    	Casilla cmock = new Casilla();
+    	int []dat= {1,2,70,70,8,8};
+    	cmock.modCasilla(dat);
+    	
+    	assertTrue(cmock.getFila()==dat[0]);
+    	assertTrue(cmock.getColumna()==dat[1]);
+    	assertTrue(cmock.gettotalFilas()==dat[4]);
+    	assertTrue(cmock.gettotalColumnas()==dat[5]);   	
+    }
 }

@@ -25,6 +25,10 @@ public class Casilla extends JPanel{
     private int vecinos;
     private boolean primera;
 
+    private TableroAux tab;
+    public void setTablero(TableroAux t) {
+    	this.tab=t;
+    }
     
     public Casilla() {
     	this.fila=0;
@@ -59,6 +63,13 @@ public class Casilla extends JPanel{
         changeSprite();
         
     	panel.add(picLabel);
+    }
+    
+    public void modCasilla(int[] datos){
+        this.fila=datos[0];
+        this.columna=datos[1];
+        this.tot_filas=datos[4];
+        this.tot_columnas=datos[5]; 	
     }
     
     public boolean equals(Object anObject) {

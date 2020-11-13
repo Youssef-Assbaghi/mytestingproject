@@ -28,8 +28,8 @@ public class Tablero {
     	this.ventana=ven;
     }
     
-    private Casilla casilla;
-    public void setCasilla(Casilla c) {
+    private CasillaAux casilla;
+    public void setCasilla(CasillaAux c) {
     	this.casilla=c;
     }
     
