@@ -788,7 +788,97 @@ public class TableroTest extends TestCase{
 	   jugada[1]=2;
 	   jugada[2]=0;
 	   tabrirAl.insertarJugada(jugada);
-	   assertTrue(tabrirAl.getCasilla(2, 2).getEstado()==1);
+	   assertTrue(tabrirAl.getCasilla(2, 2).getEstado()==1);	   
+    }
+    
+    @Test
+    public void testinsertarJugadaPairwise() {
+    	
+    	//PAIRWISE TESTING (USANDO BANDERAS)
+ 	   VistaVentanaAuxMock mockVentana1=new VistaVentanaAuxMock();
+ 		
+ 		Tablero tabrirAl1 = null;
+ 		try {
+ 			tabrirAl1 = new Tablero(3,3,500,500,1);
+ 		} catch (IOException e) {
+ 			e.printStackTrace();
+ 		}
+ 		tabrirAl1.setVentana(mockVentana1);
+ 		int [][] cas_sel= {{0,0},{0,1},{0,2},
+ 				{1,0},{1,1},{1,2},
+        		{2,0},{2,1},{2,2}
+       		};
+        tabrirAl1.repartirBombasManual(cas_sel);
+ 		int[] jugada=mockVentana1.registraClick();
+ 		  
+ 		  /*  X(jugada[0])		Y(jugada[1])		ACCION(jugada[2])
+ 		 *  	0					0						0
+ 		 *  	0					1						0
+ 		 *  	0					2						1
+ 		 *  
+ 		 *  	1					0						1
+ 		 *  	1					1						1
+ 		 *  	1					2						0
+ 		 *  
+ 		 *  	2					0						1
+ 		 *  	2					1						0
+ 		 *  	2					2						1  
+ 		 */
+ 		  
+ 		
+ 		  jugada[0]=0;		
+ 		  jugada[1]=0;
+ 		  jugada[2]=0;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(0, 0).getEstado()==1);
+ 		  
+ 		  jugada[0]=0;		
+ 		  jugada[1]=1;
+ 		  jugada[2]=0;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(0, 1).getEstado()==1);
+ 		  
+ 		  jugada[0]=0;		
+ 		  jugada[1]=2;
+ 		  jugada[2]=1;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertEquals(tabrirAl1.getCasilla(0, 2).getEstado(),2);
+ 		  
+ 		  jugada[0]=1;		
+ 		  jugada[1]=0;
+ 		  jugada[2]=1;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(1, 0).getEstado()==2);
+ 		  
+ 		  jugada[0]=1;		
+ 		  jugada[1]=1;
+ 		  jugada[2]=1;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(1, 1).getEstado()==2);
+ 		  
+ 		  jugada[0]=1;		
+ 		  jugada[1]=2;
+ 		  jugada[2]=0;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(1, 2).getEstado()==1);
+ 		  
+ 		  jugada[0]=2;		
+ 		  jugada[1]=0;
+ 		  jugada[2]=1;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(2, 0).getEstado()==2);
+ 		  
+ 		  jugada[0]=2;		
+ 		  jugada[1]=1;
+ 		  jugada[2]=0;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(2, 1).getEstado()==1);
+ 		  
+ 		  jugada[0]=2;		
+ 		  jugada[1]=2;
+ 		  jugada[2]=1;
+ 		  tabrirAl1.insertarJugada(jugada);
+ 		  assertTrue(tabrirAl1.getCasilla(2, 2).getEstado()==2); 
     }
     
     @Test
