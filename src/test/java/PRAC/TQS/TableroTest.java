@@ -38,6 +38,13 @@ public class TableroTest extends TestCase{
 
     @Test
     public void testTableroPar() {
+    	/*	Particiones equivalentes (para filas y columnas será igual):
+         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (inválido)
+    	 *	Valores interiores:	6
+    	 *	Valores Frontera:	3,20
+    	 *	Valores interior Frontera:	4,19
+    	 *  Valores exterior Frontera: 	2,21
+    	 */
         int ancho=100;
         int alto=200;
         int filas=13;
@@ -50,25 +57,17 @@ public class TableroTest extends TestCase{
         assertTrue(t2.getAncho()==ancho);
         assertTrue(t1.getNBombas()==0);
     }
-  
+    /*
     @Test
     public void testTableroEquals() {		
         Tablero tab_prueba = new Tablero();
         assertEquals(t1,tab_prueba);
     }
-    
+    */
     @Test
     public void testcrearTablero() throws IOException {	//MOCK OBJECT CASILLA
         Casilla c = new Casilla(1,2,200,100,3,3);
         assertEquals(t3.getCasilla(1, 2),c);
-    	
-    	/*
-    	Casilla mcasilla=org.Mockito.mock(Casilla.class);
-    	Casilla mockCasilla=new Casilla(1,2,200,100,3,3);
-        Tablero tpruebamock=new Tablero(3,3,300,400,1);
-        tpruebamock.setCasilla(mockCasilla);
-    	assertEquals(tpruebamock.getCasilla(1, 2),mockCasilla);
-    	*/
     }
     
     //mock objects?
@@ -122,11 +121,15 @@ public class TableroTest extends TestCase{
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
         
         Tablero t5=new Tablero();
-        Tablero t6=new Tablero(1,2,300,400,5);
+        Tablero t6=new Tablero(3,3,300,400,2);
         t5.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
+        dat[0]=3;
+        dat[1]=3;
+        dat[4]=2;
         t5.modTablero(dat);
+        
         
         assertTrue(t5.getFilas()==t6.getFilas());
         assertTrue(t5.getColumnas()==t6.getColumnas());
@@ -356,12 +359,12 @@ public class TableroTest extends TestCase{
         jugada[2]=0;
 
         twin.insertarJugada(jugada);
-        
+        //CASO DE NO GANAR
         assertEquals(twin.checkWin(), expected);
         jugada[0]=1;
         jugada[1]=0;
         jugada[2]=0;
-        
+        //CASO DE GANAR
         twin.insertarJugada(jugada);
         expected=true;
         assertEquals(twin.checkWin(), expected);
@@ -392,6 +395,7 @@ public class TableroTest extends TestCase{
             }
         }
         
+        //CASO DE NO PERDER AUN
         tlose.insertarJugada(jugada);
             
         boolean expected=false;
@@ -400,7 +404,7 @@ public class TableroTest extends TestCase{
         jugada[0]=0;
         jugada[1]=1;
         jugada[2]=0;
-        
+        //CASO DE PERDER
         tlose.insertarJugada(jugada);
         expected=true;
         assertTrue(tlose.checkLose()==expected);        
@@ -459,35 +463,256 @@ public class TableroTest extends TestCase{
     	tabrirAl.setVentana(mockVentana);
         
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=5;
-        dat[1]=5;
+        dat[0]=9;
+        dat[1]=9;
         dat[4]=1;
         tabrirAl.modTablero(dat);
         
-        int [][] cas_sel= {{3,0},{2,1},{1,2},{0,3}};
-        tabrirAl.repartirBombasManual(cas_sel);
-        
+        int [][] cas_sel= {{0,2},{0,6},
+        		 {1,2},{1,6},
+        		 {2,0},{2,1},{2,2},{2,3},{2,4},{2,5},{2,6},{2,7},{2,8},
+        		 {3,2},{3,6},
+        		 {4,2},{4,6},
+        		 {5,2},{5,6},
+        		 {6,0},{6,1},{6,2},{6,3},{6,4},{6,5},{6,6},{6,7},{6,8},
+        		 {7,2},{7,6},
+        		 {8,2},{8,6}
+        		};
+        tabrirAl.repartirBombasManual(cas_sel);       
         int[] jugada=mockVentana.registraClick();
-        jugada[0]=4;
-        jugada[1]=4;
-        jugada[2]=0;
         
+        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+    	 *	Valores interiores:	3
+    	 *	Valores Frontera:	0,6 --> (num_filas-1)
+    	 *	Valores interior Frontera:	1,5
+    	 *  Valores exterior Frontera: 	-1,7
+    	*/
+          
         for (int fila=0; fila<tabrirAl.getFilas(); fila++) {
             for (int col=0; col<tabrirAl.getColumnas(); col++) {
             	tabrirAl.getNumVecinos(tabrirAl.getCasilla(fila,col));
             }
         }
         
+        jugada[0]=-1;		//Abrirá [0][0]
+        jugada[1]=0;
+        jugada[2]=0;
         tabrirAl.insertarJugada(jugada);
         
-        int expected=1;
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
         
-        assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==1);
-        assertTrue(tabrirAl.getCasilla(3, 3).getEstado()==1);
-        assertTrue(tabrirAl.getCasilla(4, 3).getEstado()==1);
+        jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
+        
+        jugada[0]=1;	//[1][0]
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
         
         assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==0);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==0);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
         
+        jugada[0]=4;	//[4][0]
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(3, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(5, 0).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(6, 0).getEstado()==0);
+        
+        jugada[0]=7;	//[7][0]
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(7, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(8, 0).getEstado()==0);
+        tabrirAl.getCasilla(7, 0).setEstado(0);
+        
+        jugada[0]=8;	//[8][0]			//CASO ESQUINA ABAJO IZQUIERDA
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(8, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(8, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(7, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(7, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(6, 0).getEstado()==0);
+        tabrirAl.getCasilla(8, 0).setEstado(0);
+        tabrirAl.getCasilla(8, 1).setEstado(0);
+        tabrirAl.getCasilla(7, 1).setEstado(0);
+        tabrirAl.getCasilla(7, 0).setEstado(0);
+        
+        jugada[0]=9;	//Abrirá [0][0]
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
+        
+	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_clumnas-1 (invàlid)
+    	 *	Valores interiores:	3
+    	 *	Valores Frontera:	0,6 --> (num_columnas-1)
+    	 *	Valores interior Frontera:	1,5
+    	 *  Valores exterior Frontera: 	-1,7
+    	*/
+        
+        jugada[0]=0;		//Abrirá [0][0]
+        jugada[1]=-1;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
+        
+        jugada[0]=0;	//[0][0]		//CASO ESQUINA ARRIBA IZQUIERDA
+        jugada[1]=0;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
+        
+        jugada[0]=0;	//[0][1]
+        jugada[1]=1;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==0);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==0);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        
+        jugada[0]=0;	//[0][4]
+        jugada[1]=4;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 3).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 5).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(0, 6).getEstado()==0);
+        
+        jugada[0]=0;	//[0][7]
+        jugada[1]=7;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 7).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 8).getEstado()==0);
+        tabrirAl.getCasilla(0, 7).setEstado(0);
+        
+        jugada[0]=0;	//[0][8]			//CASO ESQUINA ARRIBA DERECHA
+        jugada[1]=8;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 8).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 8).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 7).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 7).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 6).getEstado()==0);
+        tabrirAl.getCasilla(0, 7).setEstado(0);
+        tabrirAl.getCasilla(1, 8).setEstado(0);
+        tabrirAl.getCasilla(1, 7).setEstado(0);
+        tabrirAl.getCasilla(0, 7).setEstado(0);
+        
+        jugada[0]=0;	//Abrirá [0][0]
+        jugada[1]=9;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(1, 0).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(0, 1).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(1, 1).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(2, 0).getEstado()==0);
+        tabrirAl.getCasilla(0, 0).setEstado(0);
+        tabrirAl.getCasilla(1, 0).setEstado(0);
+        tabrirAl.getCasilla(0, 1).setEstado(0);
+        tabrirAl.getCasilla(1, 1).setEstado(0);
+        
+        /*	OTROS PUNTOS:	
+	     * 	LA 4º ESQUINA
+	     * 	1 DENTRO
+	     */
+        
+        jugada[0]=8;	// [8][8] ESQUINA ABAJO DERECHA
+        jugada[1]=8;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(8, 8).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(8, 7).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(7, 7).getEstado()==1);      
+        assertTrue(tabrirAl.getCasilla(7, 8).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(6, 6).getEstado()==0);
+        
+        jugada[0]=4;	// [4][4] Centro
+        jugada[1]=4;
+        jugada[2]=0;
+        tabrirAl.insertarJugada(jugada);
+        
+        assertTrue(tabrirAl.getCasilla(4, 4).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(4, 3).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(4, 5).getEstado()==1); 
+        assertTrue(tabrirAl.getCasilla(3, 4).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(3, 3).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(3, 5).getEstado()==1); 
+        assertTrue(tabrirAl.getCasilla(5, 4).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(5, 3).getEstado()==1);
+        assertTrue(tabrirAl.getCasilla(5, 5).getEstado()==1); 
+        assertTrue(tabrirAl.getCasilla(6, 6).getEstado()==0);
+
     }
     
     @Test 
@@ -495,12 +720,10 @@ public class TableroTest extends TestCase{
     	VistaVentanaAuxMock mockobj=new VistaVentanaAuxMock();
     	
     	Tablero t=new Tablero(7,7,200,203,2);
-    	int num_bombas=t.calculaNumBombas(); //4
-    	int num_bombas_expected=2;
     	t.setVentana(mockobj);
     	int[][] casillas_seleccionadas= {{0,2},{0,4},{1,1},{1,5},{1,6},{2,0},{2,2},{2,4},{3,1},{3,3},{3,4},{3,5},{4,0},{4,3},{4,5},{5,1},{5,3},{5,4},{5,5},{5,6},{6,1},{6,5}};
 	    t.repartirBombasManual(casillas_seleccionadas);
-	    num_bombas=t.getNBombas();		//22
+	    int num_bombas=t.getNBombas();		//22
     	
     	int [] coordenadas=mockobj.registraClick();
     	coordenadas[1]=0;

@@ -48,11 +48,44 @@ public class Tablero {
     } 
 
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
-        this.filas=filas;
-        this.columnas=columnas;
-        this.alto=alto;
-        this.ancho=ancho;
-        this.nivel=nivel;
+    	if((filas>=3)&&(columnas>=3)&&(filas<=20)&&(columnas<=20)) {
+    		this.filas=filas;
+            this.columnas=columnas;
+    	}else {
+    		if((filas<3)||(columnas<3)){
+        		this.filas=3;
+                this.columnas=3;
+        	}	
+        	if((filas>20)||(columnas>20)){
+        		this.filas=20;
+                this.columnas=20;
+        	}
+    	}
+    	
+    	if((alto>=30)&&(ancho>=30)&&(alto<=2000)&&(ancho<=2000)) {
+    		this.alto=alto;
+            this.ancho=ancho;
+    	}else {
+    		if((alto<30)||(ancho<30)){
+        		this.alto=30;
+                this.ancho=30;
+        	}	
+        	if((alto>2000)||(ancho>2000)){
+        		this.alto=2000;
+                this.ancho=2000;
+        	}
+    	}
+    	
+    	if((nivel>=1)&&(nivel<=3)) {
+    		this.nivel=nivel;
+        }else {
+        	if(nivel<1) {
+        		this.nivel=1;
+        	}
+        	if(nivel>3) {
+        		this.nivel=3;
+        	}
+        }
         n_bombas=0;
         crearTablero();
     }
@@ -66,12 +99,12 @@ public class Tablero {
         this.nivel=datos[4];
         crearTablero();    	
     }
-       
+    /*
     public boolean equals(Object anObject) {
         Tablero tab= (Tablero)anObject;
         return((tab.getFilas()==this.filas)&&(tab.getColumnas()==this.columnas)&&(tab.getNivel()==this.nivel));
     }
-    
+    */
     public void crearTablero() {
     	tablero = new Casilla[filas][columnas];
         for (int fila=0; fila<filas; fila++) {
