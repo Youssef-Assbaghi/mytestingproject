@@ -90,18 +90,21 @@ public class Tablero {
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
     public int getNBombas() {return this.n_bombas;}
-    
+
     public int calculaNumBombas() {
-    	double porcentaje;
-    	if(this.nivel==1) {
-    		porcentaje=0.125;
-    	}else if(this.nivel==2) {
-    		porcentaje=0.16;
-    	}else {
-    		porcentaje=0.205;
-    	}
-    	this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
-     	return this.n_bombas;
+        double porcentaje=0.0;
+        if((this.nivel>=1)&&(this.nivel<=3)){
+            if(this.nivel==1) {
+                porcentaje=0.125;
+            }else if(this.nivel==2) {
+                porcentaje=0.16;
+            }else {
+                porcentaje=0.205;
+            }
+        }
+        this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
+        return this.n_bombas;
+
     }
     
     public void repartirBombas() {

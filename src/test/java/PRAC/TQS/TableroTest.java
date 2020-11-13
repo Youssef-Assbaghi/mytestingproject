@@ -142,7 +142,7 @@ public class TableroTest extends TestCase{
         t5.setVentana(resultado);
         
         int[] dat=resultado.pasarDatos();
-        int expected1=8;
+        int expected1=8;                        // VALORES FRONTERA (NIVEL=1 Y NIVEL=3)
         dat[0]=8;
         dat[1]=8;
         dat[4]=1;
@@ -150,18 +150,7 @@ public class TableroTest extends TestCase{
         assertTrue(t5.getFilas()==8);
         assertTrue(t5.getColumnas()==8);
         assertTrue(t5.getNivel()==1);
-        assertTrue(t5.calculaNumBombas()==expected1);
-        
-        dat[0]=7;
-        dat[1]=4;
-        dat[4]=2;
-        t5.modTablero(dat);
-        
-        int expected2=4;
-        assertTrue(t5.getFilas()==7);
-        assertTrue(t5.getColumnas()==4);
-        assertTrue(t5.getNivel()==2);
-        assertTrue(t5.calculaNumBombas()==expected2);
+        assertTrue(t5.calculaNumBombas()==expected1); //VALOR FRONTERA NIVEL=1
         
         dat[0]=10;
         dat[1]=8;
@@ -169,10 +158,44 @@ public class TableroTest extends TestCase{
         t5.modTablero(dat);
         
         int expected3=16;
-        assertTrue(t5.getFilas()==10);
-        assertTrue(t5.getColumnas()==8);
-        assertTrue(t5.getNivel()==3);
-        assertTrue(t5.calculaNumBombas()==expected3);  	
+        assertTrue(t5.calculaNumBombas()==expected3);   //VALOR FRONTERA NIVEL=3
+                                                               
+        dat[0]=7;
+        dat[1]=4;
+        dat[4]=2;
+        t5.modTablero(dat);                               
+        
+        int expected2=4;
+        assertTrue(t5.calculaNumBombas()==expected2);   //VALOR INTERIOR I INTERIOR A LA FRONTERA NIVEL=2
+              
+        dat[0]=20;
+        dat[1]=18;                                         //VALORES EXTERIORES A LA FRONTERA (NIVEL=0 NIVEL=4 NIVEL=100 NIVEL =-100
+        dat[4]=0;
+        t5.modTablero(dat);
+        
+        int expected5=0;
+        assertEquals(t5.calculaNumBombas(),expected5);  //VALOR EXTERIOR NIVEL=0
+        
+        dat[0]=10;
+        dat[1]=8;                                          
+        dat[4]=0;
+        t5.modTablero(dat);
+        
+        int expectednivel4=0;
+        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=4
+
+        dat[0]=10;
+        dat[1]=8;                                          
+        dat[4]=100;
+        t5.modTablero(dat);
+        
+        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=100
+                
+        dat[0]=10;
+        dat[1]=8;                                          
+        dat[4]=-100;
+        t5.modTablero(dat);        
+        assertTrue(t5.calculaNumBombas()==expectednivel4);  //VALOR EXTERIOR NIVEL=-100
     }   
    
     @Test
