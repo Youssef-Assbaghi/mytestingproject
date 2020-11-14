@@ -1,5 +1,7 @@
 package PRAC.TQS;
 
+import static org.junit.Assert.assertNotEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,17 +28,17 @@ public class CasillaTest extends TestCase{
     
     @Test
     public void testConstructor() {
-    	assertTrue(c.getFila()==0);
-    	assertTrue(c.getColumna()==0);
-    	assertTrue(c.getAltura()==700);
-    	assertTrue(c.getAnchura()==700);
-    	assertTrue(c.gettotalFilas()==1);
-    	assertTrue(c.gettotalColumnas()==1);
+    	assertEquals(c.getFila(),0);
+    	assertEquals(c.getColumna(),0);
+    	assertEquals(c.getAltura(),700);
+    	assertEquals(c.getAnchura(),700);
+    	assertEquals(c.gettotalFilas(),1);
+    	assertEquals(c.gettotalColumnas(),1);
     	
-    	assertTrue(c.getBomba()==false);
-    	assertTrue(c.getEstado()==0);
-    	assertTrue(c.getVecinos()==0);
-    	assertTrue(c.getPrimera()==false);
+    	assertEquals(c.getBomba(),false);
+    	assertEquals(c.getEstado(),0);
+    	assertEquals(c.getVecinos(),0);
+    	assertEquals(c.getPrimera(),false);
     }
     
     @Test
@@ -64,35 +66,35 @@ public class CasillaTest extends TestCase{
     	 *  
     	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARA UNA
     	 *  CASILLA POR DEFECTO
-    	 */
+    	 */ 
     	
     	Casilla cconst=new Casilla(1,1,400,400,5,5);
         
-    	assertTrue(cconst.getFila()==1);
-    	assertTrue(cconst.getColumna()==1);
-    	assertTrue(cconst.getAltura()==400);
-    	assertTrue(cconst.getAnchura()==400);
-    	assertTrue(cconst.gettotalFilas()==5);
-    	assertTrue(cconst.gettotalColumnas()==5);
-    	
-    	assertTrue(cconst.getBomba()==false);
-    	assertTrue(cconst.getEstado()==0);
-    	assertTrue(cconst.getVecinos()==0);
-    	assertTrue(cconst.getPrimera()==false);
-    	
+    	assertEquals(cconst.getFila(),1);
+    	assertEquals(cconst.getColumna(),1);
+    	assertEquals(cconst.getAltura(),400);
+    	assertEquals(cconst.getAnchura(),400);
+    	assertEquals(cconst.gettotalFilas(),5);
+    	assertEquals(cconst.gettotalColumnas(),5);
+
+    	assertEquals(cconst.getBomba(),false);
+    	assertEquals(cconst.getEstado(),0);
+    	assertEquals(cconst.getVecinos(),0);
+    	assertEquals(cconst.getPrimera(),false);
+
     	Casilla cconst1=new Casilla(-1,1,400,400,5,5);
-        
-    	assertTrue(cconst1.getFila()==0);
-    	assertTrue(cconst1.getColumna()==0);
-    	assertTrue(cconst1.getAltura()==300);
-    	assertTrue(cconst1.getAnchura()==300);
-    	assertTrue(cconst1.gettotalFilas()==3);
-    	assertTrue(cconst1.gettotalColumnas()==3);
-    	
-    	assertTrue(cconst1.getBomba()==false);
-    	assertTrue(cconst1.getEstado()==0);
-    	assertTrue(cconst1.getVecinos()==0);
-    	assertTrue(cconst1.getPrimera()==false);
+
+    	assertEquals(cconst1.getFila(),0);
+    	assertEquals(cconst1.getColumna(),0);
+    	assertEquals(cconst1.getAltura(),300);
+    	assertEquals(cconst1.getAnchura(),300);
+    	assertEquals(cconst1.gettotalFilas(),3);
+    	assertEquals(cconst1.gettotalColumnas(),3);
+
+    	assertEquals(cconst1.getBomba(),false);
+    	assertEquals(cconst1.getEstado(),0);
+    	assertEquals(cconst1.getVecinos(),0);
+    	assertEquals(cconst1.getPrimera(),false);
     }
 
     @Test
@@ -104,30 +106,30 @@ public class CasillaTest extends TestCase{
     @Test
     public void testsetBomba() {
         boolean expected=false;
-        assertTrue(c.getBomba()==expected);
+        assertEquals(c.getBomba(),expected);
         c.setBomba();
         expected=true;
-        assertTrue(c.getBomba()==expected);
+        assertEquals(c.getBomba(),expected);
     }
 
     @Test
     public void testsetEstado() {
         int expected=0;
-        assertTrue(c.getEstado()==expected);
+        assertEquals(c.getEstado(),expected);
         expected=1;
         c.setEstado(1);
-        assertTrue(c.getEstado()==expected);
+        assertEquals(c.getEstado(),expected);
         expected=2;
-        assertFalse(c.getEstado()==expected);
+        assertNotEquals(c.getEstado(),expected);
     }
     
     @Test
 	public void testsetVecinos() {
 		int expected=0;
-		assertTrue(c.getVecinos()==expected);
+		assertEquals(c.getVecinos(),expected);
 		expected=3;
 		c.setVecinos(3);
-		assertTrue(c.getVecinos()==expected);
+		assertEquals(c.getVecinos(),expected);
 	}
     
     @Test
@@ -148,7 +150,7 @@ public class CasillaTest extends TestCase{
         cmock.setTablero(mockTablero);
         
         int x=cmock.prueba2(5, mockTablero.prueba(2, 29));
-        assertTrue(x==10);
+        assertEquals(x,10);
     } 
     
     @Test
@@ -161,20 +163,20 @@ public class CasillaTest extends TestCase{
         
     	cmock.modCasilla(dat);
     	
-    	assertTrue(cmock.getFila()==dat[0]);
-    	assertTrue(cmock.getColumna()==dat[1]);
-    	assertTrue(cmock.getAltura()==dat[2]);
-    	assertTrue(cmock.getAnchura()==dat[3]);
-    	assertTrue(cmock.gettotalFilas()==dat[4]);
-    	assertTrue(cmock.gettotalColumnas()==dat[5]);   
+    	assertEquals(cmock.getFila(),dat[0]);
+    	assertEquals(cmock.getColumna(),dat[1]);
+    	assertEquals(cmock.getAltura(),dat[2]);
+    	assertEquals(cmock.getAnchura(),dat[3]);
+    	assertEquals(cmock.gettotalFilas(),dat[4]);
+    	assertEquals(cmock.gettotalColumnas(),dat[5]);   
     	
     	dat[0]=-1;
     	cmock.modCasilla(dat);
-    	assertTrue(cmock.getFila()==0);
-    	assertTrue(cmock.getColumna()==0);
-    	assertTrue(cmock.getAltura()==300);
-    	assertTrue(cmock.getAnchura()==300);
-    	assertTrue(cmock.gettotalFilas()==3);
-    	assertTrue(cmock.gettotalColumnas()==3);      	
+    	assertEquals(cmock.getFila(),0);
+    	assertEquals(cmock.getColumna(),0);
+    	assertEquals(cmock.getAltura(),300);
+    	assertEquals(cmock.getAnchura(),300);
+    	assertEquals(cmock.gettotalFilas(),3);
+    	assertEquals(cmock.gettotalColumnas(),3);      	
     }
 }

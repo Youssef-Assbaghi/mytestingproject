@@ -4,12 +4,6 @@ import PRAC.TQS.Modelo.Tablero;
 import PRAC.TQS.Vista.VistaVentanaAux;
 
 public class VistaVentanaAuxMock implements VistaVentanaAux{
-
-	@Override
-	public Tablero getTablero() {
-		return null;
-	}
-
 	@Override
 	public int prueba(int a, int b) {
 		int c=5;
@@ -27,11 +21,5 @@ public class VistaVentanaAuxMock implements VistaVentanaAux{
 		int[] coords= {1,2,0};
 		return coords;
 	}
-	
-	@Override
-    public int[][] getTableroConBombas() {
-        int [][] casilla_bomb= {{0,1},{1,0},{1,4},{2,2},{5,1},{4,1},{5,4},{7,0},{7,7}};
-        return casilla_bomb;
-    }
 	
 }
