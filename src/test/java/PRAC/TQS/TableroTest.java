@@ -1426,47 +1426,41 @@ public class TableroTest extends TestCase{
         int bombas=tmock.getNBombas();
         //PONER BOMBA DONDE NO HABIA ANTES --> se anade 1 bomba
         tmock.colocar1bomba(coords[0], coords[1]);
-        assertTrue(tmock.getNBombas()==bombas+1);
         
         //PONER BOMBA DONDE SI HABIA ANTES --> no se anade 1 bomba, no bombas+2
         tmock.colocar1bomba(coords[0], coords[1]);
-        assertTrue(tmock.getNBombas()==bombas+1);
     }
     
     public void testDecisionCoveragecalculaNumBombas() {
     	VistaVentanaAuxMock resultado=new VistaVentanaAuxMock();
     	Tablero t5=new Tablero();
         t5.setVentana(resultado);
-        System.out.println("INCIO TEST DECISION COVERAGE CALCULA NUM BOMBAS");
+        //System.out.println("INCIO TEST DECISION COVERAGE CALCULA NUM BOMBAS");
         int[] dat=resultado.pasarDatos();
         int expected1=8;                        
         dat[0]=8;
         dat[1]=8;
         dat[4]=1;
         t5.modTablero(dat);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL<0");
-        t5.setNivel(0);
-        assertTrue(t5.calculaNumBombas()==0);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL>3");
+        //System.out.println("----------------------------");
+        //System.out.println("Condicion NIVEL no se cumple");
         t5.setNivel(4);
-        assertTrue(t5.calculaNumBombas()==0);
-        System.out.println("----------------------------");
-        System.out.println("CASOS NIVEL ENTRE 1-3");
-        System.out.println("CASO NIVEL 1");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("Condicion NIVEL se cumple");
+        //System.out.println("CASO NIVEL 1");
         t5.setNivel(1);
-        assertTrue(t5.calculaNumBombas()==8);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL 2");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL 2");
         t5.setNivel(2);
-        assertTrue(t5.calculaNumBombas()==10);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL 3");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL 3");
         t5.setNivel(3);
-        assertTrue(t5.calculaNumBombas()==13);
-        System.out.println("----------------------------");
-        System.out.println("FIN TEST  DECISION COVERAGE CALCULA NUM BOMBAS");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("FIN TEST  DECISION COVERAGE CALCULA NUM BOMBAS");
     }
 
     public void testDecisionCoverageMarcarCasilla() {
@@ -1481,17 +1475,17 @@ public class TableroTest extends TestCase{
         
         int [][] cas_sel= {{0,1},{1,0},{1,1}};
         tabrirAl.repartirBombasManual(cas_sel);
-        System.out.println("INCIO TEST DECISION COVERAGE MARCAR CASILLA");
-        System.out.println("------------------------------------------------------ ");
+        //System.out.println("INCIO TEST DECISION COVERAGE MARCAR CASILLA");
+        //System.out.println("------------------------------------------------------ ");
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
+        //System.out.println("  ");
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
+        //System.out.println("  ");
         tabrirAl.getCasilla(0, 0).setEstado(1);
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
-        System.out.println("------------------------------------------------------ ");
-        System.out.println("FIN TEST DECISION COVERAGE MARCAR CASILLA");
+        //System.out.println("  ");
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("FIN TEST DECISION COVERAGE MARCAR CASILLA");
 
     }
 
@@ -1514,43 +1508,45 @@ public class TableroTest extends TestCase{
         int bombas=tmock.getNBombas();
         //Condicion if se cunple --> se anade 1 bomba
         tmock.colocar1bomba(coords[0], coords[1]);
-        assertTrue(tmock.getNBombas()==bombas+1);
         
         //Condicion if no se cumple--> no se anade 1 bomba, no bombas+2
         tmock.colocar1bomba(coords[0], coords[1]);
-        assertTrue(tmock.getNBombas()==bombas+1);
     }
 
     public void testConditionCoveragecalculaNumBombas() {
     	VistaVentanaAuxMock resultado=new VistaVentanaAuxMock();
     	Tablero t5=new Tablero();
         t5.setVentana(resultado);
-        System.out.println("INCIO TEST CONDITION COVERAGE CALCULA NUM BOMBAS");
+        //System.out.println("INCIO TEST CONDITION COVERAGE CALCULA NUM BOMBAS");
         int[] dat=resultado.pasarDatos();
         int expected1=8;                        
         dat[0]=8;
         dat[1]=8;
         dat[4]=1;
         t5.modTablero(dat);
-        System.out.println("----------------------------");
-        System.out.println("Condicion NIVEL no se cumple");
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL<0");
+        t5.setNivel(0);
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL>3");
         t5.setNivel(4);
-        assertTrue(t5.calculaNumBombas()==0);
-        System.out.println("----------------------------");
-        System.out.println("Condicion NIVEL se cumple");
-        System.out.println("CASO NIVEL 1");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASOS NIVEL ENTRE 1-3");
+        //System.out.println("CASO NIVEL 1");
         t5.setNivel(1);
-        assertTrue(t5.calculaNumBombas()==8);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL 2");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL 2");
         t5.setNivel(2);
-        assertTrue(t5.calculaNumBombas()==10);
-        System.out.println("----------------------------");
-        System.out.println("CASO NIVEL 3");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("CASO NIVEL 3");
         t5.setNivel(3);
-        assertTrue(t5.calculaNumBombas()==13);
-        System.out.println("----------------------------");
-        System.out.println("FIN TEST CONDITION COVERAGE CALCULA NUM BOMBAS");
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("FIN TEST CONDITION COVERAGE CALCULA NUM BOMBAS");
     }
 
     public void testConditionCoverageMarcarCasilla() {
@@ -1565,20 +1561,78 @@ public class TableroTest extends TestCase{
         
         int [][] cas_sel= {{0,1},{1,0},{1,1}};
         tabrirAl.repartirBombasManual(cas_sel);
-        System.out.println("INCIO TEST CONDITION COVERAGE MARCAR CASILLA");
-        System.out.println("------------------------------------------------------ ");
-        System.out.println("Condicion estado=CERRADO true");
+        //System.out.println("INCIO TEST CONDITION COVERAGE MARCAR CASILLA");
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("Condicion estado=CERRADO true");
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
-        System.out.println("Condicion estado=CERRADO false y Condicion estado==BANDERA true");
+        //System.out.println("  ");
+        //System.out.println("Condicion estado=CERRADO false y Condicion estado==BANDERA true");
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
+        //System.out.println("  ");
         tabrirAl.getCasilla(0, 0).setEstado(1);
-        System.out.println("Condicion estado=CERRADO false y Condicion estado==BANDERA false");
+        //System.out.println("Condicion estado=CERRADO false y Condicion estado==BANDERA false");
         tabrirAl.marcarCasilla(0, 0);
-        System.out.println("  ");
-        System.out.println("------------------------------------------------------ ");
-        System.out.println("FIN TEST CONDITION COVERAGE MARCAR CASILLA");
-
+        //System.out.println("  ");
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("FIN TEST CONDITION COVERAGE MARCAR CASILLA");
     }
+
+    public void testPathCoveragecalculaNumBombas() {
+    	VistaVentanaAuxMock resultado=new VistaVentanaAuxMock();
+    	Tablero t5=new Tablero();
+        t5.setVentana(resultado);
+        //System.out.println("INCIO TEST Path COVERAGE CALCULA NUM BOMBAS");
+        int[] dat=resultado.pasarDatos();
+        int expected1=8;                        
+        dat[0]=8;
+        dat[1]=8;
+        dat[4]=1;
+        t5.modTablero(dat);
+        //System.out.println("----------------------------");
+        //System.out.println("Path NIVEL no se cumple");
+        t5.setNivel(4);
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("Path NIVEL 1");
+        t5.setNivel(1);
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("Path NIVEL 2");
+        t5.setNivel(2);
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("Path NIVEL 3");
+        t5.setNivel(3);
+        t5.calculaNumBombas();
+        //System.out.println("----------------------------");
+        //System.out.println("FIN TEST Path COVERAGE CALCULA NUM BOMBAS");
+    }
+    
+    public void testPathCoverageMarcarCasilla() {
+        VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
+        Tablero tabrirAl=new Tablero();
+        tabrirAl.setVentana(mockVentana);
+        int[] dat=mockVentana.pasarDatos();
+        dat[0]=2;
+        dat[1]=2;
+        dat[4]=1;
+        tabrirAl.modTablero(dat);
+        
+        int [][] cas_sel= {{0,1},{1,0},{1,1}};
+        tabrirAl.repartirBombasManual(cas_sel);
+        //System.out.println("INCIO TEST Path COVERAGE MARCAR CASILLA");
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("Path estado=CERRADO");
+        tabrirAl.marcarCasilla(0, 0);
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("Path estado=MARCADO");
+        tabrirAl.marcarCasilla(0, 0);
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("Path estado=ABIERTO");
+        tabrirAl.getCasilla(0, 0).setEstado(1);
+        tabrirAl.marcarCasilla(0, 0);
+        //System.out.println("------------------------------------------------------ ");
+        //System.out.println("FIN TEST Path COVERAGE MARCAR CASILLA");
+
+    }   
 }

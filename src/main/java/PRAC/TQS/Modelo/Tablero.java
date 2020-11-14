@@ -119,31 +119,31 @@ public class Tablero {
     public void setNivel(int n) {this.nivel=n;}
 
     public int calculaNumBombas() {
-    	System.out.println('A');
+    	//System.out.println('A');
         double porcentaje=0.0;
         if((this.nivel>=1)&&(this.nivel<=3)){
-        	System.out.println('C');
+        	//System.out.println('C');
             if(this.nivel==1) {
-            	System.out.println('D');
+            	//System.out.println('D');
                 porcentaje=0.125;
             }
             else {
-            	System.out.println('E');
+            	//System.out.println('E');
             	if(this.nivel==2) {
-            		System.out.println('F');
+            		//System.out.println('F');
             		porcentaje=0.16;
             	}
             	else {
-            		System.out.println('G');
+            		//System.out.println('G');
             		porcentaje=0.205;
 	            }
             }        
         }
     	else {
-        	System.out.println('B');
+    		//System.out.println('B');
         }
         this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
-        System.out.println('H');
+        //System.out.println('H');
         return this.n_bombas;
 
     }
@@ -196,20 +196,20 @@ public class Tablero {
     }
     
     public void marcarCasilla(int x, int y) {
-        System.out.println("A");
+    	//System.out.println("A");
         if (getCasilla(x,y).getEstado()==CERRADO) {
             getCasilla(x,y).setEstado(BANDERA);
             n_banderas+=1;
-            System.out.println("B");
+            //System.out.println("B");
         } else {
-            System.out.println("C");
+        	//System.out.println("C");
             if (getCasilla(x,y).getEstado()==BANDERA) {
                 getCasilla(x,y).setEstado(CERRADO);
                 n_banderas-=1;
-                System.out.println("D");
+                //System.out.println("D");
             }
         }
-        System.out.println("E");
+        //System.out.println("E");
         getCasilla(x,y).actualizar_casilla();
     }
     
