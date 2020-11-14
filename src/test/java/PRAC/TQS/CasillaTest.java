@@ -41,28 +41,28 @@ public class CasillaTest extends TestCase{
     
     @Test
     public void testConstructorPar() {
-    	/*	FILA COLUMNA Particiones equivalentes (para fila y columna será igual):
-         * 	x<0 (invalido), 0<=x<=19 (valido), x>19 (inválido)
+    	/*	FILA COLUMNA Particiones equivalentes (para fila y columna sera igual):
+         * 	x<0 (invalido), 0<=x<=19 (valido), x>19 (invalido)
     	 *	Valores interiores:	6
     	 *	Valores Frontera:	0,19
     	 *	Valores interior Frontera:	1,18
     	 *  Valores exterior Frontera: 	-1,20
     	 *  
-    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho será igual):
-         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (inválido)
+    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho sera igual):
+         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (invalido)
     	 *	Valores interiores:	600
     	 *	Valores Frontera:	300,2000
     	 *	Valores interior Frontera:	301,1999
     	 *  Valores exterior Frontera: 	299,2001
     	 *  
-    	 *  FILAS COLUMNAS TOTALES Particiones equivalentes (para filas y columnas será igual):
-         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (inválido)
+    	 *  FILAS COLUMNAS TOTALES Particiones equivalentes (para filas y columnas sera igual):
+         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (invalido)
     	 *	Valores interiores:	6
     	 *	Valores Frontera:	3,20
     	 *	Valores interior Frontera:	4,19
     	 *  Valores exterior Frontera: 	2,21
     	 *  
-    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARÁ UNA
+    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARA UNA
     	 *  CASILLA POR DEFECTO
     	 */
     	
@@ -97,7 +97,7 @@ public class CasillaTest extends TestCase{
 
     @Test
     public void testCasillaEquals() {
-		Casilla equalcasilla = new Casilla(1,2,70,70,8,8);
+		Casilla equalcasilla = new Casilla(1,2,700,700,8,8);
 		assertEquals(c2,equalcasilla);
     }
 

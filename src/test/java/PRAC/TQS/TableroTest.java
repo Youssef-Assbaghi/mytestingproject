@@ -38,28 +38,28 @@ public class TableroTest extends TestCase{
 
     @Test
     public void testTableroPar() throws IOException {
-    	/*	FILAS COLUMNAS Particiones equivalentes (para filas y columnas será igual):
-         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (inválido)
+    	/*	FILAS COLUMNAS Particiones equivalentes (para filas y columnas sera igual):
+         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (invalido)
     	 *	Valores interiores:	6
     	 *	Valores Frontera:	3,20
     	 *	Valores interior Frontera:	4,19
     	 *  Valores exterior Frontera: 	2,21
     	 *  
-    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho será igual):
-         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (inválido)
+    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho sera igual):
+         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (invalido)
     	 *	Valores interiores:	600
     	 *	Valores Frontera:	300,2000
     	 *	Valores interior Frontera:	301,1999
     	 *  Valores exterior Frontera: 	299,2001
     	 *  
     	 *  NIVEL Particiones equivalentes
-         * 	x<1 (invalido), 1<=x<=3 (valido), x>3 (inválido)
+         * 	x<1 (invalido), 1<=x<=3 (valido), x>3 (invalido)
     	 *	Valores interiores:	2
     	 *	Valores Frontera:	1,3
     	 *  Valores exterior Frontera: 	0,4
     	 *  
-    	 *  COMO ES UN CONSTRUCTOR NECESITARÍAMOS CREAR 7x3=21 TABLEROS
-    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARÁ UN
+    	 *  COMO ES UN CONSTRUCTOR NECESITARIAMOS CREAR 7x3=21 TABLEROS
+    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARA UN
     	 *  TABLERO POR DEFECTO
     	 */
     	
@@ -265,7 +265,7 @@ public class TableroTest extends TestCase{
         dat[4]=1;
         int n_bombas=4;
         tbombas.modTablero(dat);
-        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
          *    Valores interiores:    2
          *    Valores Frontera:    0,4 --> (num_filas-1)
          *    Valores interior Frontera:    1,3
@@ -297,7 +297,7 @@ public class TableroTest extends TestCase{
         assertEquals(bombas_correctas,bombas_correctas_expected);
         
         
-        /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+        /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
          *    Valores interiores:    2
          *    Valores Frontera:    0,4 --> (num_filas-1)
          *    Valores interior Frontera:    1,3
@@ -376,14 +376,14 @@ public class TableroTest extends TestCase{
       
        int[] jugada=mockVentana.registraClick();
        
-	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
 	   	 *	Valores interior Frontera:	1,3
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[0]=-1;		//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
@@ -428,14 +428,14 @@ public class TableroTest extends TestCase{
        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
-	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invalid), 0<=x<=num_columnas-1 (valid), x>num_columnas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
 	   	 *	Valores interior Frontera:	1,3
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[0]=0;		//Abrira [0][0]
 	   jugada[1]=-1;
 	   jugada[2]=0;
 	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);
@@ -521,14 +521,14 @@ public class TableroTest extends TestCase{
       
        int[] jugada=mockVentana.registraClick();
        
-	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
 	   	 *	Valores interior Frontera:	1,3
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[0]=-1;		//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.marcarCasilla(jugada[0],jugada[1]);     
@@ -573,14 +573,14 @@ public class TableroTest extends TestCase{
        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==2);
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
-	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invalid), 0<=x<=num_columnas-1 (valid), x>num_columnas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
 	   	 *	Valores interior Frontera:	1,3
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[0]=0;		//Abrira [0][0]
 	   jugada[1]=-1;
 	   jugada[2]=0;
 	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);       
@@ -666,14 +666,14 @@ public class TableroTest extends TestCase{
       
        int[] jugada=mockVentana.registraClick();
        
-	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+	       /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_filas-1)
 	   	 *	Valores interior Frontera:	1,3
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-       jugada[0]=-1;		//Abrirá [0][0]
+       jugada[0]=-1;		//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.insertarJugada(jugada);     
@@ -718,7 +718,7 @@ public class TableroTest extends TestCase{
        assertTrue(tabrirAl.getCasilla(0, 0).getEstado()==1);
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
-	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_columnas-1 (invàlid)
+	       /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invalid), 0<=x<=num_columnas-1 (valid), x>num_columnas-1 (invalid)
 	   	 *	Valores interiores:	2
 	   	 *	Valores Frontera:	0,4 --> (num_columnas-1)
 	   	 *	Valores interior Frontera:	1,3
@@ -1028,7 +1028,7 @@ public class TableroTest extends TestCase{
         tabrirAl.repartirBombasManual(cas_sel);       
         int[] jugada=mockVentana.registraClick();
         
-        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+        /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
     	 *	Valores interiores:	3
     	 *	Valores Frontera:	0,6 --> (num_filas-1)
     	 *	Valores interior Frontera:	1,5
@@ -1041,7 +1041,7 @@ public class TableroTest extends TestCase{
             }
         }
         
-        jugada[0]=-1;		//Abrirá [0][0]
+        jugada[0]=-1;		//Abrira [0][0]
         jugada[1]=0;
         jugada[2]=0;
         tabrirAl.insertarJugada(jugada);
@@ -1131,14 +1131,14 @@ public class TableroTest extends TestCase{
         tabrirAl.getCasilla(0, 1).setEstado(0);
         tabrirAl.getCasilla(1, 1).setEstado(0);
         
-	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_clumnas-1 (invàlid)
+	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invalid), 0<=x<=num_columnas-1 (valid), x>num_clumnas-1 (invalid)
     	 *	Valores interiores:	3
     	 *	Valores Frontera:	0,6 --> (num_columnas-1)
     	 *	Valores interior Frontera:	1,5
     	 *  Valores exterior Frontera: 	-1,7
     	*/
         
-        jugada[0]=0;		//Abrirá [0][0]
+        jugada[0]=0;		//Abrira [0][0]
         jugada[1]=-1;
         jugada[2]=0;
         tabrirAl.insertarJugada(jugada);
@@ -1274,7 +1274,7 @@ public class TableroTest extends TestCase{
     	
     	int [] coordenadas=mockobj.registraClick();
     	coordenadas[1]=0;
-    	/*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invàlid), 0<=x<=num_filas-1 (vàlid), x>num_filas-1 (invàlid)
+    	/*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
     	 *	Valores interiores:	3
     	 *	Valores Frontera:	0,6 --> (num_filas-1)
     	 *	Valores interior Frontera:	1,5
@@ -1316,7 +1316,7 @@ public class TableroTest extends TestCase{
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
  
-	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invàlid), 0<=x<=num_columnas-1 (vàlid), x>num_clumnas-1 (invàlid)
+	    /*  [0,NUM_COLUMNAS-1] --> PARTICIONES EQUIVALENTES COLUMNAS: x<0 (invalid), 0<=x<=num_columnas-1 (valid), x>num_clumnas-1 (invalid)
     	 *	Valores interiores:	3
     	 *	Valores Frontera:	0,6 --> (num_columnas-1)
     	 *	Valores interior Frontera:	1,5
@@ -1324,7 +1324,7 @@ public class TableroTest extends TestCase{
     	*/
 	    coordenadas[0]=0;
 	    
-	    coordenadas[1]=-1;	//Dará el resultado de [0][0]
+	    coordenadas[1]=-1;	//Dara el resultado de [0][0]
     	
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
@@ -1354,7 +1354,7 @@ public class TableroTest extends TestCase{
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
 	    
-	    coordenadas[1]=7;	//Dará el resultado de [0][0]
+	    coordenadas[1]=7;	//Dara el resultado de [0][0]
     	
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
