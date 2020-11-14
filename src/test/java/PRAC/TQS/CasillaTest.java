@@ -15,7 +15,7 @@ public class CasillaTest extends TestCase{
     @Before
     public void setUp() throws Exception {
         c=new Casilla();
-        c2=new Casilla(1,2,70,70,8,8);
+        c2=new Casilla(1,2,700,700,8,8);
     }
 
     @After
@@ -28,8 +28,8 @@ public class CasillaTest extends TestCase{
     public void testConstructor() {
     	assertTrue(c.getFila()==0);
     	assertTrue(c.getColumna()==0);
-    	assertTrue(c.getAltura()==70);
-    	assertTrue(c.getAnchura()==70);
+    	assertTrue(c.getAltura()==700);
+    	assertTrue(c.getAnchura()==700);
     	assertTrue(c.gettotalFilas()==1);
     	assertTrue(c.gettotalColumnas()==1);
     	
@@ -41,31 +41,66 @@ public class CasillaTest extends TestCase{
     
     @Test
     public void testConstructorPar() {
-    	int fila=1;
-        int columna=2;
-        int h=70;
-        int w=70;
-        int tot_filas=8;
-        int tot_columnas=8;
-        
-    	assertTrue(c2.getFila()==fila);
-    	assertTrue(c2.getColumna()==columna);
-    	assertTrue(c2.getAltura()==h);
-    	assertTrue(c2.getAnchura()==w);
-    	assertTrue(c2.gettotalFilas()==tot_filas);
-    	assertTrue(c2.gettotalColumnas()==tot_columnas);
+    	/*	FILA COLUMNA Particiones equivalentes (para fila y columna será igual):
+         * 	x<0 (invalido), 0<=x<=19 (valido), x>19 (inválido)
+    	 *	Valores interiores:	6
+    	 *	Valores Frontera:	0,19
+    	 *	Valores interior Frontera:	1,18
+    	 *  Valores exterior Frontera: 	-1,20
+    	 *  
+    	 *  ALTO ANCHO Particiones equivalentes (para alto y ancho será igual):
+         * 	x<300 (invalido), 300<=x<=2000 (valido), x>2000 (inválido)
+    	 *	Valores interiores:	600
+    	 *	Valores Frontera:	300,2000
+    	 *	Valores interior Frontera:	301,1999
+    	 *  Valores exterior Frontera: 	299,2001
+    	 *  
+    	 *  FILAS COLUMNAS TOTALES Particiones equivalentes (para filas y columnas será igual):
+         * 	x<3 (invalido), 3<=x<=20 (valido), x>20 (inválido)
+    	 *	Valores interiores:	6
+    	 *	Valores Frontera:	3,20
+    	 *	Valores interior Frontera:	4,19
+    	 *  Valores exterior Frontera: 	2,21
+    	 *  
+    	 *  VAMOS A SIMPLICARLO Y SI PONES 1 DATO MAL, SE CREARÁ UNA
+    	 *  CASILLA POR DEFECTO
+    	 */
     	
-    	assertTrue(c2.getBomba()==false);
-    	assertTrue(c2.getEstado()==0);
-    	assertTrue(c2.getVecinos()==0);
-    	assertTrue(c2.getPrimera()==false);
+    	Casilla cconst=new Casilla(1,1,400,400,5,5);
+        
+    	assertTrue(cconst.getFila()==1);
+    	assertTrue(cconst.getColumna()==1);
+    	assertTrue(cconst.getAltura()==400);
+    	assertTrue(cconst.getAnchura()==400);
+    	assertTrue(cconst.gettotalFilas()==5);
+    	assertTrue(cconst.gettotalColumnas()==5);
+    	
+    	assertTrue(cconst.getBomba()==false);
+    	assertTrue(cconst.getEstado()==0);
+    	assertTrue(cconst.getVecinos()==0);
+    	assertTrue(cconst.getPrimera()==false);
+    	
+    	Casilla cconst1=new Casilla(-1,1,400,400,5,5);
+        
+    	assertTrue(cconst1.getFila()==0);
+    	assertTrue(cconst1.getColumna()==0);
+    	assertTrue(cconst1.getAltura()==300);
+    	assertTrue(cconst1.getAnchura()==300);
+    	assertTrue(cconst1.gettotalFilas()==3);
+    	assertTrue(cconst1.gettotalColumnas()==3);
+    	
+    	assertTrue(cconst1.getBomba()==false);
+    	assertTrue(cconst1.getEstado()==0);
+    	assertTrue(cconst1.getVecinos()==0);
+    	assertTrue(cconst1.getPrimera()==false);
     }
-    
+    /*
     @Test
     public void testCasillaEquals() {
 		Casilla equalcasilla = new Casilla(1,2,70,70,8,8);
 		assertEquals(c2,equalcasilla);
     }
+    */
 
     @Test
     public void testsetBomba() {
@@ -132,6 +167,15 @@ public class CasillaTest extends TestCase{
     	assertTrue(cmock.getAltura()==dat[2]);
     	assertTrue(cmock.getAnchura()==dat[3]);
     	assertTrue(cmock.gettotalFilas()==dat[4]);
-    	assertTrue(cmock.gettotalColumnas()==dat[5]);   	
+    	assertTrue(cmock.gettotalColumnas()==dat[5]);   
+    	
+    	dat[0]=-1;
+    	cmock.modCasilla(dat);
+    	assertTrue(cmock.getFila()==0);
+    	assertTrue(cmock.getColumna()==0);
+    	assertTrue(cmock.getAltura()==300);
+    	assertTrue(cmock.getAnchura()==300);
+    	assertTrue(cmock.gettotalFilas()==3);
+    	assertTrue(cmock.gettotalColumnas()==3);      	
     }
 }

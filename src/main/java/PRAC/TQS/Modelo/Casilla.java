@@ -38,8 +38,8 @@ public class Casilla extends JPanel{
     public Casilla() {
     	this.fila=0;
         this.columna=0;
-        this.height=70;
-        this.width=70;
+        this.height=700;
+        this.width=700;
         this.tot_columnas=1;
         this.tot_filas=1;
         this.primera=false;
@@ -50,12 +50,24 @@ public class Casilla extends JPanel{
     }
     
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) {
-        this.fila=fila;
-        this.columna=columna;
-        this.height=h;
-        this.width=w;
-        this.tot_columnas=columnas;
-        this.tot_filas=filas;
+    	if((fila<0)||(fila>filas)||(columna<0)||(columna>columnas)
+    			||(h<300)||(h>2000)||(w<300)||(w>2000)
+    			||(filas<3)||(filas>20)||(columnas<3)||(columnas>20)) {
+    		this.fila=0;
+    		this.columna=0;
+    		this.height=300;
+    		this.width=300;
+    		this.tot_columnas=3;
+            this.tot_filas=3;
+    	}else {
+    		this.fila=fila;
+            this.columna=columna;
+            this.height=h;
+            this.width=w;
+            this.tot_columnas=columnas;
+            this.tot_filas=filas;
+    	}
+
         this.primera=false;
         
         bomba=false;
@@ -71,18 +83,30 @@ public class Casilla extends JPanel{
     }
     
     public void modCasilla(int[] datos){
-        this.fila=datos[0];
-        this.columna=datos[1];
-        this.height=datos[2];
-        this.width=datos[3];
-        this.tot_filas=datos[4];
-        this.tot_columnas=datos[5]; 	
+    	if((datos[0]<0)||(datos[0]>datos[4])||(datos[1]<0)||(datos[1]>datos[5])
+    			||(datos[2]<300)||(datos[2]>2000)||(datos[3]<300)||(datos[3]>2000)
+    			||(datos[4]<3)||(datos[4]>20)||(datos[5]<3)||(datos[5]>20)) {
+    		this.fila=0;
+    		this.columna=0;
+    		this.height=300;
+    		this.width=300;
+    		this.tot_columnas=3;
+            this.tot_filas=3;
+    	}else {
+            this.fila=datos[0];
+            this.columna=datos[1];
+            this.height=datos[2];
+            this.width=datos[3];
+            this.tot_filas=datos[4];
+            this.tot_columnas=datos[5]; 
+    	}	
     }
-    
+    /*
     public boolean equals(Object anObject) {
 		Casilla c= (Casilla)anObject;
 		return((c.getFila()==this.getFila())&&(c.getColumna()==this.getColumna())&&(c.getAltura()==this.getAltura())&&(c.getAnchura()==this.getAnchura())&&(c.gettotalFilas()==this.gettotalFilas())&&(c.gettotalColumnas()==this.gettotalColumnas()));
 	}
+	*/
      
     public ImageIcon changesize(ImageIcon oldimage,int altura,int anchura) {
         Image auximage=oldimage.getImage();
