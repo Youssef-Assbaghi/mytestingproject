@@ -198,7 +198,7 @@ public class TableroTest extends TestCase{
         dat[4]=0;
         t5.modTablero(dat);
         
-        //Como se crea con nivel inválido, se crea un tablero 5x5 nivel 1 con 3 bombas
+        //Como se crea con nivel invalido, se crea un tablero 5x5 nivel 1 con 3 bombas
         assertEquals(t5.calculaNumBombas(),1);  //VALOR EXTERIOR NIVEL=0
         
         dat[0]=10;
@@ -226,7 +226,7 @@ public class TableroTest extends TestCase{
     public void testrepartirBombas() {
     	VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
     	//No comprobamos valores limite, fronteras y particiones porque es aleatorio
-    	//Creamos la función para asignarlas nosotros manualmente
+    	//Creamos la funcion para asignarlas nosotros manualmente
     	Tablero tbombas=new Tablero();
     	tbombas.setVentana(mockVentana);
         
@@ -421,7 +421,7 @@ public class TableroTest extends TestCase{
        tabrirAl.abrirCasilla(jugada[0],jugada[1]);  
        assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==1);
 
-       jugada[0]=5;	//Abrirá [0][0]
+       jugada[0]=5;	//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.abrirCasilla(jugada[0],jugada[1]);    
@@ -476,7 +476,7 @@ public class TableroTest extends TestCase{
 	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);     
 	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==1);
 	
-	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[0]=0;	//Abrira [0][0]
 	   jugada[1]=5;
 	   jugada[2]=0;
 	   tabrirAl.abrirCasilla(jugada[0],jugada[1]);   
@@ -484,7 +484,7 @@ public class TableroTest extends TestCase{
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
        /*	OTROS PUNTOS:	
-	     * 	LA 4º ESQUINA
+	     * 	LA 4a ESQUINA
 	     * 	1 DENTRO
 	     */
        
@@ -566,7 +566,7 @@ public class TableroTest extends TestCase{
        tabrirAl.marcarCasilla(jugada[0],jugada[1]);          
        assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==2);
 
-       jugada[0]=5;	//Abrirá [0][0]
+       jugada[0]=5;	//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.marcarCasilla(jugada[0],jugada[1]);           
@@ -621,7 +621,7 @@ public class TableroTest extends TestCase{
 	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);          
 	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==2);
 	
-	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[0]=0;	//Abrira [0][0]
 	   jugada[1]=5;
 	   jugada[2]=0;
 	   tabrirAl.marcarCasilla(jugada[0],jugada[1]);        
@@ -629,7 +629,7 @@ public class TableroTest extends TestCase{
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
        /*	OTROS PUNTOS:	
-	     * 	LA 4º ESQUINA
+	     * 	LA 4a ESQUINA
 	     * 	1 DENTRO
 	     */
        
@@ -711,7 +711,7 @@ public class TableroTest extends TestCase{
        tabrirAl.insertarJugada(jugada);         
        assertTrue(tabrirAl.getCasilla(4, 0).getEstado()==1);
 
-       jugada[0]=5;	//Abrirá [0][0]
+       jugada[0]=5;	//Abrira [0][0]
        jugada[1]=0;
        jugada[2]=0;
        tabrirAl.insertarJugada(jugada);     
@@ -725,7 +725,7 @@ public class TableroTest extends TestCase{
 	   	 *  Valores exterior Frontera: 	-1,5
 	   	 *  
 	   	*/
-	   jugada[0]=0;		//Abrirá [0][0]
+	   jugada[0]=0;		//Abrira [0][0]
 	   jugada[1]=-1;
 	   jugada[2]=0;
 	   tabrirAl.insertarJugada(jugada);    
@@ -766,7 +766,7 @@ public class TableroTest extends TestCase{
 	   tabrirAl.insertarJugada(jugada);       
 	   assertTrue(tabrirAl.getCasilla(0, 4).getEstado()==1);
 	
-	   jugada[0]=0;	//Abrirá [0][0]
+	   jugada[0]=0;	//Abrira [0][0]
 	   jugada[1]=5;
 	   jugada[2]=0;
 	   tabrirAl.insertarJugada(jugada);     
@@ -774,7 +774,7 @@ public class TableroTest extends TestCase{
        tabrirAl.getCasilla(0, 0).setEstado(0);
        
        /*	OTROS PUNTOS:	
-	     * 	LA 4º ESQUINA
+	     * 	LA 4a ESQUINA
 	     * 	1 DENTRO
 	     */
        
@@ -1116,7 +1116,7 @@ public class TableroTest extends TestCase{
         tabrirAl.getCasilla(7, 1).setEstado(0);
         tabrirAl.getCasilla(7, 0).setEstado(0);
         
-        jugada[0]=9;	//Abrirá [0][0]
+        jugada[0]=9;	//Abrira [0][0]
         jugada[1]=0;
         jugada[2]=0;
         tabrirAl.insertarJugada(jugada);
@@ -1213,7 +1213,7 @@ public class TableroTest extends TestCase{
         tabrirAl.getCasilla(1, 7).setEstado(0);
         tabrirAl.getCasilla(0, 7).setEstado(0);
         
-        jugada[0]=0;	//Abrirá [0][0]
+        jugada[0]=0;	//Abrira [0][0]
         jugada[1]=9;
         jugada[2]=0;
         tabrirAl.insertarJugada(jugada);
@@ -1229,7 +1229,7 @@ public class TableroTest extends TestCase{
         tabrirAl.getCasilla(1, 1).setEstado(0);
         
         /*	OTROS PUNTOS:	
-	     * 	LA 4º ESQUINA
+	     * 	LA 4a ESQUINA
 	     * 	1 DENTRO
 	     */
         
@@ -1281,7 +1281,7 @@ public class TableroTest extends TestCase{
     	 *  Valores exterior Frontera: 	-1,7
     	*/
    	
-    	coordenadas[0]=-1;	//Dará el resultado de [0][0]
+    	coordenadas[0]=-1;	//Dara el resultado de [0][0]
     	
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
@@ -1311,7 +1311,7 @@ public class TableroTest extends TestCase{
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),2);
 	    
-    	coordenadas[0]=7;	//Dará el resultado de [0][0]
+    	coordenadas[0]=7;	//Dara el resultado de [0][0]
     	
 	    t.getNumVecinos(t.getCasilla(coordenadas[0], coordenadas[1]));
 	    assertEquals(t.getCasilla(coordenadas[0], coordenadas[1]).getVecinos(),1);
