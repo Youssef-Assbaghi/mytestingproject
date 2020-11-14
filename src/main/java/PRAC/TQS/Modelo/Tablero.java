@@ -116,19 +116,34 @@ public class Tablero {
     public int getAncho() {return this.ancho;}
     public int getAlto() {return this.alto;}
     public int getNBombas() {return this.n_bombas;}
+    public void setNivel(int n) {this.nivel=n;}
 
     public int calculaNumBombas() {
+    	System.out.println('A');
         double porcentaje=0.0;
         if((this.nivel>=1)&&(this.nivel<=3)){
+        	System.out.println('C');
             if(this.nivel==1) {
+            	System.out.println('D');
                 porcentaje=0.125;
-            }else if(this.nivel==2) {
-                porcentaje=0.16;
-            }else {
-                porcentaje=0.205;
             }
+            else {
+            	System.out.println('E');
+            	if(this.nivel==2) {
+            		System.out.println('F');
+            		porcentaje=0.16;
+            	}
+            	else {
+            		System.out.println('G');
+            		porcentaje=0.205;
+	            }
+            }        
+        }
+    	else {
+        	System.out.println('B');
         }
         this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
+        System.out.println('H');
         return this.n_bombas;
 
     }
@@ -181,16 +196,21 @@ public class Tablero {
     }
     
     public void marcarCasilla(int x, int y) {
-    	if (getCasilla(x,y).getEstado()==CERRADO) {
-    		getCasilla(x,y).setEstado(BANDERA);
-    		n_banderas+=1;
-    	} else {
-    		if (getCasilla(x,y).getEstado()==BANDERA) {
-        		getCasilla(x,y).setEstado(CERRADO);
-        		n_banderas-=1;
-        	}
-    	}
-    	getCasilla(x,y).actualizar_casilla();
+        System.out.println("A");
+        if (getCasilla(x,y).getEstado()==CERRADO) {
+            getCasilla(x,y).setEstado(BANDERA);
+            n_banderas+=1;
+            System.out.println("B");
+        } else {
+            System.out.println("C");
+            if (getCasilla(x,y).getEstado()==BANDERA) {
+                getCasilla(x,y).setEstado(CERRADO);
+                n_banderas-=1;
+                System.out.println("D");
+            }
+        }
+        System.out.println("E");
+        getCasilla(x,y).actualizar_casilla();
     }
     
     public void insertarJugada(int[] jugada) {
