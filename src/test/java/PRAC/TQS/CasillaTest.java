@@ -94,13 +94,12 @@ public class CasillaTest extends TestCase{
     	assertTrue(cconst1.getVecinos()==0);
     	assertTrue(cconst1.getPrimera()==false);
     }
-    /*
+
     @Test
     public void testCasillaEquals() {
 		Casilla equalcasilla = new Casilla(1,2,70,70,8,8);
 		assertEquals(c2,equalcasilla);
     }
-    */
 
     @Test
     public void testsetBomba() {
