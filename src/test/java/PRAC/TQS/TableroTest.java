@@ -274,7 +274,7 @@ public class TableroTest extends TestCase{
         */
         int [][] cas_sel= {{-1,0},{0,0},{1,0},{2,0},{3,0},{4,0},{5,0}};
         
-        tbombas.repartirBombasManual(cas_sel);
+        tbombas.repartirBombasManual(cas_sel,cas_sel.length);
         int bombas_correctas=0;
         int bombas_correctas_expected=5;
         
@@ -306,7 +306,7 @@ public class TableroTest extends TestCase{
         */
         int [][] cas_sel3= {{0,-1},{0,0},{0,1},{0,2},{0,3},{0,4},{0,5}};
         
-        tbombas.repartirBombasManual(cas_sel3);
+        tbombas.repartirBombasManual(cas_sel3,cas_sel3.length);
         bombas_correctas=0;
         bombas_correctas_expected=5;
         
@@ -332,7 +332,7 @@ public class TableroTest extends TestCase{
         
         int [][] cas_sel4= {{4,4},{2,0},{3,4}};
         
-        tbombas.repartirBombasManual(cas_sel4);
+        tbombas.repartirBombasManual(cas_sel4,cas_sel4.length);
         bombas_correctas=0;
         bombas_correctas_expected=3;
         
@@ -372,7 +372,7 @@ public class TableroTest extends TestCase{
         		{0,1},{1,1},{2,1},{3,1},{4,1},
         		{3,3},{3,4},{4,3}
        		};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);
       
        int[] jugada=mockVentana.registraClick();
        
@@ -517,7 +517,7 @@ public class TableroTest extends TestCase{
         		{0,1},{1,1},{2,1},{3,1},{4,1},
         		{3,3},{3,4},{4,3}
        		};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);
       
        int[] jugada=mockVentana.registraClick();
        
@@ -662,7 +662,7 @@ public class TableroTest extends TestCase{
         		{0,1},{1,1},{2,1},{3,1},{4,1},
         		{3,3},{3,4},{4,3}
        		};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);
       
        int[] jugada=mockVentana.registraClick();
        
@@ -808,7 +808,7 @@ public class TableroTest extends TestCase{
  				{1,0},{1,1},{1,2},
         		{2,0},{2,1},{2,2}
        		};
-        tabrirAl1.repartirBombasManual(cas_sel);
+        tabrirAl1.repartirBombasManual(cas_sel,cas_sel.length);
  		int[] jugada=mockVentana1.registraClick();
  		  
  		  /*  X(jugada[0])		Y(jugada[1])		ACCION(jugada[2])
@@ -895,7 +895,7 @@ public class TableroTest extends TestCase{
         boolean expected=false;
 
         int [][] cas_sel= {{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{0,1}};
-        twin.repartirBombasManual(cas_sel);
+        twin.repartirBombasManual(cas_sel,cas_sel.length);
         twin.getNumVecinos(twin.getCasilla(0, 0));
         twin.getNumVecinos(twin.getCasilla(2, 2));
         
@@ -929,7 +929,7 @@ public class TableroTest extends TestCase{
         tlose.modTablero(dat);
         
         int [][] cas_sel= {{0,1},{1,0}};
-        tlose.repartirBombasManual(cas_sel);
+        tlose.repartirBombasManual(cas_sel,cas_sel.length);
     
         int[] jugada=mockVentana.registraClick();
         jugada[0]=0;
@@ -1025,7 +1025,7 @@ public class TableroTest extends TestCase{
         		 {7,2},{7,6},
         		 {8,2},{8,6}
         		};
-        tabrirAl.repartirBombasManual(cas_sel);       
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);       
         int[] jugada=mockVentana.registraClick();
         
         /*  [0,NUM_FILAS-1] --> PARTICIONES EQUIVALENTES FILAS: x<0 (invalid), 0<=x<=num_filas-1 (valid), x>num_filas-1 (invalid)
@@ -1269,7 +1269,7 @@ public class TableroTest extends TestCase{
     	Tablero t=new Tablero(7,7,500,500,2);
     	t.setVentana(mockobj);
     	int[][] casillas_seleccionadas= {{0,2},{0,4},{1,1},{1,5},{1,6},{2,0},{2,2},{2,4},{3,1},{3,3},{3,4},{3,5},{4,0},{4,3},{4,5},{5,1},{5,3},{5,4},{5,5},{5,6},{6,1},{6,5}};
-	    t.repartirBombasManual(casillas_seleccionadas);
+	    t.repartirBombasManual(casillas_seleccionadas,22);
 	    int num_bombas=t.getNBombas();		//22
     	
     	int [] coordenadas=mockobj.registraClick();
@@ -1474,7 +1474,7 @@ public class TableroTest extends TestCase{
         tabrirAl.modTablero(dat);
         
         int [][] cas_sel= {{0,1},{1,0},{1,1}};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);
         //System.out.println("INCIO TEST DECISION COVERAGE MARCAR CASILLA");
         //System.out.println("------------------------------------------------------ ");
         tabrirAl.marcarCasilla(0, 0);
@@ -1560,7 +1560,7 @@ public class TableroTest extends TestCase{
         tabrirAl.modTablero(dat);
         
         int [][] cas_sel= {{0,1},{1,0},{1,1}};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,cas_sel.length);
         //System.out.println("INCIO TEST CONDITION COVERAGE MARCAR CASILLA");
         //System.out.println("------------------------------------------------------ ");
         //System.out.println("Condicion estado=CERRADO true");
@@ -1619,7 +1619,7 @@ public class TableroTest extends TestCase{
         tabrirAl.modTablero(dat);
         
         int [][] cas_sel= {{0,1},{1,0},{1,1}};
-        tabrirAl.repartirBombasManual(cas_sel);
+        tabrirAl.repartirBombasManual(cas_sel,3);
         //System.out.println("INCIO TEST Path COVERAGE MARCAR CASILLA");
         //System.out.println("------------------------------------------------------ ");
         //System.out.println("Path estado=CERRADO");
@@ -1635,4 +1635,65 @@ public class TableroTest extends TestCase{
         //System.out.println("FIN TEST Path COVERAGE MARCAR CASILLA");
 
     }   
+
+    public void testLoopRepartirBombas() throws IOException {
+    	Tablero t = new Tablero(20,20,300,300,1);
+    	int btotales=t.calculaNumBombas();
+    	//System.out.println("INCIO TEST LOOP COVERAGE REPARTIR BOMBAS");
+    	//System.out.println("------------------------------------------------------ ");   	
+    	//System.out.println("EVITAR LOOP");
+    	t.setBombasAColocar(0);
+    	t.repartirBombas();
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	t.setBombasAColocar(1);
+    	t.repartirBombas();
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	t.setBombasAColocar(2);
+    	t.repartirBombas();
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (5)");
+    	t.setBombasAColocar(5);
+    	t.repartirBombas();
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	t.setBombasAColocar(btotales-1);
+    	t.repartirBombas();
+    	//System.out.println("FIN TEST LOOP COVERAGE REPARTIR BOMBAS");
+    }
+    
+    public void testLoopRepartirBombasManual() throws IOException {
+    	Tablero t = new Tablero(6,6,300,300,2);
+    	int[][] cas_sel= {{0,0},{0,1},{0,2},{1,0},{1,1},{1,2}};
+    	
+    	int btotales=cas_sel.length;
+    	//System.out.println("INCIO TEST LOOP COVERAGE REPARTIR BOMBAS MANUAL");
+    	//System.out.println("------------------------------------------------------ ");   	
+    	//System.out.println("EVITAR LOOP");
+    	t.repartirBombasManual(cas_sel,0);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	t.repartirBombasManual(cas_sel,1);
+    	t.getCasilla(0, 0).setEstado(0);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	t.repartirBombasManual(cas_sel,2);
+    	t.getCasilla(0, 0).setEstado(0);
+    	t.getCasilla(0, 1).setEstado(0);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (3)");
+    	t.repartirBombasManual(cas_sel,3);
+    	t.getCasilla(0, 0).setEstado(0);
+    	t.getCasilla(0, 1).setEstado(0);
+    	t.getCasilla(0, 2).setEstado(0);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	t.repartirBombasManual(cas_sel,btotales-1);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("FIN TEST LOOP COVERAGE REPARTIR BOMBAS MANUAL");
+    }
+
+
+
 }

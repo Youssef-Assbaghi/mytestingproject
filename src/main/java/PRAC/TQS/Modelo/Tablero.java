@@ -23,6 +23,8 @@ public class Tablero {
     private int n_banderas=0;
     private int n_casillascerradas;
     
+    private int bombasAColocar;
+    
     private VistaVentanaAux ventana;
     public void setVentana(VistaVentanaAux ven) {
     	this.ventana=ven;
@@ -84,7 +86,8 @@ public class Tablero {
     		this.ancho=datos[3];
     		this.nivel=datos[4];
     	}
-        crearTablero();    	
+        crearTablero();
+        setBombasAColocar(1000);
     }
     /*
     public boolean equals(Object anObject) {
@@ -117,7 +120,10 @@ public class Tablero {
     public int getAlto() {return this.alto;}
     public int getNBombas() {return this.n_bombas;}
     public void setNivel(int n) {this.nivel=n;}
-
+    public void setNBombas(int b) {this.n_bombas=b;}
+    public void setBombasAColocar(int b) {this.bombasAColocar=b;}
+    public int getBombasAColocar() {return this.bombasAColocar;}
+    
     public int calculaNumBombas() {
     	//System.out.println('A');
         double porcentaje=0.0;
@@ -143,6 +149,7 @@ public class Tablero {
     		//System.out.println('B');
         }
         this.n_bombas=(int) (porcentaje*(this.filas*this.columnas));
+        this.bombasAColocar=this.n_bombas;
         //System.out.println('H');
         return this.n_bombas;
 
@@ -150,8 +157,15 @@ public class Tablero {
     
     public void repartirBombas() {
     	Random rand=new Random();
+    	int j;
+    	if(getBombasAColocar()>getNBombas()) {
+    		j=0;
+    	}else {
+    		j=(getNBombas()-getBombasAColocar());
+    	}
     	
-    	for(int i=1;i<=getNBombas();i++) {
+    	int bombas_colocadas=getNBombas()-j;
+    	for(int i=j;i<getNBombas();i++) {
     		int xbomba=rand.nextInt(getFilas());
     		int ybomba=rand.nextInt(getColumnas());
     		if((getCasilla(xbomba, ybomba).getBomba()==true)||(getCasilla(xbomba, ybomba).getPrimera())) {
@@ -159,7 +173,10 @@ public class Tablero {
     		}else {
     			getCasilla(xbomba, ybomba).setBomba();
     		}
+    		//System.out.println(i);
     	}
+    	//System.out.println("BOMBAS TOTALES: " + getNBombas());
+    	//System.out.println("BOMBAS COLOCADAS: " + bombas_colocadas);
     }
     
     public void colocar1bomba(int x, int y) {
@@ -169,15 +186,25 @@ public class Tablero {
     	}
     }
     
-    public void repartirBombasManual(int[][] coords) {
+    public void repartirBombasManual(int[][] coords, int total) {
+    	int j;
+    	if(total>coords.length) {
+    		j=0;
+    	}else {
+    		j=(coords.length-total);
+    	} 	
+    	int bombas_c=coords.length-j;
     	int bombas_colocadas=0;
-    	for(int i=0;i<coords.length;i++) {
+    	for(int i=j;i<coords.length;i++) {
     		if((getCasilla(coords[i][0],coords[i][1]).getBomba()==false)) {
     			getCasilla(coords[i][0],coords[i][1]).setBomba();
     			bombas_colocadas+=1;
     		}	
+    		//System.out.println(i);
     	}
     	this.n_bombas=bombas_colocadas;
+    	//System.out.println("BOMBAS TOTALES: " + coords.length);
+    	//System.out.println("BOMBAS COLOCADAS: " + bombas_c);
     }
     
     public void abrirCasilla(int x, int y) {
