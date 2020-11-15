@@ -75,7 +75,7 @@ public class Juego {
 				t.abrirCasilla(jugada[0], jugada[1]);
 				lose=t.checkLose();
 			}	
-			win=t.checkWin();
+			win=t.checkWin(t.getFilas(),t.getColumnas());
 			
 			jugada_ant_array[0]=jugada_array[0];
 			jugada_ant_array[1]=jugada_array[1];
@@ -83,10 +83,10 @@ public class Juego {
 			jugada_ant_array[3]=jugada_array[3];
 		}		
 		if(win) {		//SI GANAS
-			t.descubrirTablero();
+			t.descubrirTablero(t.getFilas(),t.getColumnas());
 			v.crearVentanaWin();
 		}else {			//SI PIERDES
-			t.descubrirTablero();
+			t.descubrirTablero(t.getFilas(),t.getColumnas());
 			v.crearVentanaLose();
 		}
 	}

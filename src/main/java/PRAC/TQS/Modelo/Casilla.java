@@ -49,6 +49,7 @@ public class Casilla extends JPanel{
         setVecinos(0);
     }
     
+    //Si creas una casilla mal, se crea una predeterminada
     public Casilla(int fila, int columna,int h,int w,int filas, int columnas) {
     	if((fila<0)||(fila>filas)||(columna<0)||(columna>columnas)
     			||(h<300)||(h>2000)||(w<300)||(w>2000)

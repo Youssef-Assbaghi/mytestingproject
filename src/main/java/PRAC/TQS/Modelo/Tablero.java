@@ -49,6 +49,7 @@ public class Tablero {
         n_bombas=0;
     } 
 
+    //Si creas una Tablero mal, se crea uno de 3x3
     public Tablero(int filas,int columnas, int alto, int ancho, int nivel) throws IOException {
     	if((filas<3)||(filas>20)||(columnas<3)||(columnas>20)
     			||(alto<300)||(alto>2000)||(ancho<300)
@@ -70,6 +71,7 @@ public class Tablero {
     }
     
     //para probar el mock object de la ventana
+    //Modificas el Tablero a unas medidas concretas, reinicandolo basicamente
     public void modTablero(int[] datos){
     	if((datos[0]<3)||(datos[0]>20)||(datos[1]<3)||(datos[1]>20)
     			||(datos[2]<300)||(datos[2]>2000)||(datos[3]<300)
@@ -89,12 +91,14 @@ public class Tablero {
         crearTablero();
         setBombasAColocar(1000);
     }
+    
     /*
     public boolean equals(Object anObject) {
         Tablero tab= (Tablero)anObject;
         return((tab.getFilas()==this.filas)&&(tab.getColumnas()==this.columnas)&&(tab.getNivel()==this.nivel));
     }
     */
+    
     public void crearTablero() {
     	tablero = new Casilla[filas][columnas];
         for (int fila=0; fila<filas; fila++) {
@@ -113,6 +117,7 @@ public class Tablero {
 			return tablero[0][0];
 		}  	
     }
+    
     public int getFilas() {return this.filas;}
     public int getColumnas() {return this.columnas;}
     public int getNivel() {return this.nivel;}
@@ -124,6 +129,7 @@ public class Tablero {
     public void setBombasAColocar(int b) {this.bombasAColocar=b;}
     public int getBombasAColocar() {return this.bombasAColocar;}
     
+    //Calculas el número de bombas maximo que puede haber en el tablero dependiendo del nivel
     public int calculaNumBombas() {
     	//System.out.println('A');
         double porcentaje=0.0;
@@ -155,6 +161,7 @@ public class Tablero {
 
     }
     
+    //Repartes el maximo de bombas en el tablero
     public void repartirBombas() {
     	Random rand=new Random();
     	int j;
@@ -186,6 +193,8 @@ public class Tablero {
     	}
     }
     
+    //Colocar X bombas de un array concreto. Viene bien para colocar
+    //manualmente bombas para hacer tests
     public void repartirBombasManual(int[][] coords, int total) {
     	int j;
     	if(total>coords.length) {
@@ -249,13 +258,26 @@ public class Tablero {
     	//System.out.println(this.n_casillascerradas);
     }
     
-    public boolean checkWin() {
+    public boolean checkWin(int f, int c) {
+    	int i,j;
+    	if(f>filas) {
+    		i=0;
+    	}else {
+    		i=(filas-f);
+    	} 
+    	if(c>columnas) {
+    		j=0;
+    	}else {
+    		j=(columnas-c);
+    	} 
+    	int f_desc=filas-i;
+    	int c_desc=columnas-j;
     	int correctas=0;
         boolean win=false;
         if(this.n_casillascerradas==getNBombas())
         {
-        	for (int fila=0; fila<filas; fila++) {
-                for (int col=0; col<columnas; col++) {
+        	for (int fila=i; fila<filas; fila++) {
+                for (int col=j; col<columnas; col++) {
                     if(((getCasilla(fila,col).getEstado()==0)||(getCasilla(fila,col).getEstado()==2))&&(getCasilla(fila,col).getBomba()==true)){                   	
                     	correctas+=1;
                     }
@@ -264,20 +286,38 @@ public class Tablero {
         	if(correctas==getNBombas())       		
         		win=true;
         }
+        
+        //System.out.println("FILAS HECHAS: " + f_desc);
+        //System.out.println("COLUMNAS HECHAS: " + c_desc);
         return win;
     }
 
     public boolean checkLose() {return this.explosion; }
     
-    public void descubrirTablero() {
-    	for (int fila=0; fila<filas; fila++) {
-            for (int col=0; col<columnas; col++) {
+    public void descubrirTablero(int f, int c) {
+    	int i,j;
+    	if(f>filas) {
+    		i=0;
+    	}else {
+    		i=(filas-f);
+    	} 
+    	if(c>columnas) {
+    		j=0;
+    	}else {
+    		j=(columnas-c);
+    	} 
+    	int f_desc=filas-i;
+    	int c_desc=columnas-j;
+    	for (int fila=i; fila<filas; fila++) {
+            for (int col=j; col<columnas; col++) {
                 if(getCasilla(fila,col).getEstado()==CERRADO) {
                 	getCasilla(fila,col).setEstado(1);
                 	getCasilla(fila,col).actualizar_casilla();
                 }		
             }		
         }
+    	//System.out.println("FILAS HECHAS: " + f_desc);
+    	//System.out.println("COLUMNAS HECHAS: " + c_desc);
     }
     
     public void abrirAlrededor(Casilla c) {
@@ -341,6 +381,7 @@ public class Tablero {
     	}
     }
     
+    //Calcular el numero de bombas que una casilla tiene alrededor. Los numeros del tablero basicamente
     public void getNumVecinos(Casilla c) {
     	int fil=c.getFila();
     	int col=c.getColumna();

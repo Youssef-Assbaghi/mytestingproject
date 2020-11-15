@@ -94,7 +94,7 @@ public class TableroTest extends TestCase{
         assertEquals(t3.getCasilla(1, 2),c);
     }
     
-    //mock objects?
+    //Pequna prueba para ver si el mock funciona
     @Test
     public void testpruebamockVentana() {
         VistaVentanaAuxMock mockVentana=new VistaVentanaAuxMock();
@@ -106,6 +106,7 @@ public class TableroTest extends TestCase{
         assertEquals(x,10);
     } 
     
+  //Pequna prueba para ver si el mock funciona
     @Test
     public void testpruebamockCasilla() {
     	CasillaAuxMock mockCasilla=new CasillaAuxMock();
@@ -897,7 +898,7 @@ public class TableroTest extends TestCase{
         twin.getNumVecinos(twin.getCasilla(0, 0));
         twin.getNumVecinos(twin.getCasilla(2, 2));
         
-        assertEquals(twin.checkWin(),expected);
+        assertEquals(twin.checkWin(3,3),expected);
         int[] jugada=mockVentana.registraClick();
         jugada[0]=2;
         jugada[1]=2;
@@ -905,14 +906,14 @@ public class TableroTest extends TestCase{
 
         twin.insertarJugada(jugada);
         //CASO DE NO GANAR
-        assertEquals(twin.checkWin(), expected);
+        assertEquals(twin.checkWin(3,3), expected);
         jugada[0]=0;
         jugada[1]=0;
         jugada[2]=0;
         //CASO DE GANAR
         twin.insertarJugada(jugada);
         expected=true;
-        assertEquals(twin.checkWin(), expected);
+        assertEquals(twin.checkWin(3,3), expected);
     }
     
     public void testcheckLose() {
@@ -962,8 +963,8 @@ public class TableroTest extends TestCase{
         tabrir.setVentana(mockVentana);
 
         int[] dat=mockVentana.pasarDatos();
-        dat[0]=2;
-        dat[1]=2;
+        dat[0]=3;
+        dat[1]=3;
         dat[4]=1;
         tabrir.modTablero(dat);
 
@@ -974,7 +975,7 @@ public class TableroTest extends TestCase{
         }
 
         boolean expected2=true;
-        tabrir.descubrirTablero();
+        tabrir.descubrirTablero(3,3);
         for(int i=0;i<tabrir.getFilas();i++) {
             for(int j=0;j<tabrir.getColumnas();j++) {
             	assertEquals(tabrir.getCasilla(i, j).getEstado(),1);
@@ -1665,18 +1666,12 @@ public class TableroTest extends TestCase{
     	//System.out.println("------------------------------------------------------ ");
     	//System.out.println("1 PASADA");
     	t.repartirBombasManual(cas_sel,1);
-    	t.getCasilla(0, 0).setEstado(0);
     	//System.out.println("------------------------------------------------------ ");
     	//System.out.println("2 PASADAS");
     	t.repartirBombasManual(cas_sel,2);
-    	t.getCasilla(0, 0).setEstado(0);
-    	t.getCasilla(0, 1).setEstado(0);
     	//System.out.println("------------------------------------------------------ ");
     	//System.out.println("M PASADAS (3)");
     	t.repartirBombasManual(cas_sel,3);
-    	t.getCasilla(0, 0).setEstado(0);
-    	t.getCasilla(0, 1).setEstado(0);
-    	t.getCasilla(0, 2).setEstado(0);
     	//System.out.println("------------------------------------------------------ ");
     	//System.out.println("N-1 PASADAS");
     	t.repartirBombasManual(cas_sel,btotales-1);
@@ -1684,6 +1679,110 @@ public class TableroTest extends TestCase{
     	//System.out.println("FIN TEST LOOP COVERAGE REPARTIR BOMBAS MANUAL");
     }
 
+    public void testLoopdescubrirTablero() throws IOException {
+    	Tablero t = new Tablero(20,20,300,300,1);
+    	int fil,col;
+    	//System.out.println("INCIO TEST LOOP COVERAGE Descubrir Tablero");
+    	//System.out.println("------------------------------------------------------ ");   
+    	//System.out.println("Loop interior");
+    	//System.out.println("EVITAR LOOP pequeño");
+    	fil=20;
+    	col=0;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	col=1;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	col=2;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (5)");
+    	col=5;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	col=19;
+    	t.descubrirTablero(fil, col);
+    	
+    	//System.out.println("------------------------------------------------------ ");   
+    	//System.out.println("Loop exterior");
+    	//System.out.println("EVITAR LOOP grande");
+    	fil=0;
+    	col=20;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	fil=1;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	fil=2;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (5)");
+    	fil=5;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	fil=19;
+    	t.descubrirTablero(fil, col);
+    	//System.out.println("FIN TEST LOOP COVERAGE Descubrir Tablero");	
+    }
 
-
+    public void testLoopcheckWin() throws IOException {
+    	Tablero t = new Tablero(6,6,300,300,1);
+    	int fil,col;
+    	t.setNBombas(36);
+    	t.repartirBombas();
+    	boolean x=false;
+    	//System.out.println("INCIO TEST LOOP COVERAGE checkWin()");
+    	//System.out.println("------------------------------------------------------ ");   
+    	//System.out.println("Loop interior");
+    	//System.out.println("EVITAR LOOP pequeño");
+    	fil=6;
+    	col=0;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	col=1;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	col=2;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (5)");
+    	col=3;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	col=5;
+    	x=t.checkWin(fil, col);
+    	
+    	//System.out.println("------------------------------------------------------ ");   
+    	//System.out.println("Loop exterior");
+    	//System.out.println("EVITAR LOOP grande");
+    	fil=0;
+    	col=6;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("1 PASADA");
+    	fil=1;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("2 PASADAS");
+    	fil=2;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("M PASADAS (5)");
+    	fil=3;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("------------------------------------------------------ ");
+    	//System.out.println("N-1 PASADAS");
+    	fil=5;
+    	x=t.checkWin(fil, col);
+    	//System.out.println("FIN TEST LOOP COVERAGE checkWin()");
+    }
 }

@@ -177,20 +177,15 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 		try {
 			Thread.sleep((long) 0.5);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return jugada;
 	}
-	public int getFilas() {return filas;}
-	public boolean getFMenu() {return fmenu;}
+	
 	public void setFMenu(boolean d) {fmenu=d;}
 	public boolean getFinalizado() {
 		try {
 			Thread.sleep((long) 0.5);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return finalizado;
 		}
@@ -210,7 +205,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
                     //System.out.println("CONTROL ACTION");
                     crearVentana(tv);    
                 }
-            } catch (Exception e) {JOptionPane.showMessageDialog(null, e+"");} 
+            } catch (Exception e) {} 
         }     
     }
     
