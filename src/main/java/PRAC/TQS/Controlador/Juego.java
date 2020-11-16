@@ -22,6 +22,7 @@ public class Juego {
 		v.crearVentanaMenu(t); //crearVMenu -> crearV -> crearVistaTab -> crearTab
 		boolean resto=false;
 		resto=v.getFinalizado();
+		//Esto lo hacemos para que el programa se espere a que tenga las dimensiones para avanzar
 		while(resto==false) {
 			//System.out.println("ATASCO EN MAIN");
 			resto=v.getFinalizado();
@@ -32,11 +33,14 @@ public class Juego {
 		System.out.println("BOMBAS: " + t.calculaNumBombas());
 		
 		jugada_ant=v.getJugada();
-			
-		while((jugada_ant[3]==0)||(jugada_ant[2]==1)) {	
+		
+		//Hasta que no abras algo no empieza
+		//La primera condicion es porque al clickar en aceptar cuenta como un click y se abre algo antes de que le des
+		while((jugada_ant[3]==0)||(jugada_ant[2]==1)) {
 			jugada_ant=v.getJugada();
 		}
 
+		//Se hace la copia así porque si haces jugada=jugada anterior se pasaba por referencia y no tiraba
 		jugada_ant_array[0]=jugada_ant[0];
 		jugada_ant_array[1]=jugada_ant[1];
 		jugada_ant_array[2]=jugada_ant[2];
@@ -62,6 +66,7 @@ public class Juego {
 			jugada_array[1]=jugada[1];
 			jugada_array[2]=jugada[2];
 			jugada_array[3]=jugada[3];
+			//Se queda esperando a que hagas algo
 			while(jugada_ant_array[3]==jugada_array[3]) {
 				jugada=v.getJugada();
 				jugada_array[0]=jugada[0];

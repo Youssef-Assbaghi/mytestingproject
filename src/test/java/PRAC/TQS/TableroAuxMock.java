@@ -5,6 +5,7 @@ import PRAC.TQS.Modelo.TableroAux;
 
 public class TableroAuxMock implements TableroAux{
 
+	//Funcion que simula que le pasamos a una casilla un array de datos
 	@Override
 	public int[] pasarDatos() {
 		// datos [fila,columna,alto,ancho,filas totales,columnas totales]

@@ -25,6 +25,7 @@ public class Tablero {
     
     private int bombasAColocar;
     
+    //Para los mock objects
     private VistaVentanaAux ventana;
     public void setVentana(VistaVentanaAux ven) {
     	this.ventana=ven;
@@ -161,7 +162,9 @@ public class Tablero {
 
     }
     
-    //Repartes el maximo de bombas en el tablero
+    //Repartes bombas en el tablero
+    //lo de la i=j es una conversion para que si quieres poner 10 bombas en un tablero (getBombasAColocar)
+    //con 50 de maximo el for empiece por 40
     public void repartirBombas() {
     	Random rand=new Random();
     	int j;
@@ -195,6 +198,8 @@ public class Tablero {
     
     //Colocar X bombas de un array concreto. Viene bien para colocar
     //manualmente bombas para hacer tests
+    //lo de la i=j es una conversion para que si quieres poner 10 bombas en un tablero (total)
+    //y le pasas un array con 50 coordenadas el for empiece en el 40
     public void repartirBombasManual(int[][] coords, int total) {
     	int j;
     	if(total>coords.length) {
@@ -216,6 +221,7 @@ public class Tablero {
     	//System.out.println("BOMBAS COLOCADAS: " + bombas_c);
     }
     
+    //Abres la casilla y si no tiene bombas alrededor abres las demas que toquen
     public void abrirCasilla(int x, int y) {
     	if ((getCasilla(x,y).getEstado()==CERRADO)||(getCasilla(x,y).getEstado()==BANDERA)) {
     		getCasilla(x,y).setEstado(ABIERTO);
@@ -258,6 +264,7 @@ public class Tablero {
     	//System.out.println(this.n_casillascerradas);
     }
     
+    //Mira que las casillas que quedan cerradas son las que contienen las bombas
     public boolean checkWin(int f, int c) {
     	int i,j;
     	if(f>filas) {
@@ -285,8 +292,7 @@ public class Tablero {
             }
         	if(correctas==getNBombas())       		
         		win=true;
-        }
-        
+        }       
         //System.out.println("FILAS HECHAS: " + f_desc);
         //System.out.println("COLUMNAS HECHAS: " + c_desc);
         return win;
@@ -294,6 +300,7 @@ public class Tablero {
 
     public boolean checkLose() {return this.explosion; }
     
+    //Metodo que usamos al final de la partida para mostrar la solucion del tablero
     public void descubrirTablero(int f, int c) {
     	int i,j;
     	if(f>filas) {

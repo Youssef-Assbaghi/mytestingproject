@@ -29,13 +29,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     private JFrame ventana;
     private JPanel todo;
     private JPanel content;
-    /*
-    private JPanel arriba;
-    private JPanel banderas;
-    private JPanel restart;
-    private JButton restartb;
-    private JPanel extra;
-    */   
+
     private JLabel game_over;
     private JPanel game_final;
     private JFrame ventana_menu;
@@ -59,8 +53,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
     boolean fmenu=false;
     int contador=0;
     
-    
-	
+    //Método para crear la Ventana principal de Juego
 	public void crearVentana(Tablero t) throws IOException {
 			//System.out.println("CONTROL VENTANA");
 	        ventana = new JFrame("BUSCAMINAS TQS");
@@ -81,6 +74,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 
         todo.addMouseListener(this);
         
+        //Cosas para poner un panelito arriba que no ha terminado de ser util
         /*
         arriba = new JPanel();
         //arriba.setSize(new Dimension(800,100));
@@ -126,6 +120,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         //System.out.println(getFinalizado());
     }	
 
+	//Método que crea la Ventana del menú
 	public void crearVentanaMenu(Tablero t) throws IOException {
 
         ventana_menu=new JFrame("MENU BUSCAMINAS");
@@ -173,6 +168,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
         setFMenu(b);
     }
 	
+	//Sin el sleep los bucles while se quedan como inactivos y el programa no tira
 	public int[] getJugada() {
 		try {
 			Thread.sleep((long) 0.5);
@@ -191,6 +187,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 		}
 	public void setFinalizado(boolean f) {finalizado=f;}
     
+	//Metodo que espera a que pulses el boton de aceptar con las dimensiones y el nivel
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getActionCommand()==aceptar.getActionCommand()) {
@@ -276,6 +273,7 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
 		// TODO Auto-generated method stub		
 	}
 
+	//Metodo que detecta donde hemos clickado en la pantalla y lo traduce a Casilla[x][y]
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		if(arg0.getButton()==MouseEvent.BUTTON1) {
@@ -286,8 +284,8 @@ public class VistaVentana extends JPanel implements MouseListener,ActionListener
             //System.out.println("CLICK DERECHO");
         }
 		contador++;
-		this.fila_click=((arg0.getY())/(this.alto/this.filas));
-		this.columna_click=(arg0.getX()/(this.ancho/this.columnas));
+		this.fila_click=((arg0.getY())/((this.alto-39)/this.filas));
+        this.columna_click=(arg0.getX()/((this.ancho-16)/this.columnas));
 		jugada[0]=this.fila_click;
 		jugada[1]=this.columna_click;
 		jugada[2]=this.click;

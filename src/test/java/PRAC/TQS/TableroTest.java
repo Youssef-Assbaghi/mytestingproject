@@ -106,7 +106,7 @@ public class TableroTest extends TestCase{
         assertEquals(x,10);
     } 
     
-  //Pequna prueba para ver si el mock funciona
+    //Pequna prueba para ver si el mock funciona
     @Test
     public void testpruebamockCasilla() {
     	CasillaAuxMock mockCasilla=new CasillaAuxMock();
@@ -1685,7 +1685,7 @@ public class TableroTest extends TestCase{
     	//System.out.println("INCIO TEST LOOP COVERAGE Descubrir Tablero");
     	//System.out.println("------------------------------------------------------ ");   
     	//System.out.println("Loop interior");
-    	//System.out.println("EVITAR LOOP pequeño");
+    	//System.out.println("EVITAR LOOP pequeno");
     	fil=20;
     	col=0;
     	t.descubrirTablero(fil, col);
@@ -1740,7 +1740,7 @@ public class TableroTest extends TestCase{
     	//System.out.println("INCIO TEST LOOP COVERAGE checkWin()");
     	//System.out.println("------------------------------------------------------ ");   
     	//System.out.println("Loop interior");
-    	//System.out.println("EVITAR LOOP pequeño");
+    	//System.out.println("EVITAR LOOP pequeno");
     	fil=6;
     	col=0;
     	x=t.checkWin(fil, col);
