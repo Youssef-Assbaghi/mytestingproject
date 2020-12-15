@@ -78,7 +78,7 @@ public class Casilla extends JPanel{
         panel = new JPanel();
         picLabel = new JLabel();
         
-        changeSprite();
+        
         
     	panel.add(picLabel);
     }
@@ -133,51 +133,51 @@ public class Casilla extends JPanel{
     	switch(getEstado())
     	{
     	case CERRADO:
-    		oldimage=new ImageIcon("sprites/casilla.png");
+    		oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/casilla.png");
     		break;	
     	case ABIERTO:
     		if(getBomba()) {
-    			oldimage=new ImageIcon("sprites/bomba.png");
+    			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/bomba.png");
     		}
     		else {
     			switch(getVecinos())
         		{
         		case 0:
-        			oldimage=new ImageIcon("sprites/vacio.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/vacio.png");
         			break;
         		case 1:
-        			oldimage=new ImageIcon("sprites/1.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/1.png");
         			break;
         		case 2:
-        			oldimage=new ImageIcon("sprites/2.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/2.png");
         			break;
         		case 3:
-        			oldimage=new ImageIcon("sprites/3.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/3.png");
         			break;
         		case 4:
-        			oldimage=new ImageIcon("sprites/4.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/4.png");
         			break;
         		case 5:
-        			oldimage=new ImageIcon("sprites/5.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/5.png");
         			break;
         		case 6:
-        			oldimage=new ImageIcon("sprites/6.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/6.png");
         			break;
         		case 7:
-        			oldimage=new ImageIcon("sprites/7.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/7.png");
         			break;
         		case 8:
-        			oldimage=new ImageIcon("sprites/8.png");
+        			oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/8.png");
         			break;		
         		}
     		}
     		break;
     	case BANDERA:
-    		oldimage=new ImageIcon("sprites/flag.png");
+    		oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/flag.png");
     		break;
     	
     	default:
-    		oldimage=new ImageIcon("sprites/casilla.png");
+    		oldimage=new ImageIcon("/home/youssef/Escritorio/mytestingproject-master/sprites/casilla.png");
     	}
     	/*
     	panel.remove(picLabel);
